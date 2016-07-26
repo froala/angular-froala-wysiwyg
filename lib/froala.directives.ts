@@ -7,13 +7,14 @@ declare var $:JQueryStatic;
   selector: '[froalaEditor]'
 })
 export class FroalaEditorDirective {
-  
+
   private _defaultConfigs = {
     // TODO
   };
   private _configs;
   private _jqueryElement: any;
   private _editor: any;
+  private _initialized: boolean = false;
 
   constructor(el: ElementRef) {
     this._jqueryElement = (<any>$(el.nativeElement));
@@ -36,6 +37,18 @@ export class FroalaEditorDirective {
         }
         
     });
+  }
+
+  @Input() set froalaInit(content: any){
+
+    if (!this._initialized) {
+      this._jqueryElement.froalaEditor('html.set', content || '', true);
+      //This will reset the undo stack everytime the model changes externally. Can we fix this?
+      this._jqueryElement.froalaEditor('undo.reset');
+      this._jqueryElement.froalaEditor('undo.saveStep');
+      this._initialized = true;
+    }
+    
   }
 }
 

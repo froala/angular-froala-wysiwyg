@@ -15,7 +15,7 @@ var AppComponent = (function () {
         this.configs = {
             placeholderText: 'Edit Your Content Here!'
         };
-        this.content = '';
+        this.content = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
     }
     AppComponent.prototype.handleFroalaModelChanged = function (content) {
         this.content = content;
@@ -23,7 +23,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'app',
-            template: "\n  <div class=\"sample\">\n    <h2>Sample: Full Editor</h2>\n    <div [froalaEditor]=\"configs\" (froalaModel)=\"handleFroalaModelChanged($event)\"></div>\n    <h4>Rendered Content:</h4>\n    <div [froalaView]=\"content\"></div>\n  </div>\n  ",
+            template: "\n  <div class=\"sample\">\n    <h2>Sample: Full Editor</h2>\n    <div [froalaEditor]=\"configs\" [froalaInit]=\"content\" (froalaModel)=\"handleFroalaModelChanged($event)\"></div>\n    <h4>Rendered Content:</h4>\n    <div [froalaView]=\"content\"></div>\n  </div>\n  ",
             directives: [froala_directives_1.FroalaEditorDirective, froala_directives_1.FroalaViewDirective]
         }), 
         __metadata('design:paramtypes', [])

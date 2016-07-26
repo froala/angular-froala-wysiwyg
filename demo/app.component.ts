@@ -6,7 +6,7 @@ import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.direct
   template: `
   <div class="sample">
     <h2>Sample: Full Editor</h2>
-    <div [froalaEditor]="configs" (froalaModel)="handleFroalaModelChanged($event)"></div>
+    <div [froalaEditor]="configs" [froalaInit]="content" (froalaModel)="handleFroalaModelChanged($event)"></div>
     <h4>Rendered Content:</h4>
     <div [froalaView]="content"></div>
   </div>
@@ -18,7 +18,7 @@ export class AppComponent {
   public configs: Object = { 
     placeholderText: 'Edit Your Content Here!' 
   }
-  public content: string = '';
+  public content: string = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
 
   public handleFroalaModelChanged(content: string) {
     this.content = content;
