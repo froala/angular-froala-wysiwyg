@@ -13,7 +13,14 @@ var froala_directives_1 = require('../lib/froala.directives');
 var AppComponent = (function () {
     function AppComponent() {
         this.configs = {
-            placeholderText: 'Edit Your Content Here!'
+            placeholderText: 'Edit Your Content Here!',
+            charCounterCount: false,
+            toolbarInline: true,
+            events: {
+                'froalaEditor.initialized': function () {
+                    console.log('initialized');
+                }
+            }
         };
         this.content = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
     }

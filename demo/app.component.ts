@@ -16,7 +16,14 @@ import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.direct
 export class AppComponent {
 
   public configs: Object = { 
-    placeholderText: 'Edit Your Content Here!' 
+    placeholderText: 'Edit Your Content Here!',
+    charCounterCount: false,
+    toolbarInline: true,
+    events: {
+      'froalaEditor.initialized': function() {
+        console.log('initialized');
+      }
+    }
   }
   public content: string = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
 

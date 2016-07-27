@@ -8,10 +8,10 @@ declare var $:JQueryStatic;
 })
 export class FroalaEditorDirective {
 
-  private _defaultConfigs = {
+  private _defaultOpts = {
     // TODO
   };
-  private _configs;
+  private _opts;
   private _jqueryElement: any;
   private _editor: any;
   private _initialized: boolean = false;
@@ -23,10 +23,10 @@ export class FroalaEditorDirective {
   @Output() 
   froalaModel: EventEmitter<string> = new EventEmitter();
 
-  @Input() set froalaEditor(configs: Object){
+  @Input() set froalaEditor(opts: Object){
 
-    this._configs = configs || this._defaultConfigs;
-    this._editor = this._jqueryElement.froalaEditor();
+    this._opts = opts || this._defaultOpts;
+    this._editor = this._jqueryElement.froalaEditor(this._opts);
 
     let self = this;
     this._jqueryElement.on('froalaEditor.contentChanged', function () {
