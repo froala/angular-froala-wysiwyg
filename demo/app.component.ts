@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.directives';
 
 @Component({
@@ -6,7 +6,7 @@ import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.direct
   template: `
   <div class="sample">
     <h2>Sample: Full Editor</h2>
-    <div [froalaEditor]="configs" [froalaInit]="content" (froalaModel)="handleFroalaModelChanged($event)"></div>
+    <div [froalaEditor]="configs" [(froalaModel)]="content"></div>
     <h4>Rendered Content:</h4>
     <div [froalaView]="content"></div>
   </div>
@@ -25,9 +25,5 @@ export class AppComponent {
       }
     }
   }
-  public content: string = '<span style="font-family: Verdana,Geneva,sans-serif; font-size: 30px;">My Document\'s Title</span><span style="font-size: 18px;"></span></span>';
-
-  public handleFroalaModelChanged(content: string) {
-    this.content = content;
-  }
+  public content = '<span>My Document\'s Title</span>';
 }

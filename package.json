@@ -1,6 +1,6 @@
 {
   "name": "angular2-froala-editor",
-  "version": "0.0.1",
+  "version": "2.3.4-rc.1",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
@@ -28,7 +28,7 @@
     "javascript",
     "jquery"
   ],
-  "author": "Florin Marius Popescu <florin.popescu0110@gmail.com> (https://www.froala.com/)",
+  "author": "Florin Marius Popescu <florin@froala.com> (https://www.froala.com/)",
   "license": "https://froala.com/wysiwyg-editor/terms/",
   "bugs": {
     "url": "https://github.com/florinpopescu/angular2-froala-editor/issues"

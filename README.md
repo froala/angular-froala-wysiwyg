@@ -1,5 +1,5 @@
-# angular2-froala-editor
->angular2-froala-editor provides Angular2 bindings to the froala WYSIWYG editor VERSION 2.
+# angular2-froala-wyswiyg
+>angular2-froala-wyswiyg provides Angular2 bindings to the froala WYSIWYG editor VERSION 2.
 
 ##Version 2
 This repository contains bindings for the latest version of the Froala Editor (version 2). Checkout the `V1` branch for support of Version 1 of the editor.
@@ -11,8 +11,6 @@ This repository contains bindings for the latest version of the Froala Editor (v
 2. Run `bower install` or Download the editor from [https://www.froala.com/wysiwyg-editor/](https://www.froala.com/wysiwyg-editor/) and jQuery
 
 3. Run `npm install` to install angular related libs
-
-4. Run `npm run typings install` to install typings for libs
 
 
 ## Usage
