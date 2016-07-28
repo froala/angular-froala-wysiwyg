@@ -1,5 +1,5 @@
 {
-  "name": "angular2-froala-editor",
+  "name": "angular2-froala-wyswiyg",
   "version": "2.3.4-rc.1",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
   "scripts": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/florinpopescu/angular2-froala-editor.git"
+    "url": "https://github.com/froala/angular2-froala-wysiwyg.git"
   },
   "keywords": [
     "angular2",
@@ -32,7 +32,7 @@
   "author": "Florin Marius Popescu <florin@froala.com> (https://www.froala.com/)",
   "license": "https://froala.com/wysiwyg-editor/terms/",
   "bugs": {
-    "url": "https://github.com/florinpopescu/angular2-froala-editor/issues"
+    "url": "https://github.com/froala/angular2-froala-wysiwyg/issues"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",

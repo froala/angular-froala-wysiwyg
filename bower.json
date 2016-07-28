@@ -1,5 +1,5 @@
 {
-  "name": "angular2-froala-editor",
+  "name": "angular2-froala-wyswiyg",
   "version": "2.3.4-rc.1",
   "author": "Florin Marius Popescu <florin@froala.com> (https://www.froala.com/)",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
