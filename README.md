@@ -1,9 +1,6 @@
 # angular2-froala-wyswiyg
 >angular2-froala-wyswiyg provides Angular2 bindings to the froala WYSIWYG editor VERSION 2.
 
-## Version 2
-This repository contains bindings for the latest version of the Froala Editor (version 2). Checkout the `V1` branch for support of Version 1 of the editor.
-
 ## Installation
 
 1. Clone this repo or download the zip.
@@ -41,83 +38,76 @@ You can check **src/app.component.ts** file for a more detailed usage example.
 
 * 'demo' directory contains a minified working example that can run without a server. To build demo/app.js in case you've modified the sources(src dir): `npm run build`. To run: open demo/index.html directly into browser.
 
-## Directives, Inputs, Outputs
+### Options
 
-TODO Desc
+You can pass editor options as Input (optional).
 
-### FroalaEditorDirective
-
-#### [froalaEditor] 
-**Description**: Handles the editor initialization. You can pass editor options as Input (optional).
-
-**Usage**: `[froalaEditor]='options'` or `[froalaEditor]`
-
-**Options**:
+`[froalaEditor]='options'`
 
 You can pass any existing Froala option. Consult the [Froala documentation](https://www.froala.com/wysiwyg-editor/docs/options) to view the list of all the available options:
 
 ```typescript
-  public options: Object = { 
-    placeholderText: 'Edit Your Content Here!',
-    charCounterCount: false
-  }
+public options: Object = { 
+  placeholderText: 'Edit Your Content Here!',
+  charCounterCount: false
+}
 ```
 
 Aditional option is used:
  * **immediateAngularModelUpdate**: (default: false) This option synchronizes the angular model as soon as a key is released in the editor. Note that it may affect performances.
 
-**Events and Methods**: 
+### Events and Methods
 
 Events can be passed in with the options, with a key events and object where the key is the event name and the value is the callback function.
 
 ```typescript
-  public options: Object = {
-    placeholder: "Edit Me",
-    events : {
-      'froalaEditor.focus' : function(e, editor) {
-        console.log(editor.selection.get());
-      }
+public options: Object = {
+  placeholder: "Edit Me",
+  events : {
+    'froalaEditor.focus' : function(e, editor) {
+      console.log(editor.selection.get());
     }
+  }
 ```
 
 Using the editor instance from the arguments of the callback you can call editor methods as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods).
 
 Froala events are described in the [events docs](https://froala.com/wysiwyg-editor/docs/events).
 
-#### [(froalaModel)] 
+### Model
 
-**Description**: Editor content model.
+The WYSIWYG HTML editor content model.
 
-**Usage**:  `[(froalaModel)]="editorContent"`
+`[(froalaModel)]="editorContent"`
 
 Pass initial content:
 
 ```typescript
-  public editorContent: string = 'My Document\'s Title'
+public editorContent: string = 'My Document\'s Title'
 ```
 
 Use the content in other places:
 
 ```html
-  <input [ngModel]="editorContent"/>
+<input [ngModel]="editorContent"/>
 ```
 
-#### (froalaInit)
+### Manual Instantiation
 
-**Description**: Gets the functionality to operate on the editor: create, destroy and get editor instance. Use it if you want to manually initialize the editor.
+Gets the functionality to operate on the editor: create, destroy and get editor instance. Use it if you want to manually initialize the editor.
 
-**Usage**: `(froalaInit)="initialize($event)"`
+`(froalaInit)="initialize($event)"`
+
+Where `initialize` is the name of a function in your component which will receive an object with different methods to control the editor initialization process.
 
 ```typescript
-  public initialize(initControls) {
-    this.initControls = initControls;
-    this.deleteAll = function() {
-        this.initControls.getEditor()('html.set', '');
-    };
-  }
+public initialize(initControls) {
+  this.initControls = initControls;
+  this.deleteAll = function() {
+      this.initControls.getEditor()('html.set', '');
+  };
+}
 ```
-
-Where *initialize* is the name of a function in your component which will receive an object with different methods to control the editor initialization process.
 
 The object received by the function will contain the following methods:
 
@@ -126,13 +116,11 @@ The object received by the function will contain the following methods:
 - **getEditor**: Call this method to retrieve the editor that was created. This method will return *null* if the editor was not yet created
 
 
-### FroalaViewDirective
+### Displaying HTML
 
-#### [froalaView]
+To display content created with the froala editor use the froalaView directive.
 
-**Description**: Display content created with the froala editor
-
-**Usage**: `[froalaView]="editorContent"`
+`[froalaView]="editorContent"`
 
 ```html
 <div [froalaEditor] [(froalaModel)]="editorContent"></div>
