@@ -17,9 +17,13 @@ This repository contains bindings for the latest version of the Froala Editor (v
 
 ## Usage
 
-1. Import froala directives: <br /> `import { FroalaEditorDirective, FroalaViewDirective } from 'path/to/froala.directives';`
+1.&nbsp;Import froala directives:
 
-2. Use them in your component:
+```typescript
+import { FroalaEditorDirective, FroalaViewDirective } from 'path/to/froala.directives';
+```
+
+2.&nbsp;Use them in your component:
 
 ```typescript
 @Component({
