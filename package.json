@@ -1,5 +1,5 @@
 {
-  "name": "angular2-froala-editor",
+  "name": "angular2-froala-wyswiyg",
   "version": "2.3.4-rc.1",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
   "scripts": {
@@ -8,11 +8,12 @@
     "postinstall": "typings install",
     "tsc": "tsc",
     "tsc:w": "tsc -w",
-    "typings": "typings"
+    "typings": "typings",
+    "build": "nodejs build.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/florinpopescu/angular2-froala-editor.git"
+    "url": "https://github.com/froala/angular2-froala-wysiwyg.git"
   },
   "keywords": [
     "angular2",
@@ -31,7 +32,7 @@
   "author": "Florin Marius Popescu <florin@froala.com> (https://www.froala.com/)",
   "license": "https://froala.com/wysiwyg-editor/terms/",
   "bugs": {
-    "url": "https://github.com/florinpopescu/angular2-froala-editor/issues"
+    "url": "https://github.com/froala/angular2-froala-wysiwyg/issues"
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
@@ -44,18 +45,20 @@
     "@angular/router": "3.0.0-beta.1",
     "@angular/router-deprecated": "2.0.0-rc.2",
     "@angular/upgrade": "2.0.0-rc.4",
-    "systemjs": "0.19.27",
+    "angular2-in-memory-web-api": "0.0.14",
+    "babel-core": "^6.11.4",
+    "bootstrap": "^3.3.6",
     "core-js": "^2.4.0",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.6",
-    "zone.js": "^0.6.12",
-    "angular2-in-memory-web-api": "0.0.14",
-    "bootstrap": "^3.3.6"
+    "systemjs": "0.19.27",
+    "systemjs-builder": "^0.15.25",
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "concurrently": "^2.0.0",
     "lite-server": "^2.2.0",
     "typescript": "^1.8.10",
-    "typings":"^1.0.4"
+    "typings": "^1.0.4"
   }
 }
