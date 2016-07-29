@@ -43,7 +43,9 @@ You can check **src/app.component.ts** file for a more detailed usage example.
 
 ## Directives, Inputs, Outputs
 
-### FroalaEditorDirective:
+TODO Desc
+
+### FroalaEditorDirective
 
 #### [froalaEditor] 
 **Description**: Handles the editor initialization. You can pass editor options as Input (optional).
@@ -124,7 +126,7 @@ The object received by the function will contain the following methods:
 - **getEditor**: Call this method to retrieve the editor that was created. This method will return *null* if the editor was not yet created
 
 
-### FroalaViewDirective:
+### FroalaViewDirective
 
 #### [froalaView]
 
