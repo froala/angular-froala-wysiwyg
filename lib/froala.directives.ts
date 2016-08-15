@@ -89,9 +89,7 @@ export class FroalaEditorDirective {
       }
     }
 
-    if (modelContent) {
-      this.froalaModelChange.emit(modelContent);
-    }
+    this.froalaModelChange.emit(modelContent);
   }
 
   // register event on jquery element
@@ -143,7 +141,7 @@ export class FroalaEditorDirective {
     if (this._initContent) {
 
       if (this._hasSpecialTag) {
-        
+
         let tags: Object = this._initContent;
 
         // add tags on element
