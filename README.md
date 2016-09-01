@@ -92,6 +92,42 @@ Use the content in other places:
 <input [ngModel]="editorContent"/>
 ```
 
+### Special tags
+You can also use the editor on **img**, **button**, **input** and **a** tags:
+
+```html
+<img [froalaEditor] [(froalaModel)]="imgObj"/>
+```
+
+The model must be an object containing the attributes for your special tags. Example:
+
+```typescript
+public imgObj: Object = {
+  src: 'path/to/image.jpg'
+};
+```
+
+The froalaModel will change as the attributes change during usage.
+
+* froalaModel can contain a special attribute named **innerHTML** which inserts innerHTML in the element: If you are using 'button' tag, you can specify the button text like this:
+
+```typescript
+public buttonModel: Object = {
+  innerHTML: 'Click Me'
+};
+```
+As the button text is modified by the editor, the **innerHTML** attribute from buttonModel model will be modified too.
+
+#### Specific option for special tags
+
+ * **angularIgnoreAttrs**: (default: null) This option is an array of attributes that you want to ignore when the editor updates the froalaModel:
+
+ ```typescript
+public inputOptions: Object = {
+  angularIgnoreAttrs: ['class', 'ng-model', 'id']
+};
+ ```
+
 ### Manual Instantiation
 
 Gets the functionality to operate on the editor: create, destroy and get editor instance. Use it if you want to manually initialize the editor.
