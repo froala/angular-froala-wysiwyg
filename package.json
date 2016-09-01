@@ -1,6 +1,6 @@
 {
-  "name": "angular2-froala-wyswiyg",
-  "version": "2.3.4-rc.1",
+  "name": "angular2-froala-wysiwyg",
+  "version": "2.3.4-rc.2",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
