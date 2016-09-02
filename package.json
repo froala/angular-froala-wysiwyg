@@ -2,6 +2,7 @@
   "name": "angular2-froala-wyswiyg",
   "version": "2.3.4-rc.1",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
+  "main": "lib/froala.directives.js",
   "scripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server -c configs/bs-config.js",

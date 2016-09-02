@@ -29,6 +29,8 @@ export class FroalaEditorDirective {
 
   private _listeningEvents: string[] = [];
 
+  private _editorInitialized: boolean = false;
+
   constructor(el: ElementRef) {
 
     let element: any = el.nativeElement;
@@ -71,7 +73,7 @@ export class FroalaEditorDirective {
 
         let attrName = attributeNodes[i].name;
         if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
-            continue;
+          continue;
         }
         attrs[attrName] = attributeNodes[i].value;
       }
@@ -85,7 +87,7 @@ export class FroalaEditorDirective {
 
       let returnedHtml: any = this._$element.froalaEditor('html.get');
       if (typeof returnedHtml === 'string') {
-          modelContent = returnedHtml;
+        modelContent = returnedHtml;
       }
     }
 
@@ -128,12 +130,16 @@ export class FroalaEditorDirective {
     for (let eventName in this._opts.events) {
 
       if (this._opts.events.hasOwnProperty(eventName)) {
-          this.registerEvent(this._$element, eventName, this._opts.events[eventName]);
+        this.registerEvent(this._$element, eventName, this._opts.events[eventName]);
       }
     }
   }
 
   private createEditor() {
+
+    if (this._editorInitialized) {
+      return;
+    }
 
     let self = this;
 
@@ -147,15 +153,15 @@ export class FroalaEditorDirective {
         // add tags on element
         if (tags) {
 
-            for (let attr in tags) {
-                if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
-                    this._$element.attr(attr, tags[attr]);
-                }
+          for (let attr in tags) {
+            if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
+              this._$element.attr(attr, tags[attr]);
             }
+          }
 
-            if (tags.hasOwnProperty(this.INNER_HTML_ATTR)) {
-                this._$element[0].innerHTML = tags[this.INNER_HTML_ATTR];
-            }
+          if (tags.hasOwnProperty(this.INNER_HTML_ATTR)) {
+            this._$element[0].innerHTML = tags[this.INNER_HTML_ATTR];
+          }
         }
       } else {
 
@@ -176,6 +182,8 @@ export class FroalaEditorDirective {
     this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
 
     this.initListeners();
+
+    this._editorInitialized = true;
   }
 
   private destroyEditor() {
@@ -186,6 +194,7 @@ export class FroalaEditorDirective {
       this._editor.off('keyup');
       this._$element.froalaEditor('destroy');
       this._listeningEvents.length = 0;
+      this._editorInitialized = false;
     }
   }
 

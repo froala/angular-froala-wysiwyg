@@ -52,6 +52,8 @@ var AppComponent = (function () {
         this.initControls = initControls;
         this.deleteAll = function () {
             this.initControls.getEditor()('html.set', '');
+            this.initControls.getEditor()('undo.reset');
+            this.initControls.getEditor()('undo.saveStep');
         };
     };
     AppComponent = __decorate([
