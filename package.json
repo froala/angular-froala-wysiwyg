@@ -10,7 +10,7 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
-    "build": "nodejs build.js"
+    "build": "node build.js"
   },
   "repository": {
     "type": "git",

@@ -91,6 +91,14 @@ Use the content in other places:
 
 ```html
 <input [ngModel]="editorContent"/>
+<input [(ngModel)]="editorContent"/> <!-- For two way binding -->
+```
+
+Other two way binding example:
+
+```html
+<div [froalaEditor] [(froalaModel)]="editorContent"></div>
+<div [froalaEditor] [(froalaModel)]="editorContent"></div>
 ```
 
 ### Special tags
