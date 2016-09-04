@@ -9,18 +9,24 @@ import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.direct
     <div class="sample">
       <h2>Sample 1: Inline Edit</h2>
       <div [froalaEditor]="titleOptions" [(froalaModel)]="myTitle"></div>
-      <input [ngModel]="myTitle" />
+      <input [(ngModel)]="myTitle" />
     </div>
 
     <div class="sample">
-      <h2>Sample2: Full Editor</h2>
+      <h2>Sample 2: Full Editor</h2>
       <div [froalaEditor] [(froalaModel)]="content"></div>
       <h4>Rendered Content:</h4>
       <div [froalaView]="content"></div>
     </div>
 
     <div class="sample">
-      <h2>Sample 3: Manual Initialization</h2>
+      <h2>Sample 3: Two way binding</h2>
+      <div [froalaEditor] [(froalaModel)]="twoWayContent"></div>
+      <div [froalaEditor] [(froalaModel)]="twoWayContent"></div>
+    </div>
+
+    <div class="sample">
+      <h2>Sample 4: Manual Initialization</h2>
       <button class="manual" (click)="initControls.initialize()">Initialize Editor</button>
       <button (click)="initControls.destroy()" [hidden]="!initControls || initControls.getEditor() == null">Close Editor</button>
       <button (click)="deleteAll()" [hidden]="!initControls || initControls.getEditor() == null">Delete All</button>
@@ -28,28 +34,29 @@ import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.direct
     </div>
 
     <div class="sample">
-      <h2>Sample 4: Editor on 'img' tag</h2>
+      <h2>Sample 5: Editor on 'img' tag. Two way binding.</h2>
+      <img [froalaEditor] [(froalaModel)]="imgModel"/>
       <img [froalaEditor] [(froalaModel)]="imgModel"/>
       <h4>Model Obj:</h4>
       <div>{{imgModel | json}}</div>
     </div>
 
     <div class="sample">
-      <h2>Sample 5: Editor on 'button' tag</h2>
+      <h2>Sample 6: Editor on 'button' tag</h2>
       <button [froalaEditor] [(froalaModel)]="buttonModel"></button>
       <h4>Model Obj:</h4>
       <div>{{buttonModel | json}}</div>
     </div>
 
     <div class="sample">
-      <h2>Sample 6: Editor on 'input' tag</h2>
+      <h2>Sample 7: Editor on 'input' tag</h2>
       <input [froalaEditor]="inputOptions" [(froalaModel)]="inputModel"/>
       <h4>Model Obj:</h4>
       <div>{{inputModel | json}}</div>
     </div>
 
     <div class="sample">
-      <h2>Sample 7: Editor on 'a' tag. Manual Initialization</h2>
+      <h2>Sample 8: Editor on 'a' tag. Manual Initialization</h2>
       <button class="manual" (click)="linkInitControls.initialize()">Initialize Editor</button>
       <button (click)="linkInitControls.destroy()" [hidden]="!linkInitControls || linkInitControls.getEditor() == null">Close Editor</button>
       <div>
@@ -83,7 +90,10 @@ export class AppComponent {
   public content: string = '<span>My Document\'s Title</span>';
 
 
-  // Sample 3 models
+  // Sample 3 model
+   public twoWayContent;
+
+  // Sample 4 models
   public sample3Text;
   public initControls;
   public deleteAll;
@@ -91,20 +101,22 @@ export class AppComponent {
     this.initControls = initControls;
     this.deleteAll = function() {
         this.initControls.getEditor()('html.set', '');
+        this.initControls.getEditor()('undo.reset');
+        this.initControls.getEditor()('undo.saveStep');
     };
   }
 
-  // Sample 4 model
+  // Sample 5 model
   public imgModel: Object = {
     src: '../src/image.jpg'
   };
  
-  // Sample 5 model
+  // Sample 6 model
   public buttonModel: Object = {
     innerHTML: 'Click Me'
   };
 
-  // Sample 6 models
+  // Sample 7 models
   public inputModel: Object = {
     placeholder: 'I am an input!'
   };
@@ -112,7 +124,7 @@ export class AppComponent {
    angularIgnoreAttrs: ['class', 'ng-model', 'id', 'froala', 'ng-reflect-froala-editor', 'ng-reflect-froala-model']
   }
 
-  // Sample 6 model
+  // Sample 8 model
   public initializeLink = function(linkInitControls) {
    this.linkInitControls = linkInitControls;
   };

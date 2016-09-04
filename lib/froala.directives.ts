@@ -25,9 +25,13 @@ export class FroalaEditorDirective {
   private _editor: any;
 
   // initial editor content
-  private _initContent: string
+  private _model: string;
 
   private _listeningEvents: string[] = [];
+
+  private _editorInitialized: boolean = false;
+
+  private _oldModel: string = null;
 
   constructor(el: ElementRef) {
 
@@ -49,7 +53,15 @@ export class FroalaEditorDirective {
 
   // froalaModel directive as input: store initial editor content
   @Input() set froalaModel(content: string) {
-    this._initContent = content;
+
+    if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
+      return;
+    }
+    this._model = content;
+
+    if (this._editorInitialized) {
+      this.setContent();
+    }
   }
   // froalaModel directive as output: update model if editor contentChanged
   @Output() froalaModelChange: EventEmitter<any> = new EventEmitter<any>();
@@ -71,7 +83,7 @@ export class FroalaEditorDirective {
 
         let attrName = attributeNodes[i].name;
         if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
-            continue;
+          continue;
         }
         attrs[attrName] = attributeNodes[i].value;
       }
@@ -85,10 +97,11 @@ export class FroalaEditorDirective {
 
       let returnedHtml: any = this._$element.froalaEditor('html.get');
       if (typeof returnedHtml === 'string') {
-          modelContent = returnedHtml;
+        modelContent = returnedHtml;
       }
     }
 
+    this._oldModel = modelContent;
     this.froalaModelChange.emit(modelContent);
   }
 
@@ -128,46 +141,18 @@ export class FroalaEditorDirective {
     for (let eventName in this._opts.events) {
 
       if (this._opts.events.hasOwnProperty(eventName)) {
-          this.registerEvent(this._$element, eventName, this._opts.events[eventName]);
+        this.registerEvent(this._$element, eventName, this._opts.events[eventName]);
       }
     }
   }
 
   private createEditor() {
 
-    let self = this;
-
-    // set initial content
-    if (this._initContent) {
-
-      if (this._hasSpecialTag) {
-
-        let tags: Object = this._initContent;
-
-        // add tags on element
-        if (tags) {
-
-            for (let attr in tags) {
-                if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
-                    this._$element.attr(attr, tags[attr]);
-                }
-            }
-
-            if (tags.hasOwnProperty(this.INNER_HTML_ATTR)) {
-                this._$element[0].innerHTML = tags[this.INNER_HTML_ATTR];
-            }
-        }
-      } else {
-
-        this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
-
-          self._$element.froalaEditor('html.set', self._initContent || '', true);
-          //This will reset the undo stack everytime the model changes externally. Can we fix this?
-          self._$element.froalaEditor('undo.reset');
-          self._$element.froalaEditor('undo.saveStep');
-        });
-      }
+    if (this._editorInitialized) {
+      return;
     }
+
+    this.setContent(true);
 
     // Registering events before initializing the editor will bind the initialized event correctly.
     this.registerFroalaEvents();
@@ -176,6 +161,53 @@ export class FroalaEditorDirective {
     this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
 
     this.initListeners();
+
+    this._editorInitialized = true;
+  }
+
+  private setContent(firstTime = false) {
+
+    let self = this;
+    // set initial content
+    if (this._model || this._model == '') {
+      this._oldModel = this._model;
+      if (this._hasSpecialTag) {
+
+        let tags: Object = this._model;
+
+        // add tags on element
+        if (tags) {
+
+          for (let attr in tags) {
+            if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
+              this._$element.attr(attr, tags[attr]);
+            }
+          }
+
+          if (tags.hasOwnProperty(this.INNER_HTML_ATTR)) {
+            this._$element[0].innerHTML = tags[this.INNER_HTML_ATTR];
+          }
+        }
+      } else {
+
+        function setHtml() {
+
+          self._$element.froalaEditor('html.set', self._model || '', true);
+          //This will reset the undo stack everytime the model changes externally. Can we fix this?
+          self._$element.froalaEditor('undo.reset');
+          self._$element.froalaEditor('undo.saveStep');
+        }
+
+        if (firstTime) {
+          this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
+            setHtml();
+          });
+        } else {
+          setHtml();
+        }
+
+      }
+    }
   }
 
   private destroyEditor() {
@@ -186,6 +218,7 @@ export class FroalaEditorDirective {
       this._editor.off('keyup');
       this._$element.froalaEditor('destroy');
       this._listeningEvents.length = 0;
+      this._editorInitialized = false;
     }
   }
 

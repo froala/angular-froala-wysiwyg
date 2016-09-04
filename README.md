@@ -1,5 +1,5 @@
 # angular2-froala-wyswiyg
->angular2-froala-wyswiyg provides Angular2 bindings to the froala WYSIWYG editor VERSION 2.
+>angular2-froala-wyswiyg provides Angular2 bindings to the Froala WYSIWYG editor VERSION 2.
 
 ## Installation
 
@@ -68,6 +68,7 @@ public options: Object = {
       console.log(editor.selection.get());
     }
   }
+}
 ```
 
 Using the editor instance from the arguments of the callback you can call editor methods as described in the [method docs](http://froala.com/wysiwyg-editor/docs/methods).
@@ -90,6 +91,14 @@ Use the content in other places:
 
 ```html
 <input [ngModel]="editorContent"/>
+<input [(ngModel)]="editorContent"/> <!-- For two way binding -->
+```
+
+Other two way binding example:
+
+```html
+<div [froalaEditor] [(froalaModel)]="editorContent"></div>
+<div [froalaEditor] [(froalaModel)]="editorContent"></div>
 ```
 
 ### Special tags
