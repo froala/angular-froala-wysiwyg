@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.directives';
+
 
 @Component({
   selector: 'app',
@@ -66,8 +66,7 @@ import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.direct
       <div>{{linkModel | json}}</div>
     </div>
 
-  `,
-  directives: [FroalaEditorDirective, FroalaViewDirective]
+  `
 })
 
 export class AppComponent {
