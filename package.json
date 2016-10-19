@@ -1,6 +1,6 @@
 {
   "name": "angular2-froala-wysiwyg",
-  "version": "2.3.4-rc.2",
+  "version": "2.3.5",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
   "main": "lib/froala.directives.js",
   "scripts": {
@@ -36,16 +36,16 @@
     "url": "https://github.com/froala/angular2-froala-wysiwyg/issues"
   },
   "dependencies": {
-    "@angular/common": "2.0.0-rc.6",
-    "@angular/compiler": "2.0.0-rc.6",
-    "@angular/core": "2.0.0-rc.6",
-    "@angular/forms": "2.0.0-rc.6",
-    "@angular/http": "2.0.0-rc.6",
-    "@angular/platform-browser": "2.0.0-rc.6",
-    "@angular/platform-browser-dynamic": "2.0.0-rc.6",
-    "@angular/router": "3.0.0-rc.2",
+    "@angular/common": "2.0.0",
+    "@angular/compiler": "2.0.0",
+    "@angular/core": "2.0.0",
+    "@angular/forms": "2.0.0",
+    "@angular/http": "2.0.0",
+    "@angular/platform-browser": "2.0.0",
+    "@angular/platform-browser-dynamic": "2.0.0",
+    "@angular/router": "3.0.0",
     "@angular/router-deprecated": "2.0.0-rc.2",
-    "@angular/upgrade": "2.0.0-rc.6",
+    "@angular/upgrade": "2.0.0",
     "angular2-in-memory-web-api": "0.0.18",
     "babel-core": "^6.11.4",
     "bootstrap": "^3.3.6",
