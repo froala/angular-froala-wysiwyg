@@ -42,7 +42,7 @@ export class FroalaEditorDirective {
       this._hasSpecialTag = true;
     }
 
-    // jquery wrap and store element 
+    // jquery wrap and store element
     this._$element = (<any>$(element));
   }
 
@@ -126,7 +126,7 @@ export class FroalaEditorDirective {
     });
     if (this._opts.immediateAngularModelUpdate) {
       this.registerEvent(this._editor, 'keyup', function () {
-        self.updateModel(); 
+        self.updateModel();
       });
     }
   }
@@ -165,6 +165,14 @@ export class FroalaEditorDirective {
     this._editorInitialized = true;
   }
 
+  private setHtml() {
+    self._$element.froalaEditor('html.set', self._model || '', true);
+
+    //This will reset the undo stack everytime the model changes externally. Can we fix this?
+    self._$element.froalaEditor('undo.reset');
+    self._$element.froalaEditor('undo.saveStep');
+  }
+
   private setContent(firstTime = false) {
 
     let self = this;
@@ -189,21 +197,12 @@ export class FroalaEditorDirective {
           }
         }
       } else {
-
-        function setHtml() {
-
-          self._$element.froalaEditor('html.set', self._model || '', true);
-          //This will reset the undo stack everytime the model changes externally. Can we fix this?
-          self._$element.froalaEditor('undo.reset');
-          self._$element.froalaEditor('undo.saveStep');
-        }
-
         if (firstTime) {
           this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
-            setHtml();
+            self.setHtml();
           });
         } else {
-          setHtml();
+          self.setHtml();
         }
 
       }
@@ -211,9 +210,7 @@ export class FroalaEditorDirective {
   }
 
   private destroyEditor() {
-
     if (this._$element) {
-
       this._$element.off(this._listeningEvents.join(" "));
       this._editor.off('keyup');
       this._$element.froalaEditor('destroy');
@@ -245,7 +242,7 @@ export class FroalaEditorDirective {
   // TODO not sure if ngOnInit is executed after @inputs
   ngOnInit() {
 
-    // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present. 
+    // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present.
     if (!this.froalaInit.observers.length) {
       this.createEditor();
     } else {
