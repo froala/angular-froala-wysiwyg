@@ -166,11 +166,11 @@ export class FroalaEditorDirective {
   }
 
   private setHtml() {
-    self._$element.froalaEditor('html.set', self._model || '', true);
+    this._$element.froalaEditor('html.set', this._model || '', true);
 
     //This will reset the undo stack everytime the model changes externally. Can we fix this?
-    self._$element.froalaEditor('undo.reset');
-    self._$element.froalaEditor('undo.saveStep');
+    this._$element.froalaEditor('undo.reset');
+    this._$element.froalaEditor('undo.saveStep');
   }
 
   private setContent(firstTime = false) {
