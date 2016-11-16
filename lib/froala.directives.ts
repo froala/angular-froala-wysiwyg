@@ -210,7 +210,7 @@ export class FroalaEditorDirective {
   }
 
   private destroyEditor() {
-    if (this._$element) {
+    if (this._editorInitialized) {
       this._$element.off(this._listeningEvents.join(" "));
       this._editor.off('keyup');
       this._$element.froalaEditor('destroy');
@@ -220,16 +220,15 @@ export class FroalaEditorDirective {
   }
 
   private getEditor() {
-
     if (this._$element) {
       return this._$element.froalaEditor.bind(this._$element);
     }
+
     return null;
   }
 
   // send manual editor initialization
   private generateManualController() {
-
     let self = this;
     let controls = {
       initialize: this.createEditor.bind(this),
