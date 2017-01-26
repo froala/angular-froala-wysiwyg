@@ -1,6 +1,6 @@
 {
   "name": "angular2-froala-wysiwyg",
-  "version": "2.3.5",
+  "version": "2.4.1",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
   "main": "lib/froala.directives.js",
   "scripts": {
