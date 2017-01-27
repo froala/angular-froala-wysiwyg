@@ -26,7 +26,7 @@ var AppComponent = (function () {
         this.content = '<span>My Document\'s Title</span>';
         // Sample 5 model
         this.imgModel = {
-            src: '../src/image.jpg'
+            src: 'demo/image.jpg'
         };
         // Sample 6 model
         this.buttonModel = {
