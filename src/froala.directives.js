@@ -165,7 +165,7 @@ var FroalaEditorDirective = (function () {
         }
     };
     FroalaEditorDirective.prototype.destroyEditor = function () {
-        if (this._$element) {
+        if (this._editorInitialized) {
             this._$element.off(this._listeningEvents.join(" "));
             this._editor.off('keyup');
             this._$element.froalaEditor('destroy');

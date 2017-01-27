@@ -107,7 +107,7 @@ export class AppComponent {
 
   // Sample 5 model
   public imgModel: Object = {
-    src: '../src/image.jpg'
+    src: 'demo/image.jpg'
   };
  
   // Sample 6 model

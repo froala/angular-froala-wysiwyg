@@ -1,7 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { FroalaEditorDirective, FroalaViewDirective } from '../lib/froala.directives';
+import { FroalaEditorDirective, FroalaViewDirective } from '../src/froala.directives';
 import { AppComponent } from './app.component';
 @NgModule({
     imports:      [ BrowserModule,FormsModule],
