@@ -106,7 +106,7 @@ export class FroalaEditorDirective {
   }
 
   // register event on jquery element
-  private registerEvent(element, eventName, callback) {
+  private registerEvent(element: any, eventName: string, callback: any) {
 
     if (!element || !eventName || !callback) {
       return;
