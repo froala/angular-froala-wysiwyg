@@ -29,7 +29,7 @@ You will need CSS styles and Font Awesome
 
 ## Integration
 
-### Angular-cli
+### Use with `angular-cli`
 
 #### Installing angular-cli
 
@@ -143,7 +143,7 @@ import { FroalaEditorModule } from 'angular2-froala-wysiwyg';
 
 - open `config/webpack.common.js` and add the following to `CopyWebpackPlugin`
 
-```json
+```javascript
 {
   from: 'node_modules/froala-editor/css/',
   to: 'assets/froala-editor/css/',
@@ -160,7 +160,7 @@ import { FroalaEditorModule } from 'angular2-froala-wysiwyg';
 
 - open `config/head-config.common.js` and add a new entry to link
 
-```json
+```javascript
 { rel: 'stylesheet', href: '/assets/font-awesome/css/font-awesome.min.css' },
 { rel: 'stylesheet', href: '/assets/froala-editor/css/froala_editor.pkgd.min.css' }
 ```
@@ -175,7 +175,7 @@ npm run start
 
 ## Usage
 
-### Options
+#### Options
 
 You can pass editor options as Input (optional).
 
@@ -193,7 +193,9 @@ public options: Object = {
 Aditional option is used:
 * **immediateAngularModelUpdate**: (default: false) This option synchronizes the angular model as soon as a key is released in the editor. Note that it may affect performances.
 
-### Events and Methods
+
+
+#### Events and Methods
 
 Events can be passed in with the options, with a key events and object where the key is the event name and the value is the callback function.
 
@@ -212,7 +214,9 @@ Using the editor instance from the arguments of the callback you can call editor
 
 Froala events are described in the [events docs](https://froala.com/wysiwyg-editor/docs/events).
 
-### Model
+
+
+#### Model
 
 The WYSIWYG HTML editor content model.
 
@@ -238,7 +242,10 @@ Other two way binding example:
 <div [froalaEditor] [(froalaModel)]="editorContent"></div>
 ```
 
-### Special tags
+
+
+#### Special tags
+
 You can also use the editor on **img**, **button**, **input** and **a** tags:
 
 ```html
@@ -264,6 +271,8 @@ public buttonModel: Object = {
 ```
 As the button text is modified by the editor, the **innerHTML** attribute from buttonModel model will be modified too.
 
+
+
 #### Specific option for special tags
 
 * **angularIgnoreAttrs**: (default: null) This option is an array of attributes that you want to ignore when the editor updates the froalaModel:
@@ -288,7 +297,7 @@ Where `initialize` is the name of a function in your component which will receiv
 public initialize(initControls) {
   this.initControls = initControls;
   this.deleteAll = function() {
-      this.initControls.getEditor()('html.set', '');
+  	this.initControls.getEditor()('html.set', '');
   };
 }
 ```
