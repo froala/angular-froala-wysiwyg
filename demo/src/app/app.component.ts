@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 
 @Component({
-  selector: 'app',
+  selector: 'app-demo',
   template: `
 
   <h1>Angular adapter for the Froala WYSIWYG editor</h1>
@@ -72,7 +72,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   // Sample 1 models
-  public titleOptions: Object = { 
+  public titleOptions: Object = {
     placeholderText: 'Edit Your Content Here!',
     charCounterCount: false,
     toolbarInline: true,
@@ -109,7 +109,7 @@ export class AppComponent {
   public imgModel: Object = {
     src: '../src/image.jpg'
   };
- 
+
   // Sample 6 model
   public buttonModel: Object = {
     innerHTML: 'Click Me'
