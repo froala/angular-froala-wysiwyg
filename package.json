@@ -1,10 +1,16 @@
 {
-  "name": "angular2-froala-wysiwyg",
+  "name": "angular2-froala-wysiwyg-base",
   "version": "2.4.2",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
-  "main": "bundles/froala.directives.js",
+  "main": "bundles/angular2-froala-wysiwyg.umd.js",
+  "typings": "index.d.ts",
+  "module": "index.js",
   "scripts": {
+    "lite-server": "lite-server -c demo/bs-config.json",
+    "demo.serve": "run-s build link demo.build lite-server",
+    "demo.build": "ng build -prod --aot",
     "build": "ngm build -p src --clean",
+    "link": "ngm link -p src --here",
     "build.watch": "ngm build -p src --watch --skip-bundles",
     "start": "ng serve --aot --host 0.0.0.0"
   },
@@ -41,6 +47,7 @@
     "@angular/forms": "^2.3.1"
   },
   "devDependencies": {
+    "@angular/cli": "1.0.0-beta.29",
     "@angular/common": "^2.4.4",
     "@angular/compiler": "^2.4.4",
     "@angular/compiler-cli": "^2.4.4",
@@ -53,9 +60,14 @@
     "@angular/router": "^3.4.4",
     "@angular/tsc-wrapped": "0.5.1",
     "@ngtools/webpack": "1.2.7",
+    "@types/jasmine": "^2.5.41",
+    "@types/marked": "0.0.28",
     "@types/node": "7.0.0",
     "@types/webpack": "^2.2.2",
+    "@types/jquery": "^2.0.40",
+    "ngm-cli": "0.4.4",
     "typescript": "2.0.10",
-    "ngm-cli": "0.4.4"
+    "ts-helpers": "^1.1.1",
+    "classlist-polyfill": "1.0.3"
   }
 }

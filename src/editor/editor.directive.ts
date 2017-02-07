@@ -1,7 +1,6 @@
 import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter } from '@angular/core';
 
-// non-typescript definitions
-declare var $:JQueryStatic;
+import $ from 'jquery';
 
 @Directive({
   selector: '[froalaEditor]'
@@ -85,6 +84,7 @@ export class FroalaEditorDirective {
         if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
           continue;
         }
+
         attrs[attrName] = attributeNodes[i].value;
       }
 
@@ -251,27 +251,5 @@ export class FroalaEditorDirective {
 
   ngOnDestroy() {
     this.destroyEditor();
-  }
-}
-
-@Directive({
-  selector: '[froalaView]'
-})
-export class FroalaViewDirective {
-
-  private _element: HTMLElement;
-  private _content: any;
-
-  constructor(private renderer: Renderer, element: ElementRef) {
-    this._element = element.nativeElement;
-  }
-
-  // update content model as it comes
-  @Input() set froalaView(content: string){
-    this._element.innerHTML = content;
-  }
-
-  ngAfterViewInit() {
-    this.renderer.setElementClass(this._element, "fr-view", true);
   }
 }
