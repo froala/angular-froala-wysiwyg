@@ -175,7 +175,7 @@ npm run start
 
 ## Usage
 
-#### Options
+### Options
 
 You can pass editor options as Input (optional).
 
@@ -195,7 +195,7 @@ Aditional option is used:
 
 
 
-#### Events and Methods
+### Events and Methods
 
 Events can be passed in with the options, with a key events and object where the key is the event name and the value is the callback function.
 
@@ -216,7 +216,7 @@ Froala events are described in the [events docs](https://froala.com/wysiwyg-edit
 
 
 
-#### Model
+### Model
 
 The WYSIWYG HTML editor content model.
 
@@ -244,7 +244,7 @@ Other two way binding example:
 
 
 
-#### Special tags
+### Special tags
 
 You can also use the editor on **img**, **button**, **input** and **a** tags:
 
@@ -273,7 +273,7 @@ As the button text is modified by the editor, the **innerHTML** attribute from b
 
 
 
-#### Specific option for special tags
+### Specific option for special tags
 
 * **angularIgnoreAttrs**: (default: null) This option is an array of attributes that you want to ignore when the editor updates the froalaModel:
 
