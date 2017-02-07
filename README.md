@@ -5,8 +5,8 @@
 2. [Installation instructions](#installation-instructions)
 3. [Integration](#integration)
 4. [Usage](#usage)
-5. [Troubleshooting](#troubleshooting)
-6. [Contributing](#contribution)
+5. [Manual Initialization](#manual-initialization)
+6. [Displaying HTML](#displaying-html)
 7. [License](#license)
 
 ## Installation instructions
@@ -313,34 +313,11 @@ To display content created with the froala editor use the froalaView directive.
 <div [froalaView]="editorContent"></div>
 ```
 
+
+
 ## License
 
 The `angular2-froala-wyswiyg` project is under MIT license. However, in order to use Froala WYSIWYG HTML Editor plugin you should purchase a license for it.
 
 Froala Editor has [3 different licenses](http://froala.com/wysiwyg-editor/pricing) for commercial use.
 For details please see [License Agreement](http://froala.com/wysiwyg-editor/terms).
-
-## Development environment setup
-
-If you want to contribute to angular2-froala-wyswiyg, you will first need to install the required tools to get the project going.
-
-#### Prerequisites
-
-* [Node Package Manager](https://npmjs.org/) (NPM)
-* [Git](http://git-scm.com/)
-
-#### Dependencies
-
-* [Bower](http://bower.io/) (package management)
-
-##### 1. Install Bower
-
-    $ npm install -g grunt-cli bower
-
-##### 2. Install project dependencies
-
-    $ npm install
-    $ bower install
-
-##### 3. Run in development mode. Is loads the src files that make use of lib/froala.directives
-    $ npm start
