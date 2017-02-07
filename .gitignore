@@ -37,3 +37,8 @@ src/**/*.js
 src/**/*.map
 scripts/**/*.js
 scripts/**/*.map
+
+# Typing #
+/src/typings/tsd/
+/typings/**
+/tsd_typings/
