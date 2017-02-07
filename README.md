@@ -58,7 +58,7 @@ npm install angular2-froala-wysiwyg --save
 import "froala-editor/js/froala_editor.pkgd.min.js";
 
 # Import Angular2 plugin.
-import { FroalaEditorModule } from 'angular2-froala-wysiwyg';
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ...
 
 @NgModule({
@@ -125,7 +125,7 @@ npm install angular2-froala-wysiwyg --save
 import "froala-editor/js/froala_editor.pkgd.min.js";
 
 # Import Angular2 plugin.
-import { FroalaEditorModule } from 'angular2-froala-wysiwyg';
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ...
 
 @NgModule({
