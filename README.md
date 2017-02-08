@@ -188,6 +188,79 @@ npm run start
 
 
 
+### Use with `jit` and `aot`
+
+#### Adding angular2-froala-wysiwyg
+
+- install `angular2-froala-wysiwyg`
+
+```bash
+npm install angular2-froala-wysiwyg --save
+```
+
+- open `src/index.html` and add
+
+```html
+<link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="node_modules/froala-editor/css/froala_editor.pkgd.min.css">
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+```
+
+- open `src/app/app.module.ts` and add
+
+```typescript
+# Import Angular2 plugin.
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+...
+
+@NgModule({
+   ...
+   imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(), ... ],
+   ... 
+})
+```
+
+- open `src/app/app.component.ts` and add to the template
+
+```html
+<div [froalaEditor]>Hello, Froala!</div>
+```
+
+- [*only if you're using AOT*] open `rollup-config.js` and add the following
+
+```javascript
+//paths are relative to the execution path
+export default {
+  ...
+  plugins: [
+    ...
+    commonjs({
+      include: [
+        'node_modules/rxjs/**',
+        'node_modules/angular2-froala-wysiwyg/**'
+      ]
+    }),
+    ...
+  ]
+}
+```
+
+#### [*only if you're using AOT*] Compile
+
+```bash
+ngc -p tsconfig-aot.json && rollup -c rollup-config.js
+```
+
+#### Run app
+
+```bash
+npm run start
+```
+
+
+
 ## Usage
 
 ### Options
