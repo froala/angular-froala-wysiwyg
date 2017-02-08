@@ -188,6 +188,92 @@ npm run start
 
 
 
+### Use with `angular-seed`
+
+#### Create angular-seed app
+
+*Note*: you can skip this part if you already have application generated. For more details please also read: https://github.com/mgechev/angular-seed.
+
+```bash
+git clone --depth 1 https://github.com/mgechev/angular-seed.git
+cd angular-seed
+npm install
+```
+
+#### Adding angular2-froala-wysiwyg
+
+- install `angular2-froala-wysiwyg`
+
+```bash
+npm install angular2-froala-wysiwyg --save
+```
+
+- open `tools/config/projesct.config.ts` and **uncomment** the following line from the top of the file
+
+```typescript
+import { ExtendPackages } from './seed.config.interfaces';
+```
+
+- in `tools/config/projesct.config.ts` add
+
+```typescript
+...
+
+this.NPM_DEPENDENCIES = [
+  ...this.NPM_DEPENDENCIES,
+  { src: 'jquery/dist/jquery.min.js', inject: 'libs'},
+  { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
+  { src: 'font-awesome/css/font-awesome.min.css', inject: true },
+  { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true }
+];
+
+...
+
+let additionalPackages: ExtendPackages[] = [
+  // required for dev build
+  {
+    name:'angular2-froala-wysiwyg',
+    path:'node_modules/angular2-froala-wysiwyg/bundles/angular2-froala-wysiwyg.umd.min.js'
+  },
+
+  // required for prod build
+  {
+    name:'angular2-froala-wysiwyg/*',
+    path:'node_modules/angular2-froala-wysiwyg/bundles/angular2-froala-wysiwyg.umd.min.js'
+  }
+]
+
+this.addPackagesBundles(additionalPackages);
+```
+
+- open `src/client/app/home/home.module.ts` and add
+
+```typescript
+# Import Angular2 plugin.
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+...
+
+@NgModule({
+   ...
+   imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ... ],
+   ... 
+})
+```
+
+- open `src/client/app/home/home.component.html` and add
+
+```html
+<div [froalaEditor]>Hello, Froala!</div>
+```
+
+#### Run webpack app
+
+```bash
+npm run start
+```
+
+
+
 ### Use with `system.js`, `jit` and `aot`
 
 #### Create Angular app
