@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter } from '@angular/core';
 
-import $ from 'jquery';
+declare var $: JQueryStatic;
 
 @Directive({
   selector: '[froalaEditor]'
