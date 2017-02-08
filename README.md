@@ -190,6 +190,18 @@ npm run start
 
 ### Use with `system.js`, `jit` and `aot`
 
+#### Create Angular app
+
+*Note*: you can skip this part if you already have application generated.
+
+```bash
+git clone https://github.com/angular/quickstart.git quickstart
+cd quickstart
+npm install
+```
+
+*For AOT configuration, please follow the detailed guides from Angular: https://angular.io/docs/ts/latest/cookbook/aot-compiler.html.*
+
 #### Adding angular2-froala-wysiwyg
 
 - install `angular2-froala-wysiwyg`
