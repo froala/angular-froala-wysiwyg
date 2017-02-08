@@ -54,9 +54,6 @@ npm install angular2-froala-wysiwyg --save
 - open `src/app/app.module.ts` and add
 
 ```typescript
-# Import editor JS.
-import "froala-editor/js/froala_editor.pkgd.min.js";
-
 # Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ...
@@ -68,7 +65,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 })
 ```
 
-- open `angular-cli.json` and insert a new entry into the styles array 
+- open `angular-cli.json` and insert a new entry into the `styles` array 
 
 ```json
 "styles": [
@@ -78,11 +75,20 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ],
 ```
 
+- in `angular-cli.json` and insert a new entry into the `scripts` array 
+
+```json
+"scripts": [
+  "../node_modules/jquery/dist/jquery.min.js",
+  "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
+],
+```
+
 - in `angular-cli.json` add the following to load Font Awesome fonts
 
 ```json
 "addons": [
-	"../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
+  "../node_modules/font-awesome/fonts/*.+(otf|eot|svg|ttf|woff|woff2)"
 ],
 ```
 
@@ -121,7 +127,7 @@ npm install angular2-froala-wysiwyg --save
 - open `src/app/app.module.ts` and add
 
 ```typescript
-# Import editor JS.
+# Import the Froala Editor plugin.
 import "froala-editor/js/froala_editor.pkgd.min.js";
 
 # Import Angular2 plugin.
@@ -156,6 +162,15 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
   from: 'node_modules/font-awesome/fonts',
   to: 'assets/font-awesome/fonts'
 }
+```
+
+- in `config/webpack.common.js` copy the following to `plugins`
+
+```javascript
+new webpack.ProvidePlugin({
+  $: "jquery",
+  jQuery: "jquery"
+})
 ```
 
 - open `config/head-config.common.js` and add a new entry to link
