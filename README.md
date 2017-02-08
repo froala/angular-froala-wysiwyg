@@ -188,7 +188,7 @@ npm run start
 
 
 
-### Use with `jit` and `aot`
+### Use with `system.js`, `jit` and `aot`
 
 #### Adding angular2-froala-wysiwyg
 
