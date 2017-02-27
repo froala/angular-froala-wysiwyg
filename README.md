@@ -2,12 +2,18 @@
 >angular2-froala-wyswiyg provides Angular2 bindings to the Froala WYSIWYG editor VERSION 2.
 
 ## Table of contents 
-2. [Installation instructions](#installation-instructions)
-3. [Integration](#integration)
-4. [Usage](#usage)
-5. [Manual Initialization](#manual-initialization)
-6. [Displaying HTML](#displaying-html)
-7. [License](#license)
+1. [Installation instructions](#installation-instructions)   
+2. [Integration](#integration)
+   - [angular-cli](#use-with-angular-cli)
+   - [webpack](#use-with-webpack)
+   - [angular-seed](#use-with-angular-seed)
+   - [system.js](#use-with-systemjs-jit-and-aot)
+   - [JIT](#use-with-systemjs-jit-and-aot)
+   - [AOT](#use-with-systemjs-jit-and-aot)
+3. [Usage](#usage)
+4. [Manual Initialization](#manual-initialization)
+5. [Displaying HTML](#displaying-html)
+6. [License](#license)
 
 ## Installation instructions
 
