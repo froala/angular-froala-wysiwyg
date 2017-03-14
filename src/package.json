@@ -1,6 +1,6 @@
 {
   "name": "angular2-froala-wysiwyg",
-  "version": "2.5.0-1",
+  "version": "2.5.1",
   "peerDependencies": {
     "@angular/common": "*",
     "@angular/compiler": "*",
@@ -8,7 +8,7 @@
     "@angular/forms": "*"
   },
   "dependencies": {
-    "froala-editor": "2.5.0",
+    "froala-editor": ">=2.5.1",
     "@types/jquery": "^2.0.40"
   }
 }
