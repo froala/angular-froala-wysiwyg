@@ -1,30 +1,27 @@
 import { Component } from '@angular/core';
-
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-demo',
   template: `
 
-  <h1>Angular adapter for the Froala WYSIWYG editor</h1>
+    <h1>Angular adapter for the Froala WYSIWYG editor</h1>
     <div class="sample">
       <h2>Sample 1: Inline Edit</h2>
       <div [froalaEditor]="titleOptions" [(froalaModel)]="myTitle"></div>
       <input [(ngModel)]="myTitle" />
     </div>
-
     <div class="sample">
       <h2>Sample 2: Full Editor</h2>
-      <div [froalaEditor] [(froalaModel)]="content"></div>
+      <div [froalaEditor] [(froalaModel)]="content" ></div>
       <h4>Rendered Content:</h4>
       <div [froalaView]="content"></div>
     </div>
-
     <div class="sample">
       <h2>Sample 3: Two way binding</h2>
       <div [froalaEditor] [(froalaModel)]="twoWayContent"></div>
       <div [froalaEditor] [(froalaModel)]="twoWayContent"></div>
     </div>
-
     <div class="sample">
       <h2>Sample 4: Manual Initialization</h2>
       <button class="manual" (click)="initControls.initialize()">Initialize Editor</button>
@@ -32,29 +29,25 @@ import { Component } from '@angular/core';
       <button (click)="deleteAll()" [hidden]="!initControls || initControls.getEditor() == null">Delete All</button>
       <div [froalaEditor] (froalaInit)="initialize($event)" [(froalaModel)]="sample3Text">Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a></div>
     </div>
-
     <div class="sample">
       <h2>Sample 5: Editor on 'img' tag. Two way binding.</h2>
-      <img [froalaEditor] [(froalaModel)]="imgModel"/>
-      <img [froalaEditor] [(froalaModel)]="imgModel"/>
+      <img [froalaEditor]="imgOptions" [(froalaModel)]="imgModel" />
+      <img [froalaEditor]="imgOptions" [(froalaModel)]="imgModel" />
       <h4>Model Obj:</h4>
       <div>{{imgModel | json}}</div>
     </div>
-
     <div class="sample">
       <h2>Sample 6: Editor on 'button' tag</h2>
       <button [froalaEditor] [(froalaModel)]="buttonModel"></button>
       <h4>Model Obj:</h4>
       <div>{{buttonModel | json}}</div>
     </div>
-
     <div class="sample">
       <h2>Sample 7: Editor on 'input' tag</h2>
-      <input [froalaEditor]="inputOptions" [(froalaModel)]="inputModel"/>
+      <input [froalaEditor] [(froalaModel)]="inputModel" />
       <h4>Model Obj:</h4>
       <div>{{inputModel | json}}</div>
     </div>
-
     <div class="sample">
       <h2>Sample 8: Editor on 'a' tag. Manual Initialization</h2>
       <button class="manual" (click)="linkInitControls.initialize()">Initialize Editor</button>
@@ -65,6 +58,18 @@ import { Component } from '@angular/core';
       <h4>Model Obj:</h4>
       <div>{{linkModel | json}}</div>
     </div>
+
+    <div class="sample">
+    <h2>Sample 9: Editor on a form</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div *ngIf="formModel.invalid"> Name is too short. </div>
+      <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
+      <textarea [froalaEditor] [(froalaModel)]="form.formModel"></textarea>
+      <div>{{form.formModel}}</div>
+      <button type="submit">Submit</button>
+    </form>
+    </div>
+    <button (click)="setValue()">Set preset value</button>
 
   `
 })
@@ -107,8 +112,12 @@ export class AppComponent {
 
   // Sample 5 model
   public imgModel: Object = {
-    src: '../src/image.jpg'
+    src: '../image.jpg'
   };
+
+  public imgOptions: Object = {
+    angularIgnoreAttrs: ['style']
+  }
 
   // Sample 6 model
   public buttonModel: Object = {
@@ -119,9 +128,6 @@ export class AppComponent {
   public inputModel: Object = {
     placeholder: 'I am an input!'
   };
-  public inputOptions: Object = {
-   angularIgnoreAttrs: ['class', 'ng-model', 'id', 'froala', 'ng-reflect-froala-editor', 'ng-reflect-froala-model']
-  }
 
   // Sample 8 model
   public initializeLink = function(linkInitControls) {
@@ -130,4 +136,14 @@ export class AppComponent {
   public linkModel: Object = {
     href: 'https://www.froala.com/wysiwyg-editor'
   };
+
+  // Sample 9
+  form = new FormGroup({
+    formModel: new FormControl('Hello World', Validators.minLength(2)),
+  });
+  get formModel(): any { return this.form.get('formModel'); }
+  onSubmit(): void {
+    console.log(this.form.value);
+  }
+  setValue() { this.form.setValue({formModel: 'Default text'}); }
 }

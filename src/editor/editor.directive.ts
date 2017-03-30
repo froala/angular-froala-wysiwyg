@@ -1,11 +1,19 @@
-import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter, forwardRef } from '@angular/core';
+
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 declare var $: JQueryStatic;
 
+
 @Directive({
-  selector: '[froalaEditor]'
+  selector: '[froalaEditor]',
+   providers: [{
+    provide: NG_VALUE_ACCESSOR,useExisting:
+      forwardRef(() => FroalaEditorDirective),
+    multi: true
+  }]
 })
-export class FroalaEditorDirective {
+export class FroalaEditorDirective implements ControlValueAccessor {
 
   // editor options
   private _opts: any = {
@@ -45,13 +53,31 @@ export class FroalaEditorDirective {
     this._$element = (<any>$(element));
   }
 
+  // Begin ControlValueAccesor methods.
+  onChange = (_) => {};
+  onTouched = () => {};
+
+  // Form model content changed.
+  writeValue(content: any): void {
+    this.updateEditor(content);
+  }
+
+  registerOnChange(fn: (_: any) => void): void { this.onChange = fn; }
+  registerOnTouched(fn: () => void): void { this.onTouched = fn; }
+  // End ControlValueAccesor methods.
+
   // froalaEditor directive as input: store the editor options
   @Input() set froalaEditor(opts: any) {
     this._opts = opts || this._opts;
   }
 
   // froalaModel directive as input: store initial editor content
-  @Input() set froalaModel(content: string) {
+  @Input() set froalaModel(content: any) {
+    this.updateEditor(content);
+  }
+
+  // Update editor with model contents.
+  private updateEditor(content: any) {
 
     if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
       return;
@@ -62,6 +88,7 @@ export class FroalaEditorDirective {
       this.setContent();
     }
   }
+
   // froalaModel directive as output: update model if editor contentChanged
   @Output() froalaModelChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -102,7 +129,12 @@ export class FroalaEditorDirective {
     }
 
     this._oldModel = modelContent;
+
+    // Update froalaModel.
     this.froalaModelChange.emit(modelContent);
+
+    // Update form model.
+    this.onChange(modelContent);
   }
 
   // register event on jquery element

@@ -14,6 +14,7 @@
 4. [Manual Initialization](#manual-initialization)
 5. [Displaying HTML](#displaying-html)
 6. [License](#license)
+7. [Development environment setup](#development-environment-setup)
 
 ## Installation instructions
 
@@ -434,7 +435,14 @@ Other two way binding example:
 <div [froalaEditor] [(froalaModel)]="editorContent"></div>
 ```
 
+Use it with reactive forms:
 
+```html
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
+  <button type="submit">Submit</button>
+</form>
+```
 
 ### Special tags
 
@@ -471,7 +479,7 @@ As the button text is modified by the editor, the **innerHTML** attribute from b
 
 ```typescript
 public inputOptions: Object = {
-  angularIgnoreAttrs: ['class', 'ng-model', 'id']
+  angularIgnoreAttrs: ['class', 'id']
 };
 ```
 
@@ -522,3 +530,26 @@ The `angular2-froala-wyswiyg` project is under MIT license. However, in order to
 
 Froala Editor has [3 different licenses](http://froala.com/wysiwyg-editor/pricing) for commercial use.
 For details please see [License Agreement](http://froala.com/wysiwyg-editor/terms).
+
+
+
+## Development environment setup
+
+If you want to contribute to angular2-froala-wyswiyg, you will first need to install the required tools to get the project going.
+
+#### Prerequisites
+
+* [Node Package Manager](https://npmjs.org/) (NPM)
+* [Git](http://git-scm.com/)
+
+#### Install dependencies
+
+    $ npm install
+
+#### Build
+
+    $ npm run demo.build
+
+#### Run Demo
+
+    $ npm run start

@@ -6,7 +6,8 @@
     "noEmitHelpers" :true,
     "lib": ["es6", "dom"],
     "types": [
-      "webpack"
+      "webpack",
+      "jquery"
     ],
     "mapRoot": "./",
     "module": "es6",

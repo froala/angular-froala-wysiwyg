@@ -7,12 +7,12 @@
   "module": "index.js",
   "scripts": {
     "lite-server": "lite-server -c demo/bs-config.json",
-    "demo.serve": "run-s build link demo.build lite-server",
-    "demo.build": "ng build -prod --aot",
+    "demo.serve": "npm run -s build link demo.build lite-server",
+    "demo.build": "ng build -prod --aot=false",
     "build": "ngm build -p src --clean",
     "link": "ngm link -p src --here",
     "build.watch": "ngm build -p src --watch --skip-bundles",
-    "start": "ng serve --aot --host 0.0.0.0"
+    "start": "ng serve --aot=false --host 0.0.0.0"
   },
   "repository": {
     "type": "git",
