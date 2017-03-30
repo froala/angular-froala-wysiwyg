@@ -1,6 +1,6 @@
 {
   "name": "angular2-froala-wysiwyg-base",
-  "version": "2.5.1-1",
+  "version": "2.5.1-2",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
   "main": "bundles/angular2-froala-wysiwyg.umd.js",
   "typings": "index.d.ts",
