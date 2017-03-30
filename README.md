@@ -439,7 +439,17 @@ Use it with reactive forms:
 
 ```html
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <textarea [froalaEditor] formControlName="formModel"></textarea>
+  <button type="submit">Submit</button>
+</form>
+```
+
+If you want to use two-way binding to display de form model in other places you must include `[(froalaModel)]`:
+
+```html
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
+  <div [froalaView]="form.formModel"></div>
   <button type="submit">Submit</button>
 </form>
 ```

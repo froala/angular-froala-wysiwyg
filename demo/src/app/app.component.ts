@@ -63,9 +63,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
     <h2>Sample 9: Editor on a form</h2>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div *ngIf="formModel.invalid"> Name is too short. </div>
+      <h3>Textarea with formControlName and froalaModel</h3>
       <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
-      <textarea [froalaEditor] [(froalaModel)]="form.formModel"></textarea>
-      <div>{{form.formModel}}</div>
+      <h4>Rendered Content:</h4>
+      <div [froalaView]="form.formModel"></div>
+      <h3>Textarea only with formControlName</h3>
+      <textarea [froalaEditor] formControlName="formModel"></textarea>
       <button type="submit">Submit</button>
     </form>
     </div>
