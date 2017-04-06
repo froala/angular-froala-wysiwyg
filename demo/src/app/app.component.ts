@@ -60,19 +60,31 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
     </div>
 
     <div class="sample">
-    <h2>Sample 9: Editor on a form</h2>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div *ngIf="formModel.invalid"> Name is too short. </div>
-      <h3>Textarea with formControlName and froalaModel</h3>
-      <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
-      <h4>Rendered Content:</h4>
-      <div [froalaView]="form.formModel"></div>
-      <h3>Textarea only with formControlName</h3>
-      <textarea [froalaEditor] formControlName="formModel"></textarea>
-      <button type="submit">Submit</button>
-    </form>
+      <h2>Sample 9: Editor with reactive forms</h2>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div *ngIf="formModel.invalid"> Name is too short. </div>
+        <h3>Textarea with formControlName and froalaModel</h3>
+        <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
+        <h4>Rendered Content:</h4>
+        <div [froalaView]="form.formModel"></div>
+        <h3>Textarea only with formControlName</h3>
+        <textarea [froalaEditor] formControlName="formModel"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <button (click)="setValue()">Set preset value</button>
     </div>
-    <button (click)="setValue()">Set preset value</button>
+
+    <div class="sample">
+      <h2>Sample 10: Editor wrapped in a component with reactive forms</h2>
+      <form [formGroup]="form2" (ngSubmit)="onSubmit2()">
+        <div *ngIf="formModel.invalid"> Name is too short. </div>
+
+        <froala-component formControlName="formModel"></froala-component>
+
+        <button type="submit">Submit</button>
+      </form>
+      <button (click)="setValue2()">Set preset value</button>
+    </div>
 
   `
 })
@@ -119,7 +131,7 @@ export class AppComponent {
   };
 
   public imgOptions: Object = {
-    angularIgnoreAttrs: ['style']
+    angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model']
   }
 
   // Sample 6 model
@@ -149,4 +161,14 @@ export class AppComponent {
     console.log(this.form.value);
   }
   setValue() { this.form.setValue({formModel: 'Default text'}); }
+
+  // Sample 10
+  form2 = new FormGroup({
+    formModel: new FormControl('Hello World', Validators.minLength(2)),
+  });
+  get form2Model(): any { return this.form2.get('formModel'); }
+  onSubmit2(): void {
+    console.log(this.form2.value);
+  }
+  setValue2() { this.form2.setValue({formModel: 'Default text'}); }
 }

@@ -454,6 +454,8 @@ If you want to use two-way binding to display de form model in other places you 
 </form>
 ```
 
+If you want to wrap froalaEditor directive into a component that supports reactive forms please see [froala.component.ts](demo/src/app/froala.component.ts) from demo.
+
 ### Special tags
 
 You can also use the editor on **img**, **button**, **input** and **a** tags:
