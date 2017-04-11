@@ -180,7 +180,7 @@ copyFontsAwesomeFonts: {
 You should have the files in your {{ROOT}} and {{WWW}} folders ready for further development. 
 
 4. The last step is to add in variables.css file is at src/theme,
-```bash
+```typescript
 
 @import "font-awesome";
 
