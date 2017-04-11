@@ -5,6 +5,7 @@
 1. [Installation instructions](#installation-instructions)   
 2. [Integration](#integration)
    - [angular-cli](#use-with-angular-cli)
+   - [ionic v2](#use-with-ionic-v2)
    - [webpack](#use-with-webpack)
    - [angular-seed](#use-with-angular-seed)
    - [system.js](#use-with-systemjs-jit-and-aot)
@@ -109,6 +110,91 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ng serve
 ```
 
+### Use with `ionic v2`
+#### Adding ionic2-froala-wysiwyg
+
+Installing Froala Wysiwyg Editor in Ionic is fairly easy, it can be done using npm:
+```bash
+npm install angular2-froala-wysiwyg --save
+```
+- open `src/app/app.module.ts` and add
+
+```typescript
+# Import Angular2 plugin.
+import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+...
+
+@NgModule({
+   ...
+   imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ... ],
+   ... 
+})
+```
+- open `src/app/main.ts` and add
+```javascript
+import * as $ from 'jquery';
+window["$"] = $;
+window["jQuery"] = $;
+```
+This install will come with Font Awesome as a dependency so there are needed a few more steps to finish the install.
+
+1. In the package.json from your project add this:
+```json
+"config": {
+    "ionic_copy": "./config/copy.config.js",
+    "ionic_sass": "./config/sass.config.js"
+}
+```
+2. On the root of your project you need to create a new folder called config and place inside 2 files:copy.config.js & sass.config.js". These files can be copied to new config folder from node_modules/@ionic/app-scripts/config/{{name_of_file}}.js
+
+3. Modify the copied files. In sass.config.js add the reference to font-awesome, verify that you have something similar to this: 
+
+```javascript
+ /**
+   * includePaths: Used by node-sass for additional
+   * paths to search for sass imports by just name.
+   */
+  includePaths: [
+    'node_modules/ionic-angular/themes',
+    'node_modules/ionicons/dist/scss',
+    'node_modules/ionic-angular/fonts',
+    'node_modules/font-awesome/scss'    <------ Newly added.
+  ],
+```
+In copy.config add :
+
+```javascript
+copyFroalaEditorCss: {
+    src: '{{ROOT}}/node_modules/froala-editor/css/froala_editor.pkgd.min.css',
+    dest: '{{SRC}}/assets/'
+},
+copyFontAwesome: {
+    src: '{{ROOT}}/node_modules/font-awesome/css/font-awesome.min.css',
+    dest: '{{SRC}}/assets/'
+},
+copyFontsAwesomeFonts: {
+   src: 'node_modules/font-awesome/fonts/*',
+   dest: '{{WWW}}/fonts/'
+}
+```
+You should have the files in your {{ROOT}} and {{WWW}} folders ready for further development. 
+
+4. The last step is to add in variables.css file is at src/theme,
+```typescript
+
+@import "font-awesome";
+
+```
+Refrence the new scripts on your view html file and everything should work fine.
+```html
+<link rel="stylesheet" href="/assets/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/froala_editor.pkgd.min.css">
+```
+In your desired view add the Froala Editor like this:
+
+```html
+<div [froalaEditor]>Hello, Froala!</div>
+```
 
 
 ### Use with `webpack`
