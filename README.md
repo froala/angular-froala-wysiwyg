@@ -122,6 +122,7 @@ npm install angular2-froala-wysiwyg --save
 ```typescript
 # Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import "froala-editor/js/froala_editor.pkgd.min.js";
 ...
 
 @NgModule({
@@ -158,10 +159,10 @@ This install will come with Font Awesome as a dependency so there are needed a f
     'node_modules/ionic-angular/themes',
     'node_modules/ionicons/dist/scss',
     'node_modules/ionic-angular/fonts',
-    'node_modules/font-awesome/scss'    <------ Newly added.
+    'node_modules/font-awesome/scss'   // <------ Newly added.
   ],
 ```
-In copy.config add :
+In copy.config add this before `copyAssets` property:
 
 ```javascript
 copyFroalaEditorCss: {
@@ -175,12 +176,16 @@ copyFontAwesome: {
 copyFontsAwesomeFonts: {
    src: 'node_modules/font-awesome/fonts/*',
    dest: '{{WWW}}/fonts/'
+},
+copyAssets: {    //<-------- this should be last.
+   src: ['{{SRC}}/assets/**/*'],
+   dest: '{{WWW}}/assets'
 }
 ```
 You should have the files in your {{ROOT}} and {{WWW}} folders ready for further development. 
 
-4. The last step is to add in variables.css file is at src/theme,
-```typescript
+4. The last step is to add in file `src/theme/variables.css`:,
+```html
 
 @import "font-awesome";
 
