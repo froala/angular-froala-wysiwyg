@@ -120,9 +120,11 @@ npm install angular2-froala-wysiwyg --save
 - open `src/app/app.module.ts` and add
 
 ```typescript
+# Import Froala Editor.
+import "froala-editor/js/froala_editor.pkgd.min.js";
+
 # Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-import "froala-editor/js/froala_editor.pkgd.min.js";
 ...
 
 @NgModule({
