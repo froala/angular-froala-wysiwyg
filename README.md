@@ -1,5 +1,10 @@
-# angular2-froala-wyswiyg
->angular2-froala-wyswiyg provides Angular2 bindings to the Froala WYSIWYG editor VERSION 2.
+![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/master/editor.jpg)
+
+​
+
+# Angular 2 Froala WYSIWYG Editor - [Demo](https://www.froala.com/wysiwyg-editor) 
+
+>angular2-froala-wyswiyg provides Angular2 bindings to the Froala WYSIWYG editor.
 
 ## Table of contents 
 1. [Installation instructions](#installation-instructions)   
