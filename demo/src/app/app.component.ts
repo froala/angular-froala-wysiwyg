@@ -1,6 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-declare var $ :any;
+declare var $:any;
 
 @Component({
   selector: 'app-demo',
@@ -95,7 +95,7 @@ declare var $ :any;
   `
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   ngOnInit () {
     $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
