@@ -558,7 +558,6 @@ If you want to wrap froalaEditor directive into a component that supports reacti
 
 You can extend the functionality by adding a custom button like bellow:
 
-
 ```typescript
 
 // We will make usage of the Init hook and make the implementation there.
@@ -596,7 +595,6 @@ export class AppComponent implements OnInit{
     toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     };
-  
 }
 
 ```
