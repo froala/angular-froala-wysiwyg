@@ -594,9 +594,8 @@ export class AppComponent implements OnInit{
     toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
-    };
+  };
 }
-
 ```
 
 
