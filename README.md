@@ -576,18 +576,19 @@ declare var $ :any;
 export class AppComponent implements OnInit{
     
   ngOnInit () {
-  
     $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
     $.FroalaEditor.RegisterCommand('alert', {
       title: 'Hello',
       focus: false,
       undo: false,
       refreshAfterCallback: false,
+      
       callback: function () {
         alert('Hello!');
       }
     });
-    }
+  }
+    
   public options: Object = {
     charCounterCount: true,
     toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
@@ -595,6 +596,7 @@ export class AppComponent implements OnInit{
     toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     };
+  
 }
 
 ```

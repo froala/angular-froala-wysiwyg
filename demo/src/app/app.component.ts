@@ -98,13 +98,13 @@ declare var $ :any;
 export class AppComponent implements OnInit{
 
   ngOnInit () {
-
     $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
     $.FroalaEditor.RegisterCommand('alert', {
       title: 'Hello',
       focus: false,
       undo: false,
       refreshAfterCallback: false,
+
       callback: function () {
         alert('Hello!');
       }
