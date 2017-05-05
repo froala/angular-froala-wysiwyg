@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+declare var $:any;
 
 @Component({
   selector: 'app-demo',
@@ -85,11 +86,30 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
       </form>
       <button (click)="setValue2()">Set preset value</button>
     </div>
+    
+    <div class="sample">
+      <h2>Sample 11: Add Custom Button</h2>
+      <div [froalaEditor]="options" [(froalaModel)]="content" ></div>
+    </div>
 
   `
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  ngOnInit () {
+    $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+    $.FroalaEditor.RegisterCommand('alert', {
+      title: 'Hello',
+      focus: false,
+      undo: false,
+      refreshAfterCallback: false,
+
+      callback: function () {
+        alert('Hello!');
+      }
+    });
+  }
 
   // Sample 1 models
   public titleOptions: Object = {
@@ -171,4 +191,15 @@ export class AppComponent {
     console.log(this.form2.value);
   }
   setValue2() { this.form2.setValue({formModel: 'Default text'}); }
+
+  // Sample 11
+  // Depending on your screen size you may want to use a specific toolbar dimension or all of them.
+
+  public options: Object = {
+    charCounterCount: true,
+    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+  };
 }
