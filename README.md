@@ -554,6 +554,52 @@ If you want to use two-way binding to display de form model in other places you 
 
 If you want to wrap froalaEditor directive into a component that supports reactive forms please see [froala.component.ts](demo/src/app/froala.component.ts) from demo.
 
+### Extend functionality
+
+You can extend the functionality by adding a custom button like bellow:
+
+
+```typescript
+
+// We will make usage of the Init hook and make the implementation there.
+import { Component, OnInit  } from '@angular/core';
+declare var $ :any;
+
+@Component({
+  selector: 'app-demo',
+  template: `<div class="sample">
+               <h2>Sample 11: Add Custom Button</h2>
+               <div [froalaEditor]="options" [(froalaModel)]="content" ></div>
+             </div>`,
+
+
+export class AppComponent implements OnInit{
+    
+  ngOnInit () {
+  
+    $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+    $.FroalaEditor.RegisterCommand('alert', {
+      title: 'Hello',
+      focus: false,
+      undo: false,
+      refreshAfterCallback: false,
+      callback: function () {
+        alert('Hello!');
+      }
+    });
+    }
+  public options: Object = {
+    charCounterCount: true,
+    toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsXS: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
+    };
+}
+
+```
+
+
 ### Special tags
 
 You can also use the editor on **img**, **button**, **input** and **a** tags:
