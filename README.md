@@ -115,8 +115,10 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ng serve
 ```
 
-### Use with `ionic v2`
+### Use with `ionic v2 or v3`
 #### Adding ionic2-froala-wysiwyg
+
+For v3 make sure that you use the latest version of ionic and also the latest version of angular.
 
 Installing Froala Wysiwyg Editor in Ionic is fairly easy, it can be done using npm:
 ```bash
