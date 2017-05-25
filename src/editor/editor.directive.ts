@@ -79,7 +79,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // Update editor with model contents.
   private updateEditor(content: any) {
 
-    if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
+    if (JSON.stringify(this._oldModel) == JSON.stringify(content) || !content) {
       return;
     }
     this._model = content;
