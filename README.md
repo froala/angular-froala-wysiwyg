@@ -106,6 +106,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ```
 
 - open `src/app/app.component.html` and add
+
 ```html
 <div [froalaEditor]>Hello, Froala!</div>
 ```
