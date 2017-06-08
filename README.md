@@ -316,7 +316,7 @@ npm install
 npm install angular2-froala-wysiwyg --save
 ```
 
-- open `tools/config/projesct.config.ts` and **uncomment** the following line from the top of the file
+- open `tools/config/project.config.ts` and **uncomment** the following line from the top of the file
 
 ```typescript
 import { ExtendPackages } from './seed.config.interfaces';
