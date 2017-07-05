@@ -10,7 +10,7 @@
 1. [Installation instructions](#installation-instructions)   
 2. [Integration](#integration)
    - [angular-cli](#use-with-angular-cli)
-   - [ionic v2](#use-with-ionic-v2)
+   - [ionic v2 and v3](#use-with-ionic-v2-and-v3)
    - [webpack](#use-with-webpack)
    - [angular-seed](#use-with-angular-seed)
    - [system.js](#use-with-systemjs-jit-and-aot)
@@ -128,10 +128,10 @@ npm install angular2-froala-wysiwyg --save
 - open `src/app/app.module.ts` and add
 
 ```typescript
-# Import Froala Editor.
+// Import Froala Editor.
 import "froala-editor/js/froala_editor.pkgd.min.js";
 
-# Import Angular2 plugin.
+// Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ...
 
@@ -181,24 +181,22 @@ copyFroalaEditorCss: {
 },
 copyFontAwesome: {
     src: '{{ROOT}}/node_modules/font-awesome/css/font-awesome.min.css',
-    dest: '{{SRC}}/assets/'
+	dest: '{{SRC}}/assets/'
 },
 copyFontsAwesomeFonts: {
-   src: 'node_modules/font-awesome/fonts/*',
-   dest: '{{WWW}}/fonts/'
+	src: 'node_modules/font-awesome/fonts/*',
+	dest: '{{WWW}}/fonts/'
 },
 copyAssets: {    //<-------- this should be last.
-   src: ['{{SRC}}/assets/**/*'],
-   dest: '{{WWW}}/assets'
+	src: ['{{SRC}}/assets/**/*'],
+	dest: '{{WWW}}/assets'
 }
 ```
 You should have the files in your {{ROOT}} and {{WWW}} folders ready for further development. 
 
 4. The last step is to add in file `src/theme/variables.css`:,
 ```html
-
 @import "font-awesome";
-
 ```
 Refrence the new scripts on your view html file and everything should work fine.
 ```html
