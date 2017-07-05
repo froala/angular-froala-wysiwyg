@@ -2,15 +2,15 @@
 
 ​
 
-# Angular 2 Froala WYSIWYG Editor - [Demo](https://www.froala.com/wysiwyg-editor) 
+# Angular 2 Froala WYSIWYG Editor - [Demo](https://www.froala.com/wysiwyg-editor)
 
 >angular2-froala-wyswiyg provides Angular2 bindings to the Froala WYSIWYG editor.
 
-## Table of contents 
-1. [Installation instructions](#installation-instructions)   
+## Table of contents
+1. [Installation instructions](#installation-instructions)
 2. [Integration](#integration)
    - [angular-cli](#use-with-angular-cli)
-   - [ionic v2 and v3](#use-with-ionic-v2-and-v3)
+   - [ionic v2 or v3](#use-with-ionic-v2-or-v3)
    - [webpack](#use-with-webpack)
    - [angular-seed](#use-with-angular-seed)
    - [system.js](#use-with-systemjs-jit-and-aot)
@@ -74,11 +74,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 @NgModule({
    ...
    imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ... ],
-   ... 
+   ...
 })
 ```
 
-- open `angular-cli.json` and insert a new entry into the `styles` array 
+- open `angular-cli.json` and insert a new entry into the `styles` array
 
 ```json
 "styles": [
@@ -88,7 +88,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 ],
 ```
 
-- in `angular-cli.json` and insert a new entry into the `scripts` array 
+- in `angular-cli.json` and insert a new entry into the `scripts` array
 
 ```json
 "scripts": [
@@ -138,7 +138,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 @NgModule({
    ...
    imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ... ],
-   ... 
+   ...
 })
 ```
 - open `src/app/main.ts` and add
@@ -158,7 +158,7 @@ This install will come with Font Awesome as a dependency so there are needed a f
 ```
 2. On the root of your project you need to create a new folder called config and place inside 2 files:copy.config.js & sass.config.js". These files can be copied to new config folder from node_modules/@ionic/app-scripts/config/{{name_of_file}}.js
 
-3. Modify the copied files. In sass.config.js add the reference to font-awesome, verify that you have something similar to this: 
+3. Modify the copied files. In sass.config.js add the reference to font-awesome, verify that you have something similar to this:
 
 ```javascript
  /**
@@ -192,7 +192,7 @@ copyAssets: {    //<-------- this should be last.
 	dest: '{{WWW}}/assets'
 }
 ```
-You should have the files in your {{ROOT}} and {{WWW}} folders ready for further development. 
+You should have the files in your {{ROOT}} and {{WWW}} folders ready for further development.
 
 4. The last step is to add in file `src/theme/variables.css`:,
 ```html
@@ -243,7 +243,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 @NgModule({
    ...
    imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(), ... ],
-   ... 
+   ...
 })
 ```
 
@@ -362,7 +362,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 @NgModule({
    ...
    imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ... ],
-   ... 
+   ...
 })
 ```
 
@@ -422,7 +422,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 @NgModule({
    ...
    imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(), ... ],
-   ... 
+   ...
 })
 ```
 
@@ -476,7 +476,7 @@ You can pass editor options as Input (optional).
 You can pass any existing Froala option. Consult the [Froala documentation](https://www.froala.com/wysiwyg-editor/docs/options) to view the list of all the available options:
 
 ```typescript
-public options: Object = { 
+public options: Object = {
   placeholderText: 'Edit Your Content Here!',
   charCounterCount: false
 }
@@ -574,7 +574,7 @@ declare var $ :any;
 
 
 export class AppComponent implements OnInit{
-    
+
   ngOnInit () {
     $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
     $.FroalaEditor.RegisterCommand('alert', {
@@ -582,13 +582,13 @@ export class AppComponent implements OnInit{
       focus: false,
       undo: false,
       refreshAfterCallback: false,
-      
+
       callback: function () {
         alert('Hello!');
       }
     });
   }
-    
+
   public options: Object = {
     charCounterCount: true,
     toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
