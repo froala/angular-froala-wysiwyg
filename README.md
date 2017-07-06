@@ -14,7 +14,7 @@
    - [webpack](#use-with-webpack)
    - [angular-starter](#use-with-webpack)
    - [angular-seed](#use-with-angular-seed)
-   - [system.js](#use-with-systemjs-and-jit)
+   - [System.js and JIT](#use-with-systemjs-and-jit)
    - [AOT](#use-with-aot)
 3. [Usage](#usage)
 4. [Manual Initialization](#manual-initialization)
