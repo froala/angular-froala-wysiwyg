@@ -3,7 +3,7 @@
 ​
 
 # Angular Froala WYSIWYG Editor - [Demo](https://www.froala.com/wysiwyg-editor)
-
+[![npm version](https://badge.fury.io/js/angular-froala-wysiwyg.svg)](https://badge.fury.io/js/angular-froala-wysiwyg)
 >Angular 2 and Angular 4 bindings for Froala WYSIWYG Editor.
 
 ## Table of contents
