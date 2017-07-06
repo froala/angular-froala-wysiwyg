@@ -1,8 +1,8 @@
 {
-  "name": "angular2-froala-wysiwyg-base",
+  "name": "angular-froala-wysiwyg-base",
   "version": "2.6.0",
   "description": "Angular2 bindings for Froala WYSIWYG HTML rich text editor",
-  "main": "bundles/angular2-froala-wysiwyg.umd.js",
+  "main": "bundles/angular-froala-wysiwyg.umd.js",
   "typings": "index.d.ts",
   "module": "index.js",
   "scripts": {
@@ -16,10 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/froala/angular2-froala-wysiwyg.git"
+    "url": "https://github.com/froala/angular-froala-wysiwyg.git"
   },
   "keywords": [
     "angular2",
+    "angular4",
+    "ng2",
+    "ng4",
     "froala",
     "html",
     "text",
@@ -33,40 +36,40 @@
     "jquery"
   ],
   "author": "Froala Labs (https://www.froala.com/)",
-  "license": "https://froala.com/wysiwyg-editor/terms/",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/froala/angular2-froala-wysiwyg/issues"
+    "url": "https://github.com/froala/angular-froala-wysiwyg/issues"
   },
   "dependencies": {
     "froala-editor": "^2.6.0"
   },
   "peerDependencies": {
-    "@angular/common": "^2.3.1",
-    "@angular/compiler": "^2.3.1",
-    "@angular/core": "^2.3.1",
-    "@angular/forms": "^2.3.1"
+    "@angular/common": "*",
+    "@angular/compiler": "*",
+    "@angular/core": "*",
+    "@angular/forms": "*"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-beta.29",
-    "@angular/common": "^2.4.4",
-    "@angular/compiler": "^2.4.4",
-    "@angular/compiler-cli": "^2.4.4",
-    "@angular/core": "^2.4.4",
-    "@angular/forms": "^2.4.4",
-    "@angular/http": "^2.4.4",
-    "@angular/language-service": "^2.4.4",
-    "@angular/platform-browser": "^2.4.4",
-    "@angular/platform-browser-dynamic": "^2.4.4",
-    "@angular/router": "^3.4.4",
+    "@angular/cli": "^1.2.0",
+    "@angular/common": "^4.1.0",
+    "@angular/compiler": "^4.1.0",
+    "@angular/compiler-cli": "^4.1.0",
+    "@angular/core": "^4.0.0",
+    "@angular/forms": "^4.0.0",
+    "@angular/http": "^4.0.0",
+    "@angular/language-service": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/router": "^4.0.0",
     "@angular/tsc-wrapped": "0.5.1",
-    "@ngtools/webpack": "1.2.7",
+    "@ngtools/webpack": "^1.5.0",
     "@types/jquery": "^2.0.40",
     "@types/marked": "0.0.28",
     "@types/node": "7.0.0",
     "@types/webpack": "^2.2.2",
     "classlist-polyfill": "1.0.3",
-    "ngm-cli": "0.4.4",
+    "ngm-cli": "^0.5.2",
     "ts-helpers": "^1.1.1",
-    "typescript": "2.0.10"
+    "typescript": "^2.1.0"
   }
 }
