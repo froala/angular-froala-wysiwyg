@@ -1,10 +1,12 @@
-![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/master/editor.jpg)
-
-​
-
 # Angular Froala WYSIWYG Editor - [Demo](https://www.froala.com/wysiwyg-editor)
-[![npm version](https://badge.fury.io/js/angular-froala-wysiwyg.svg)](https://badge.fury.io/js/angular-froala-wysiwyg)
+
+[![npm](https://img.shields.io/npm/v/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
+[![npm](https://img.shields.io/npm/dm/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
+[![npm](https://img.shields.io/npm/l/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
+
 >Angular 2 and Angular 4 bindings for Froala WYSIWYG Editor.
+
+![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/master/editor.jpg)
 
 ## Table of contents
 1. [Installation instructions](#installation-instructions)
