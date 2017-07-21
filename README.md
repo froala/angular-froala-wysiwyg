@@ -10,7 +10,8 @@
 
 ## Table of contents
 1. [Installation instructions](#installation-instructions)
-2. [Integration](#integration)
+2. [Update editor instructions](#update-editor-instructions)
+3. [Integration](#integration)
    - [angular-cli](#use-with-angular-cli)
    - [ionic v2 or v3](#use-with-ionic-v2-or-v3)
    - [webpack](#use-with-webpack)
@@ -18,11 +19,11 @@
    - [angular-seed](#use-with-angular-seed)
    - [System.js and JIT](#use-with-systemjs-and-jit)
    - [AOT](#use-with-aot)
-3. [Usage](#usage)
-4. [Manual Initialization](#manual-initialization)
-5. [Displaying HTML](#displaying-html)
-6. [License](#license)
-7. [Development environment setup](#development-environment-setup)
+4. [Usage](#usage)
+5. [Manual Initialization](#manual-initialization)
+6. [Displaying HTML](#displaying-html)
+7. [License](#license)
+8. [Development environment setup](#development-environment-setup)
 
 ## Installation instructions
 
