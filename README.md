@@ -1,10 +1,12 @@
-![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/master/editor.jpg)
-
-​
-
 # Angular Froala WYSIWYG Editor - [Demo](https://www.froala.com/wysiwyg-editor)
 
+[![npm](https://img.shields.io/npm/v/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
+[![npm](https://img.shields.io/npm/dm/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
+[![npm](https://img.shields.io/npm/l/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
+
 >Angular 2 and Angular 4 bindings for Froala WYSIWYG Editor.
+
+![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/master/editor.jpg)
 
 ## Table of contents
 1. [Installation instructions](#installation-instructions)
@@ -14,7 +16,7 @@
    - [webpack](#use-with-webpack)
    - [angular-starter](#use-with-webpack)
    - [angular-seed](#use-with-angular-seed)
-   - [system.js](#use-with-systemjs-and-jit)
+   - [System.js and JIT](#use-with-systemjs-and-jit)
    - [AOT](#use-with-aot)
 3. [Usage](#usage)
 4. [Manual Initialization](#manual-initialization)
@@ -707,7 +709,7 @@ If you want to use two-way binding to display de form model in other places you 
 </form>
 ```
 
-If you want to wrap froalaEditor directive into a component that supports reactive forms please see [froala.component.ts](demo/src/app/froala.component.ts) from demo.
+If you want to wrap froalaEditor directive into a component that supports reactive forms please see [froala.component.ts](http://www.froala.dev/wysiwyg-editor/docs/framework-plugins/angularjs-2-4) from demo.
 
 ### Extend functionality
 
