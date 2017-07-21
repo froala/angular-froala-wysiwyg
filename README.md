@@ -30,7 +30,7 @@
 Install `angular-froala-wysiwyg` from `npm`
 
 ```bash
-npm install angular-froala-wysiwyg --save
+npm install angular-froala-wysiwyg
 ```
 
 You will need CSS styles and Font Awesome
