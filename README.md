@@ -38,7 +38,11 @@ You will need CSS styles and Font Awesome
 <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 ```
 
+## Update editor instructions
 
+```bash
+npm update froala-editor --save
+```
 
 ## Integration
 
@@ -435,7 +439,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 ```javascript
 map: {
-  ... 
+  ...
   'angular-froala-wysiwyg': 'npm:angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.js',
   ...
 }
