@@ -88,7 +88,6 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ```json
 "styles": [
   "styles.css",
-  "../node_modules/font-awesome/css/font-awesome.css",
   "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
   "../node_modules/font-awesome/css/font-awesome.css"
 ]
