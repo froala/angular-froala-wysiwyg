@@ -41,7 +41,7 @@
     "url": "https://github.com/froala/angular-froala-wysiwyg/issues"
   },
   "dependencies": {
-    "froala-editor": "^2.6.6"
+    "froala-editor": "^2.7.0"
   },
   "peerDependencies": {
     "@angular/common": "*",
