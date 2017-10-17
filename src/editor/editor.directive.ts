@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter, forwardRef } from '@angular/core';
+import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter, forwardRef, NgZone} from '@angular/core';
 
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
@@ -40,7 +40,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private _oldModel: string = null;
 
-  constructor(el: ElementRef) {
+  constructor(el: ElementRef,  private zone: NgZone) {
 
     let element: any = el.nativeElement;
 
@@ -51,6 +51,8 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
     // jquery wrap and store element
     this._$element = (<any>$(element));
+
+    this.zone = zone;
   }
 
   // Begin ControlValueAccesor methods.
@@ -97,44 +99,47 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   // update model if editor contentChanged
   private updateModel() {
+    this.zone.run(() => {
 
-    let modelContent: any = null;
+      let modelContent: any = null;
 
-    if (this._hasSpecialTag) {
+      if (this._hasSpecialTag) {
 
-      let attributeNodes = this._$element[0].attributes;
-      let attrs = {};
+        let attributeNodes = this._$element[0].attributes;
+        let attrs = {};
 
-      for (let i = 0; i < attributeNodes.length; i++ ) {
+        for (let i = 0; i < attributeNodes.length; i++ ) {
 
-        let attrName = attributeNodes[i].name;
-        if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
-          continue;
+          let attrName = attributeNodes[i].name;
+          if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
+            continue;
+          }
+
+          attrs[attrName] = attributeNodes[i].value;
         }
 
-        attrs[attrName] = attributeNodes[i].value;
+        if (this._$element[0].innerHTML) {
+          attrs[this.INNER_HTML_ATTR] = this._$element[0].innerHTML;
+        }
+
+        modelContent = attrs;
+      } else {
+
+        let returnedHtml: any = this._$element.froalaEditor('html.get');
+        if (typeof returnedHtml === 'string') {
+          modelContent = returnedHtml;
+        }
       }
 
-      if (this._$element[0].innerHTML) {
-        attrs[this.INNER_HTML_ATTR] = this._$element[0].innerHTML;
-      }
+      this._oldModel = modelContent;
 
-      modelContent = attrs;
-    } else {
+      // Update froalaModel.
+      this.froalaModelChange.emit(modelContent);
 
-      let returnedHtml: any = this._$element.froalaEditor('html.get');
-      if (typeof returnedHtml === 'string') {
-        modelContent = returnedHtml;
-      }
-    }
+      // Update form model.
+      this.onChange(modelContent);
 
-    this._oldModel = modelContent;
-
-    // Update froalaModel.
-    this.froalaModelChange.emit(modelContent);
-
-    // Update form model.
-    this.onChange(modelContent);
+    })
   }
 
   // register event on jquery element
@@ -194,7 +199,10 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this.registerFroalaEvents();
 
     // init editor
-    this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
+    this.zone.runOutsideAngular(() => {
+      console.log (this._opts)
+      this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
+    })
 
     this.initListeners();
 
