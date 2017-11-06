@@ -200,7 +200,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
     // init editor
     this.zone.runOutsideAngular(() => {
-      console.log (this._opts)
       this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
     })
 
