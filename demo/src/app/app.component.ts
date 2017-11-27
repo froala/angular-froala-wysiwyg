@@ -67,7 +67,7 @@ declare var $:any;
         <h3>Textarea with formControlName and froalaModel</h3>
         <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
         <h4>Rendered Content:</h4>
-        <div [froalaView]="form.formModel"></div>
+        <div [froalaView]="form.value.formModel"></div>
         <h3>Textarea only with formControlName</h3>
         <textarea [froalaEditor] formControlName="formModel"></textarea>
         <button type="submit">Submit</button>
@@ -86,7 +86,7 @@ declare var $:any;
       </form>
       <button (click)="setValue2()">Set preset value</button>
     </div>
-    
+
     <div class="sample">
       <h2>Sample 11: Add Custom Button</h2>
       <div [froalaEditor]="options" [(froalaModel)]="content" ></div>

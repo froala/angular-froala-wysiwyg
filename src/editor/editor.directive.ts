@@ -80,14 +80,17 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   // Update editor with model contents.
   private updateEditor(content: any) {
-
     if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
       return;
     }
+
     this._model = content;
 
     if (this._editorInitialized) {
-      this.setContent();
+      this._$element.froalaEditor('html.set', content);
+    }
+    else {
+      this._$element.html(content);
     }
   }
 
@@ -158,11 +161,12 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._$element, 'froalaEditor.contentChanged',function () {
-      setTimeout(function (){
+    this.registerEvent(this._$element, 'froalaEditor.contentChanged', function () {
+      setTimeout(function () {
         self.updateModel();
       }, 0);
     });
+
     if (this._opts.immediateAngularModelUpdate) {
       this.registerEvent(this._editor, 'keyup', function () {
         setTimeout(function (){
@@ -198,12 +202,12 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     // Registering events before initializing the editor will bind the initialized event correctly.
     this.registerFroalaEvents();
 
+    this.initListeners();
+
     // init editor
     this.zone.runOutsideAngular(() => {
       this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
     })
-
-    this.initListeners();
 
     this._editorInitialized = true;
   }
@@ -211,15 +215,15 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   private setHtml() {
     this._$element.froalaEditor('html.set', this._model || '', true);
 
-    //This will reset the undo stack everytime the model changes externally. Can we fix this?
+    // This will reset the undo stack everytime the model changes externally. Can we fix this?
     this._$element.froalaEditor('undo.reset');
     this._$element.froalaEditor('undo.saveStep');
   }
 
   private setContent(firstTime = false) {
-
     let self = this;
-    // set initial content
+
+    // Set initial content
     if (this._model || this._model == '') {
       this._oldModel = this._model;
       if (this._hasSpecialTag) {
@@ -283,7 +287,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   // TODO not sure if ngOnInit is executed after @inputs
   ngOnInit() {
-
     // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present.
     if (!this.froalaInit.observers.length) {
       this.createEditor();
