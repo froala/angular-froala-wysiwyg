@@ -1,6 +1,6 @@
 {
   "name": "angular-froala-wysiwyg-base",
-  "version": "2.7.4",
+  "version": "2.7.5",
   "description": "Angular 2, Angular 4 and Angular 5 bindings for Froala WYSIWYG HTML rich text editor",
   "main": "bundles/angular-froala-wysiwyg.umd.js",
   "typings": "index.d.ts",
@@ -43,7 +43,7 @@
     "url": "https://github.com/froala/angular-froala-wysiwyg/issues"
   },
   "dependencies": {
-    "froala-editor": "^2.7.4"
+    "froala-editor": "^2.7.5"
   },
   "peerDependencies": {
     "@angular/common": "*",
