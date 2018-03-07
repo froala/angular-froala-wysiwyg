@@ -84,7 +84,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       return;
     }
 
-    this._model = content;
+    this._oldModel = content;
 
     if (this._editorInitialized) {
       this._$element.froalaEditor('html.set', content);
