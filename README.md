@@ -197,9 +197,9 @@ module.exports = {
 - Open `src/index.html` file and add in the `<head>` tag:
 
 ```html
-<link rel="stylesheet" href="/build/font-awesome.min.css">
-<link rel="stylesheet" href="/build/froala_editor.pkgd.min.css">
-<link rel="stylesheet" href="/build/froala_style.min.css">
+<link rel="stylesheet" href="build/font-awesome.min.css">
+<link rel="stylesheet" href="build/froala_editor.pkgd.min.css">
+<link rel="stylesheet" href="build/froala_style.min.css">
 ```
 In your desired view add the Froala Editor like this:
 
