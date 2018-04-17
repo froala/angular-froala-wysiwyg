@@ -700,7 +700,7 @@ Use it with reactive forms:
 </form>
 ```
 
-If you want to use two-way binding to display de form model in other places you must include `[(froalaModel)]`:
+If you want to use two-way binding to display the form model in other places you must include `[(froalaModel)]`:
 
 ```html
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
