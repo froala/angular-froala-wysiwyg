@@ -1,6 +1,5 @@
-import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter, forwardRef, NgZone} from '@angular/core';
-
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
 
 declare var $: JQueryStatic;
 
@@ -206,10 +205,12 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
     // init editor
     this.zone.runOutsideAngular(() => {
+      this._$element.on('froalaEditor.initialized', () => {
+        this._editorInitialized = true;
+      })
+
       this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
     })
-
-    this._editorInitialized = true;
   }
 
   private setHtml() {
