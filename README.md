@@ -740,8 +740,8 @@ export class AppComponent implements OnInit{
       undo: false,
       refreshAfterCallback: false,
 
-      callback: function () {
-        alert('Hello!');
+      callback: () => {
+        alert('Hello!', this);
       }
     });
   }
