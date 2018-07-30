@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dm/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 [![npm](https://img.shields.io/npm/l/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 
->Angular 2, Angular 4 and Angular 5 bindings for Froala WYSIWYG Editor.
+>Angular 2, Angular 4, Angular 5 and Angular 6 bindings for Froala WYSIWYG Editor.
 
 ![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/master/editor.jpg)
 
@@ -83,7 +83,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 })
 ```
 
-- open `.angular-cli.json` file and insert a new entry into the `styles` array
+- open `angular.json` file and insert a new entry into the `styles` array
 
 ```json
 "styles": [
@@ -94,7 +94,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ]
 ```
 
-- in .`angular-cli.json` file insert a new entry into the `scripts` array
+- in `angular.json` file insert a new entry into the `scripts` array
 
 ```json
 "scripts": [
