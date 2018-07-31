@@ -88,9 +88,9 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ```json
 "styles": [
   "styles.css",
-  "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-  "../node_modules/froala-editor/css/froala_style.min.css",
-  "../node_modules/font-awesome/css/font-awesome.css"
+  "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+  "./node_modules/froala-editor/css/froala_style.min.css",
+  "./node_modules/font-awesome/css/font-awesome.css"
 ]
 ```
 
@@ -98,8 +98,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 ```json
 "scripts": [
-  "../node_modules/jquery/dist/jquery.min.js",
-  "../node_modules/froala-editor/js/froala_editor.pkgd.min.js"
+  "./node_modules/jquery/jquery.min.js",
+  "./node_modules/froala-editor/js/froala_editor.pkgd.min.js"
 ]
 ```
 
