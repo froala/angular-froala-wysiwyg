@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 declare var $:any;
 
@@ -147,7 +147,7 @@ export class AppComponent implements OnInit {
 
   // Sample 5 model
   public imgModel: Object = {
-    src: '../image.jpg'
+    src: '/image.jpg'
   };
 
   public imgOptions: Object = {
