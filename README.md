@@ -98,7 +98,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 ```json
 "scripts": [
-  "./node_modules/jquery/jquery.min.js",
+  "./node_modules/jquery/dist/jquery.min.js",
   "./node_modules/froala-editor/js/froala_editor.pkgd.min.js"
 ]
 ```
