@@ -6,7 +6,8 @@ declare var $: JQueryStatic;
 
 @Directive({
   selector: '[froalaEditor]',
-   providers: [{
+  exportAs: 'froalaEditor',
+  providers: [{
     provide: NG_VALUE_ACCESSOR,useExisting:
       forwardRef(() => FroalaEditorDirective),
     multi: true
