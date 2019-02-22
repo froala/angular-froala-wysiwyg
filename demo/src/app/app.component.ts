@@ -117,8 +117,11 @@ export class AppComponent implements OnInit {
     charCounterCount: false,
     toolbarInline: true,
     events: {
-      'froalaEditor.initialized': function() {
-        console.log('initialized');
+      'froalaEditor.initialized': function(e, editor) {
+        editor.events.on('click', function(){
+          editor.selection.setAtEnd(editor.$el.get(0));
+        editor.selection.restore();
+        })
       }
     }
   }
