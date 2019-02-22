@@ -181,7 +181,12 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         self.updateModel();
       }, 0);
     });
-
+    this.registerEvent(this._$element, 'froalaEditor.mousedown', function () {
+      setTimeout(function () {
+        self.onTouched();
+      }, 0);
+    });   
+    
     if (this._opts.immediateAngularModelUpdate) {
       this.registerEvent(this._editor, 'keyup', function () {
         setTimeout(function (){
