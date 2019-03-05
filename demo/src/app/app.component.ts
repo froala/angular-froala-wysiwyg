@@ -10,11 +10,11 @@ declare var $:any;
     <div class="sample">
       <h2>Sample 1: Inline Edit</h2>
       <div [froalaEditor]="titleOptions" [(froalaModel)]="myTitle"></div>
-      <input [(ngModel)]="myTitle" />
+      <input [(ngModel)]="myTitle" (blur)="onBlurMethod()" />
     </div>
     <div class="sample">
       <h2>Sample 2: Full Editor</h2>
-      <div [froalaEditor] [(froalaModel)]="content" ></div>
+      <div [froalaEditor]="imgOptions" [(froalaModel)]="content" ></div>
       <h4>Rendered Content:</h4>
       <div [froalaView]="content"></div>
     </div>
@@ -119,6 +119,9 @@ export class AppComponent implements OnInit {
     events: {
       'froalaEditor.initialized': function() {
         console.log('initialized');
+      },
+      "froalaEditor.contentChanged": (e: any, editor: any) => {
+        console.log(editor)
       }
     }
   }
@@ -151,7 +154,12 @@ export class AppComponent implements OnInit {
   };
 
   public imgOptions: Object = {
-    angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model']
+    angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model'],
+    immediateAngularModelUpdate: true,
+    events: {
+      "froalaEditor.contentChanged": (e: any, editor: any) => {
+              }
+    }
   }
 
   // Sample 6 model
