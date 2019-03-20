@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-declare var $:any;
+declare var FroalaEditor:any;
 
 @Component({
   selector: 'app-demo',
@@ -9,43 +9,43 @@ declare var $:any;
     <h1>Angular adapter for the Froala WYSIWYG editor</h1>
     <div class="sample">
       <h2>Sample 1: Inline Edit</h2>
-      <div [froalaEditor]="titleOptions" [(froalaModel)]="myTitle"></div>
+      <div id="sample1" [froalaEditor]="titleOptions" [(froalaModel)]="myTitle"></div>
       <input [(ngModel)]="myTitle" (blur)="onBlurMethod()" />
     </div>
     <div class="sample">
       <h2>Sample 2: Full Editor</h2>
-      <div [froalaEditor]="imgOptions" [(froalaModel)]="content" ></div>
+      <div id="sample2" [froalaEditor]="imgOptions" [(froalaModel)]="content" ></div>
       <h4>Rendered Content:</h4>
       <div [froalaView]="content"></div>
     </div>
     <div class="sample">
       <h2>Sample 3: Two way binding</h2>
-      <div [froalaEditor] [(froalaModel)]="twoWayContent"></div>
-      <div [froalaEditor] [(froalaModel)]="twoWayContent"></div>
+      <div  id="sample3-1"  [froalaEditor] [(froalaModel)]="twoWayContent"></div>
+      <div  id="sample3-2" [froalaEditor] [(froalaModel)]="twoWayContent"></div>
     </div>
     <div class="sample">
       <h2>Sample 4: Manual Initialization</h2>
       <button class="manual" (click)="initControls.initialize()">Initialize Editor</button>
       <button (click)="initControls.destroy()" [hidden]="!initControls || initControls.getEditor() == null">Close Editor</button>
       <button (click)="deleteAll()" [hidden]="!initControls || initControls.getEditor() == null">Delete All</button>
-      <div [froalaEditor] (froalaInit)="initialize($event)" [(froalaModel)]="sample3Text">Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a></div>
+      <div id="sample4" [froalaEditor] (froalaInit)="initialize($event)" [(froalaModel)]="sample3Text">Check out the <a href="https://www.froala.com/wysiwyg-editor">Froala Editor</a></div>
     </div>
     <div class="sample">
       <h2>Sample 5: Editor on 'img' tag. Two way binding.</h2>
-      <img [froalaEditor]="imgOptions" [(froalaModel)]="imgModel" />
-      <img [froalaEditor]="imgOptions" [(froalaModel)]="imgModel" />
+      <img id="sample5-1" [froalaEditor]="imgOptions" [(froalaModel)]="imgModel" />
+      <img id="sample5-2" [froalaEditor]="imgOptions" [(froalaModel)]="imgModel" />
       <h4>Model Obj:</h4>
       <div>{{imgModel | json}}</div>
     </div>
     <div class="sample">
       <h2>Sample 6: Editor on 'button' tag</h2>
-      <button [froalaEditor] [(froalaModel)]="buttonModel"></button>
+      <button  id="sample6" [froalaEditor] [(froalaModel)]="buttonModel"></button>
       <h4>Model Obj:</h4>
       <div>{{buttonModel | json}}</div>
     </div>
     <div class="sample">
       <h2>Sample 7: Editor on 'input' tag</h2>
-      <input [froalaEditor] [(froalaModel)]="inputModel" />
+      <input  id="sample7" [froalaEditor] [(froalaModel)]="inputModel" />
       <h4>Model Obj:</h4>
       <div>{{inputModel | json}}</div>
     </div>
@@ -54,7 +54,7 @@ declare var $:any;
       <button class="manual" (click)="linkInitControls.initialize()">Initialize Editor</button>
       <button (click)="linkInitControls.destroy()" [hidden]="!linkInitControls || linkInitControls.getEditor() == null">Close Editor</button>
       <div>
-        <a [froalaEditor] (froalaInit)="initializeLink($event)" [(froalaModel)]="linkModel">Froala Editor</a>
+        <a  id="sample8" [froalaEditor] (froalaInit)="initializeLink($event)" [(froalaModel)]="linkModel">Froala Editor</a>
       </div>
       <h4>Model Obj:</h4>
       <div>{{linkModel | json}}</div>
@@ -65,11 +65,11 @@ declare var $:any;
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div *ngIf="formModel.invalid"> Name is too short. </div>
         <h3>Textarea with formControlName and froalaModel</h3>
-        <textarea [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
+        <textarea  id="sample9-1" [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
         <h4>Rendered Content:</h4>
         <div [froalaView]="form.value.formModel"></div>
         <h3>Textarea only with formControlName</h3>
-        <textarea [froalaEditor] formControlName="formModel"></textarea>
+        <textarea  id="sample9-2" [froalaEditor] formControlName="formModel"></textarea>
         <button type="submit">Submit</button>
       </form>
       <button (click)="setValue()">Set preset value</button>
@@ -89,7 +89,7 @@ declare var $:any;
 
     <div class="sample">
       <h2>Sample 11: Add Custom Button</h2>
-      <div [froalaEditor]="options" [(froalaModel)]="content" ></div>
+      <div  id="sample11" [froalaEditor]="options" [(froalaModel)]="content" ></div>
     </div>
 
   `
@@ -98,8 +98,8 @@ declare var $:any;
 export class AppComponent implements OnInit {
 
   ngOnInit () {
-    $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
-    $.FroalaEditor.RegisterCommand('alert', {
+    FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+    FroalaEditor.RegisterCommand('alert', {
       title: 'Hello',
       focus: false,
       undo: false,
@@ -142,9 +142,9 @@ export class AppComponent implements OnInit {
   public initialize(initControls) {
     this.initControls = initControls;
     this.deleteAll = function() {
-        this.initControls.getEditor()('html.set', '');
-        this.initControls.getEditor()('undo.reset');
-        this.initControls.getEditor()('undo.saveStep');
+        this.initControls.getEditor().html.set();
+        this.initControls.getEditor().undo.reset();
+        this.initControls.getEditor().undo.saveStep();
     };
   }
 
