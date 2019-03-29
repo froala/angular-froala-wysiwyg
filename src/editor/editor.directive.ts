@@ -1,8 +1,7 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
 
-declare var $: JQueryStatic;
-
+declare var FroalaEditor: any;
 
 @Directive({
   selector: '[froalaEditor]',
@@ -21,8 +20,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     angularIgnoreAttrs: null
   };
 
-  // jquery wrapped element
-  private _$element: any;
+  private _element: any;
 
   private SPECIAL_TAGS: string[] = ['img', 'button', 'input', 'a'];
   private INNER_HTML_ATTR: string = 'innerHTML';
@@ -50,7 +48,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     }
 
     // jquery wrap and store element
-    this._$element = (<any>$(element));
+    this._element = element;
 
     this.zone = zone;
   }
@@ -93,7 +91,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
     if (this._editorInitialized) {
       if (!this._hasSpecialTag) {
-        this._$element.froalaEditor('html.set', content);
+        this._editor.html.set(content);
       }
       else {
         this.setContent();
@@ -101,7 +99,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     }
     else {
       if (!this._hasSpecialTag) {
-        this._$element.html(content);
+        this._element.innerHTML = content || '';
       }
       else {
         this.setContent();
@@ -123,7 +121,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
       if (this._hasSpecialTag) {
 
-        let attributeNodes = this._$element[0].attributes;
+        let attributeNodes = this._element.attributes;
         let attrs = {};
 
         for (let i = 0; i < attributeNodes.length; i++ ) {
@@ -136,14 +134,14 @@ export class FroalaEditorDirective implements ControlValueAccessor {
           attrs[attrName] = attributeNodes[i].value;
         }
 
-        if (this._$element[0].innerHTML) {
-          attrs[this.INNER_HTML_ATTR] = this._$element[0].innerHTML;
+        if (this._element.innerHTML) {
+          attrs[this.INNER_HTML_ATTR] = this._element.innerHTML;
         }
 
         modelContent = attrs;
       } else {
 
-        let returnedHtml: any = this._$element.froalaEditor('html.get');
+        let returnedHtml: any = this._editor.html.get();
         if (typeof returnedHtml === 'string') {
           modelContent = returnedHtml;
         }
@@ -168,23 +166,30 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     }
 
     this._listeningEvents.push(eventName);
-    element.on(eventName, callback);
+    if (!this._opts.events) {
+      this._opts.events = {};
+    }
+    this._opts.events[eventName] = callback;
   }
 
   private initListeners() {
-
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._$element, 'froalaEditor.contentChanged', function () {
-      setTimeout(function () {
+    this.registerEvent(this._element, "froalaEditor.contentChanged", function() {
+      setTimeout(function() {
         self.updateModel();
+      }, 0);
+    });
+    this.registerEvent(this._element, "froalaEditor.mousedown", function() {
+      setTimeout(function() {
+        self.onTouched();
       }, 0);
     });
 
     if (this._opts.immediateAngularModelUpdate) {
-      this.registerEvent(this._editor, 'keyup', function () {
-        setTimeout(function (){
+      this.registerEvent(this._element, "froalaEditorkeyup", function() {
+        setTimeout(function() {
           self.updateModel();
         }, 0);
       });
@@ -193,21 +198,18 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   // register events from editor options
   private registerFroalaEvents() {
-
     if (!this._opts.events) {
       return;
     }
 
     for (let eventName in this._opts.events) {
-
       if (this._opts.events.hasOwnProperty(eventName)) {
-        this.registerEvent(this._$element, eventName, this._opts.events[eventName]);
+        this.registerEvent(this._element, eventName, this._opts.events[eventName]);
       }
     }
   }
 
   private createEditor() {
-
     if (this._editorInitialized) {
       return;
     }
@@ -221,20 +223,23 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
     // init editor
     this.zone.runOutsideAngular(() => {
-      this._$element.on('froalaEditor.initialized', () => {
+      this.registerEvent(this._element, "initialized", () => {
         this._editorInitialized = true;
-      })
+      });
 
-      this._editor = this._$element.froalaEditor(this._opts).data('froala.editor').$el;
-    })
+      this._editor = new FroalaEditor(
+        "#" + this._element.getAttribute('id'),
+        this._opts
+      );
+    });
   }
 
   private setHtml() {
-    this._$element.froalaEditor('html.set', this._model || '', true);
+    this._editor.html.set(this._model || "");
 
     // This will reset the undo stack everytime the model changes externally. Can we fix this?
-    this._$element.froalaEditor('undo.reset');
-    this._$element.froalaEditor('undo.saveStep');
+    this._editor.undo.reset();
+    this._editor.undo.saveStep();
   }
 
   private setContent(firstTime = false) {
@@ -252,40 +257,37 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
           for (let attr in tags) {
             if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
-              this._$element.attr(attr, tags[attr]);
+              this._element.setAttribute(attr, tags[attr]);
             }
           }
 
           if (tags.hasOwnProperty(this.INNER_HTML_ATTR)) {
-            this._$element[0].innerHTML = tags[this.INNER_HTML_ATTR];
+            this._element.innerHTML = tags[this.INNER_HTML_ATTR];
           }
         }
       } else {
         if (firstTime) {
-          this.registerEvent(this._$element, 'froalaEditor.initialized', function () {
+          this.registerEvent(this._element, 'initialized', function () {
             self.setHtml();
           });
         } else {
           self.setHtml();
         }
-
       }
     }
   }
 
   private destroyEditor() {
     if (this._editorInitialized) {
-      this._$element.off(this._listeningEvents.join(" "));
-      this._editor.off('keyup');
-      this._$element.froalaEditor('destroy');
+      this._editor.destroy();
       this._listeningEvents.length = 0;
       this._editorInitialized = false;
     }
   }
 
   private getEditor() {
-    if (this._$element) {
-      return this._$element.froalaEditor.bind(this._$element);
+    if (this._element) {
+      return this._editor;
     }
 
     return null;
