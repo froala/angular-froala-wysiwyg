@@ -33,12 +33,11 @@ Install `angular-froala-wysiwyg` from `npm`
 npm install angular-froala-wysiwyg
 ```
 
-You will need CSS styles and Font Awesome
+You will need CSS styles 
 
 ```html
 <!-- index.html -->
 <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet">
-<link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 ```
 
 ## Update editor instructions
@@ -90,7 +89,6 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
   "styles.css",
   "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
   "./node_modules/froala-editor/css/froala_style.min.css",
-  "./node_modules/font-awesome/css/font-awesome.css"
 ]
 ```
 
@@ -98,7 +96,6 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 ```json
 "scripts": [
-  "./node_modules/jquery/dist/jquery.min.js",
   "./node_modules/froala-editor/js/froala_editor.pkgd.min.js"
 ]
 ```
@@ -155,11 +152,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 })
 ```
 - open `src/app/main.ts` and add
-```javascript
-import * as $ from 'jquery';
-window["$"] = $;
-window["jQuery"] = $;
-```
+
 - In `package.json` add the following:
 
 ```json
@@ -182,14 +175,6 @@ module.exports = {
     src: ['{{ROOT}}/node_modules/froala-editor/css/froala_editor.pkgd.min.css', '{{ROOT}}/node_modules/froala-editor/css/froala_style.min.css'],
     dest: '{{BUILD}}'
   },
-  copyFontAwesome: {
-    src: '{{ROOT}}/node_modules/font-awesome/css/font-awesome.min.css',
-    dest: '{{BUILD}}'
-  },
-  copyFontsAwesomeFonts: {
-    src: '{{ROOT}}/node_modules/font-awesome/fonts/*',
-    dest: '{{WWW}}/fonts'
-  },
   ...
 }
 ```
@@ -197,7 +182,6 @@ module.exports = {
 - Open `src/index.html` file and add in the `<head>` tag:
 
 ```html
-<link rel="stylesheet" href="build/font-awesome.min.css">
 <link rel="stylesheet" href="build/froala_editor.pkgd.min.css">
 <link rel="stylesheet" href="build/froala_style.min.css">
 ```
@@ -265,29 +249,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
   from: 'node_modules/froala-editor/css/',
   to: 'assets/froala-editor/css/',
 },
-{
-  from: 'node_modules/font-awesome/css/font-awesome.min.css',
-  to: 'assets/font-awesome/css/font-awesome.min.css',
-},
-{
-  from: 'node_modules/font-awesome/fonts',
-  to: 'assets/font-awesome/fonts'
-}
-```
-
-- in `config/webpack.common.js` copy the following to `plugins`
-
-```javascript
-new webpack.ProvidePlugin({
-  $: "jquery",
-  jQuery: "jquery"
-})
 ```
 
 - open `config/head-config.common.js` and add a new entry to link
 
 ```javascript
-{ rel: 'stylesheet', href: '/assets/font-awesome/css/font-awesome.min.css' },
 { rel: 'stylesheet', href: '/assets/froala-editor/css/froala_editor.pkgd.min.css' },
 { rel: 'stylesheet', href: '/assets/froala-editor/css/froala_style.min.css' }
 ```
@@ -333,9 +299,7 @@ import { ExtendPackages } from './seed.config.interfaces';
 
 this.NPM_DEPENDENCIES = [
   ...this.NPM_DEPENDENCIES,
-  { src: 'jquery/dist/jquery.min.js', inject: 'libs'},
   { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
-  { src: 'font-awesome/css/font-awesome.min.css', inject: true },
   { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
   { src: 'froala-editor/css/froala_style.min.css', inject: true }
 ];
@@ -410,11 +374,9 @@ npm install angular-froala-wysiwyg --save
 - open `src/index.html` and add
 
 ```html
-<link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="node_modules/froala-editor/css/froala_editor.pkgd.min.css">
 <link rel="stylesheet" href="node_modules/froala-editor/css/froala_style.min.css">
 
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
 ```
 
@@ -565,11 +527,9 @@ npm install angular-froala-wysiwyg --save
 - open `src/index.html` and add
 
 ```html
-<link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="node_modules/froala-editor/css/froala_editor.pkgd.min.css">
 <link rel="stylesheet" href="node_modules/froala-editor/css/froala_style.min.css">
 
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
 ```
 
