@@ -277,9 +277,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private destroyEditor() {
     if (this._editorInitialized) {
-      // this._element.off(this._listeningEvents.join(" "));
-      // this._editor.off("keyup");
-      this._element.froalaEditor.destroy();
+      this._editor.destroy();
       this._listeningEvents.length = 0;
       this._editorInitialized = false;
     }
@@ -287,7 +285,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private getEditor() {
     if (this._element) {
-      return this._element.froalaEditor;
+      return this._editor;
     }
 
     return null;
