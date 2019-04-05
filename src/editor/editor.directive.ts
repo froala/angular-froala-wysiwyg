@@ -46,8 +46,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) != -1) {
       this._hasSpecialTag = true;
     }
-
-    // jquery wrap and store element
     this._element = element;
 
     this.zone = zone;
@@ -158,7 +156,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     })
   }
 
-  // register event on jquery element
   private registerEvent(element, eventName, callback) {
 
     if (!element || !eventName || !callback) {
