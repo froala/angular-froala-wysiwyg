@@ -3,6 +3,5 @@
   "version": "2.9.3",
   "dependencies": {
     "froala-editor": "2.9.3",
-    "@types/jquery": "^2.0.40"
   }
 }
