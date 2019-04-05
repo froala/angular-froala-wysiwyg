@@ -46,7 +46,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (this.SPECIAL_TAGS.indexOf(element.tagName.toLowerCase()) != -1) {
       this._hasSpecialTag = true;
     }
-
     this._element = element;
 
     this.zone = zone;
