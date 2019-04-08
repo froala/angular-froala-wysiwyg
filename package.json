@@ -34,12 +34,10 @@
     "text",
     "editor",
     "wysiwyg",
-    "jquery-plugin",
     "rich editor",
     "rich text editor",
     "rte",
-    "javascript",
-    "jquery"
+    "javascript"
   ],
   "author": "Froala Labs (https://www.froala.com/)",
   "license": "MIT",
@@ -64,7 +62,6 @@
     "@angular/platform-browser": "^7.2.0",
     "@angular/platform-browser-dynamic": "^7.2.0",
     "@angular/router": "^7.2.0",
-    "@types/jquery": "^2.0.40",
     "@types/marked": "0.0.28",
     "@types/node": "7.0.0",
     "@types/tapable": "^0.2.5",
@@ -74,7 +71,7 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.2",
     "ts-helpers": "^1.1.1",
-    "typescript": "3.1.6",
+    "typescript": "^3.2.2",
     "zone.js": "^0.8.26"
   }
 }

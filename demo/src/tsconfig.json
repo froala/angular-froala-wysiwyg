@@ -7,7 +7,6 @@
     "lib": ["es6", "dom"],
     "types": [
       "webpack",
-      "jquery"
     ],
     "mapRoot": "./",
     "module": "es6",
