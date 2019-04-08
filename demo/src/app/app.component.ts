@@ -9,14 +9,12 @@ declare var $:any;
     <h1>Angular adapter for the Froala WYSIWYG editor</h1>
     <div class="sample">
       <h2>Sample 1: Inline Edit</h2>
-      <div id="froala-editor" [froalaEditor]="titleOptions" [(froalaModel)]="myTitle">
-   <p>fghjfghjfghjfghj testdhjdhgj</p><p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
-      </div>
-      <input [(ngModel)]="myTitle" />
+      <div [froalaEditor]="titleOptions" [(froalaModel)]="myTitle"></div>
+      <input [(ngModel)]="myTitle" (blur)="onBlurMethod()" />
     </div>
     <div class="sample">
       <h2>Sample 2: Full Editor</h2>
-      <div [froalaEditor] [(froalaModel)]="content" ></div>
+      <div [froalaEditor]="imgOptions" [(froalaModel)]="content" ></div>
       <h4>Rendered Content:</h4>
       <div [froalaView]="content"></div>
     </div>
@@ -122,12 +120,14 @@ export class AppComponent implements OnInit {
       'froalaEditor.initialized': function goToEnd(e, editor) {
         if ($('#froala-editor').froalaEditor('core.isEmpty')) {
           $('#froala-editor').froalaEditor('events.focus');
-             }
-             else{
-        editor.events.on('click', function(){
-          editor.selection.setAtEnd(editor.$el.get(0));
-        editor.selection.restore();})}
-    }
+        }
+        else{
+          editor.events.on('click', function() {
+            editor.selection.setAtEnd(editor.$el.get(0));
+            editor.selection.restore();
+          })
+        }
+     }
   }
 }
   public myTitle: string;
@@ -159,7 +159,12 @@ export class AppComponent implements OnInit {
   };
 
   public imgOptions: Object = {
-    angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model']
+    angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model'],
+    immediateAngularModelUpdate: true,
+    events: {
+      "froalaEditor.contentChanged": (e: any, editor: any) => {
+              }
+    }
   }
 
   // Sample 6 model
