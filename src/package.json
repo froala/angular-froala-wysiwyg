@@ -1,8 +1,8 @@
 {
   "name": "angular-froala-wysiwyg",
-  "version": "2.9.4-1",
+  "version": "2.9.5",
   "dependencies": {
-    "froala-editor": "2.9.4",
+    "froala-editor": "2.9.5",
     "@types/jquery": "^2.0.40"
   }
 }
