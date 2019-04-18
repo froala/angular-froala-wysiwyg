@@ -27,7 +27,6 @@
             "scripts": [
               "node_modules/froala-editor/js/froala_editor.pkgd.min.js",
 			        "node_modules/froala-editor/js/third_party/font_awesome.min.js"
-
             ]
           },
           "configurations": {
