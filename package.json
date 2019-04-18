@@ -45,6 +45,7 @@
     "url": "https://github.com/froala/angular-froala-wysiwyg/issues"
   },
   "dependencies": {
+    "font-awesome": "^4.7.0",
     "froala-editor": "2.9.3",
     "tslib": "^1.9.0"
   },
