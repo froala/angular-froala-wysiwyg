@@ -20,10 +20,14 @@
             ],
             "styles": [
               "node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-              "node_modules/froala-editor/css/froala_style.min.css"
+              "node_modules/froala-editor/css/froala_style.min.css",
+			        "node_modules/froala-editor/css/third_party/font_awesome.min.css",
+			        "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": [
-              "node_modules/froala-editor/js/froala_editor.pkgd.min.js"
+              "node_modules/froala-editor/js/froala_editor.pkgd.min.js",
+			        "node_modules/froala-editor/js/third_party/font_awesome.min.js"
+
             ]
           },
           "configurations": {
