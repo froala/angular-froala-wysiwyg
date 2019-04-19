@@ -223,7 +223,7 @@ npm install angular-froala-wysiwyg --save
 
 ```typescript
 // Import the Froala Editor plugin.
-import "froala-editor/js/froala_editor.pkgd.min.js";
+import "FroalaEditor";
 
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -239,8 +239,37 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/app/app.component.ts` and add to the template
 
 ```html
-<div [froalaEditor]>Hello, Froala!</div>
+<div id="froala-reactive-component" [froalaEditor]>Hello, Froala!</div>
 ```
+- open `config/webpack.dev.js` and add the following to `CopyWebpackPlugin`
+
+```javascript
+
+const path=require("path");
+const webpack=require("webpack");
+const srcDir=path.resolve(__dirname,'src');
+
+...
+    resolve: {
+      extensions: ['.js'],
+      modules:[srcDir,'../node_modules/froala-editor/js','node_modules'],
+       alias: {
+         "FroalaEditor": 'froala_editor.pkgd.min.js'
+       }
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+          FroalaEditor: 'froala_editor.pkgd.min.js'
+        }),
+...
+```
+
+- open `config/webpack.common.js`
+
+```javascript
+var webpack = require('webpack');
+```
+
 
 - open `config/webpack.common.js` and add the following to `CopyWebpackPlugin`
 
