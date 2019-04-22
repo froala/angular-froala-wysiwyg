@@ -103,7 +103,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/app/app.component.html` and add
 
 ```html
-<div [froalaEditor]>Hello, Froala!</div>
+<div id="edit" [froalaEditor]>Hello, Froala!</div>
 ```
 
 #### Run angular-cli
@@ -249,7 +249,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/app/app.component.ts` and add to the template
 
 ```html
-<div id="froala-reactive-component" [froalaEditor]>Hello, Froala!</div>
+<div id="edit" [froalaEditor]>Hello, Froala!</div>
 ```
 - open `config/webpack.dev.js` and add the following to `CopyWebpackPlugin`
 
@@ -379,7 +379,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/client/app/home/home.component.html` and add
 
 ```html
-<div [froalaEditor]>Hello, Froala!</div>
+<div id="edit" [froalaEditor]>Hello, Froala!</div>
 ```
 
 #### Run webpack app
@@ -436,7 +436,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/app/app.component.ts` file and add to the template
 
 ```html
-<div id="{selecter}" [froalaEditor]>Hello, Froala!</div>
+<div id="edit" [froalaEditor]>Hello, Froala!</div>
 ```
 
 - open `src/systemjs.config.js` file and add to map
