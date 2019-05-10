@@ -170,7 +170,7 @@ imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FroalaEditorMod
 - Inside `src/index.html`
 
 ```html
-<script src="assets/js/froala_editor.pkgd.webpack.min.js" > </script> 
+<script src="assets/js/froala_editor.pkgd.min.js" > </script> 
 <link rel="stylesheet" href="assets/css/font-awesome.min.css">  
 <link rel="stylesheet" href="assets/css/froala_editor.pkgd.min.css"> 
 <link rel="stylesheet" href="assets/css/froala_style.min.css"> 
@@ -480,12 +480,8 @@ npm run start
                 "glob": "**/*",
                 "input": "./node_modules/font-awesome",
                 "output": "assets/font-awesome/"
-              },
-              {
-                "glob": "**/*",
-                "input": "./node_modules/jquery",
-                "output": "assets/jquery/"
               }
+              
 ```
 - Go to `package.json` and update `scripts.build` to `ng build --aot` and `scripts.start` to `ng serve --aot`
 
