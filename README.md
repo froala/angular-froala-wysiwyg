@@ -6,7 +6,7 @@
 
 >Angular 2, Angular 4, Angular 5, Angular 6 and Angular 7 bindings for Froala WYSIWYG Editor.
 
-![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/master/editor.jpg)
+![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/v2/editor.jpg)
 
 ## Table of contents
 1. [Installation instructions](#installation-instructions)
