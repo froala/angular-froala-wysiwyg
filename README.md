@@ -633,7 +633,6 @@ You can extend the functionality by adding a custom button like bellow:
 
 // We will make usage of the Init hook and make the implementation there.
 import { Component, OnInit  } from '@angular/core';
-declare var $ :any;
 
 @Component({
   selector: 'app-demo',
@@ -646,8 +645,8 @@ declare var $ :any;
 export class AppComponent implements OnInit{
 
   ngOnInit () {
-    $.FroalaEditor.DefineIcon('alert', {NAME: 'info'});
-    $.FroalaEditor.RegisterCommand('alert', {
+     FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+    FroalaEditor.RegisterCommand('alert', {
       title: 'Hello',
       focus: false,
       undo: false,
