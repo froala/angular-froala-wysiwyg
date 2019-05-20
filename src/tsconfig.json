@@ -16,7 +16,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "allowSyntheticDefaultImports": true,
-    "lib": ["dom", "es6"],
+    "lib": ["dom", "es6"]
   },
   "exclude": [
     "node_modules"
