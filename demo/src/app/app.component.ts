@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-declare var FroalaEditor:any;
+import FroalaEditor from 'froala-editor/js/froala_editor.pkgd.min.js';
 
 @Component({
   selector: 'app-demo',
@@ -117,11 +117,11 @@ export class AppComponent implements OnInit {
     charCounterCount: false,
     toolbarInline: true,
     events: {
-      'froalaEditor.initialized': function() {
+      "initialized": () => {
         console.log('initialized');
       },	
-      "froalaEditor.contentChanged": (e: any, editor: any) => {	
-        console.log(editor)
+      "contentChanged": () => {	
+        console.log("content changed");
       }
     }
   }
@@ -157,7 +157,7 @@ export class AppComponent implements OnInit {
     angularIgnoreAttrs: ['style', 'ng-reflect-froala-editor', 'ng-reflect-froala-model'],
     immediateAngularModelUpdate: true,
     events: {
-      "froalaEditor.contentChanged": (e: any, editor: any) => {
+      "contentChanged": () => {
       }
     }
   }

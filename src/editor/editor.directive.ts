@@ -1,7 +1,6 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
-
-declare var FroalaEditor: any;
+import FroalaEditor from 'froala-editor/js/froala_editor.pkgd.min.js';
 
 @Directive({
   selector: '[froalaEditor]',
@@ -33,6 +32,8 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   private _model: string;
 
   private _listeningEvents: string[] = [];
+
+  private _userEventCallbacks: any = {};
 
   private _editorInitialized: boolean = false;
 
@@ -166,28 +167,43 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (!this._opts.events) {
       this._opts.events = {};
     }
+
+    // Store user event callbacks if exist
+    if (this._opts.events[eventName]) {
+      this._userEventCallbacks[eventName] = this._opts.events[eventName];
+    }
+
     this._opts.events[eventName] = callback;
+  }
+
+  private executeUserCallback(eventName) {
+    if (this._userEventCallbacks[eventName]) {
+      this._userEventCallbacks[eventName]();
+    }
   }
 
   private initListeners() {
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._element, "froalaEditor.contentChanged", function() {
+    this.registerEvent(this._element, "contentChanged", function() {
       setTimeout(function() {
         self.updateModel();
+        self.executeUserCallback("contentChanged");
       }, 0);
     });
-    this.registerEvent(this._element, "froalaEditor.mousedown", function() {
+    this.registerEvent(this._element, "mousedown", function() {
       setTimeout(function() {
         self.onTouched();
+        self.executeUserCallback("mousedown");
       }, 0);
     });
 
     if (this._opts.immediateAngularModelUpdate) {
-      this.registerEvent(this._element, "froalaEditorkeyup", function() {
+      this.registerEvent(this._element, "keyup", function() {
         setTimeout(function() {
           self.updateModel();
+          self.executeUserCallback("keyup");
         }, 0);
       });
     }
@@ -222,10 +238,11 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this.zone.runOutsideAngular(() => {
       this.registerEvent(this._element, "initialized", () => {
         this._editorInitialized = true;
+        this.executeUserCallback("initialized");
       });
 
       this._editor = new FroalaEditor(
-        "#" + this._element.getAttribute('id'),
+        this._element,
         this._opts
       );
     });
@@ -266,6 +283,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         if (firstTime) {
           this.registerEvent(this._element, 'initialized', function () {
             self.setHtml();
+            self.executeUserCallback("initialized");
           });
         } else {
           self.setHtml();
