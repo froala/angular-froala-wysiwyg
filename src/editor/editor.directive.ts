@@ -176,12 +176,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this._opts.events[eventName] = callback;
   }
 
-  private executeUserCallback(eventName) {
-    if (this._userEventCallbacks[eventName]) {
-      this._userEventCallbacks[eventName]();
-    }
-  }
-
   private initListeners() {
     let self = this;
 
@@ -189,13 +183,17 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this.registerEvent(this._element, "contentChanged", function() {
       setTimeout(function() {
         self.updateModel();
-        self.executeUserCallback("contentChanged");
+        if (this._userEventCallbacks["contentChanged"]) {
+          this._userEventCallbacks["contentChanged"]();
+        }
       }, 0);
     });
     this.registerEvent(this._element, "mousedown", function() {
       setTimeout(function() {
         self.onTouched();
-        self.executeUserCallback("mousedown");
+        if (this._userEventCallbacks["mousedown"]) {
+          this._userEventCallbacks["mousedown"]();
+        }
       }, 0);
     });
 
@@ -203,7 +201,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       this.registerEvent(this._element, "keyup", function() {
         setTimeout(function() {
           self.updateModel();
-          self.executeUserCallback("keyup");
+          if (this._userEventCallbacks["keyup"]) {
+            this._userEventCallbacks["keyup"]();
+          }
         }, 0);
       });
     }
@@ -238,7 +238,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this.zone.runOutsideAngular(() => {
       this.registerEvent(this._element, "initialized", () => {
         this._editorInitialized = true;
-        this.executeUserCallback("initialized");
+        if (this._userEventCallbacks["initialized"]) {
+          this._userEventCallbacks["initialized"]();
+        }
       });
 
       this._editor = new FroalaEditor(
@@ -283,7 +285,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         if (firstTime) {
           this.registerEvent(this._element, 'initialized', function () {
             self.setHtml();
-            self.executeUserCallback("initialized");
+            if (this._userEventCallbacks["initialized"]) {
+              this._userEventCallbacks["initialized"]();
+            }
           });
         } else {
           self.setHtml();

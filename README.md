@@ -162,7 +162,6 @@ imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FroalaEditorMod
 - Inside `src/index.html`
 
 ```html
-<script src="assets/js/froala_editor.pkgd.webpack.min.js" > </script> 
 <link rel="stylesheet" href="assets/css/font-awesome.min.css">  
 <link rel="stylesheet" href="assets/css/froala_editor.pkgd.min.css"> 
 <link rel="stylesheet" href="assets/css/froala_style.min.css"> 
@@ -306,7 +305,6 @@ import { ExtendPackages } from './seed.config.interfaces';
 
 this.NPM_DEPENDENCIES = [
   ...this.NPM_DEPENDENCIES,
-  { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
   { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
   { src: 'froala-editor/css/froala_style.min.css', inject: true }
 ];
