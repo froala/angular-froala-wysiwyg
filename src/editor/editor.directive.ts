@@ -1,6 +1,7 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
-import FroalaEditor from 'froala-editor/js/froala_editor.pkgd.min.js';
+
+declare var FroalaEditor: any;
 
 @Directive({
   selector: '[froalaEditor]',
@@ -32,8 +33,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   private _model: string;
 
   private _listeningEvents: string[] = [];
-
-  private _userEventCallbacks: any = {};
 
   private _editorInitialized: boolean = false;
 
@@ -167,12 +166,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (!this._opts.events) {
       this._opts.events = {};
     }
-
-    // Store user event callbacks if exist
-    if (this._opts.events[eventName]) {
-      this._userEventCallbacks[eventName] = this._opts.events[eventName];
-    }
-
     this._opts.events[eventName] = callback;
   }
 
@@ -180,36 +173,21 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._element, 'contentChanged', function() {
+    this.registerEvent(this._element, "froalaEditor.contentChanged", function() {
       setTimeout(function() {
         self.updateModel();
-        if (self._userEventCallbacks['contentChanged'] && self._editor.events) {
-          self._editor.events.on('contentChanged', self._userEventCallbacks['contentChanged']);
-          self._userEventCallbacks['contentChanged']();
-          self._userEventCallbacks['contentChanged'] = null;
-        }
       }, 0);
     });
-    this.registerEvent(this._element, 'mousedown', function() {
+    this.registerEvent(this._element, "froalaEditor.mousedown", function() {
       setTimeout(function() {
         self.onTouched();
-        if (self._userEventCallbacks['mousedown'] && self._editor.events) {
-          self._editor.events.on('mousedown', self._userEventCallbacks['mousedown']);
-          self._userEventCallbacks['mousedown']();
-          self._userEventCallbacks['mousedown'] = null;
-        }
       }, 0);
     });
 
     if (this._opts.immediateAngularModelUpdate) {
-      this.registerEvent(this._element, 'keyup', function() {
+      this.registerEvent(this._element, "froalaEditorkeyup", function() {
         setTimeout(function() {
           self.updateModel();
-          if (self._userEventCallbacks['keyup'] && self._editor.events) {
-            self._editor.events.on('keyup', self._userEventCallbacks['keyup']);
-            self._userEventCallbacks['keyup']();
-            self._userEventCallbacks['keyup'] = null;
-          }
         }, 0);
       });
     }
@@ -242,17 +220,12 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
     // init editor
     this.zone.runOutsideAngular(() => {
-      this.registerEvent(this._element, 'initialized', () => {
+      this.registerEvent(this._element, "initialized", () => {
         this._editorInitialized = true;
-        if (this._userEventCallbacks['initialized'] && this._editor.events) {
-          this._editor.events.on('initialized', this._userEventCallbacks['initialized']);
-          this._userEventCallbacks['initialized']();
-          this._userEventCallbacks['initialized'] = null;
-        }
       });
 
       this._editor = new FroalaEditor(
-        this._element,
+        "#" + this._element.getAttribute('id'),
         this._opts
       );
     });
@@ -293,11 +266,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         if (firstTime) {
           this.registerEvent(this._element, 'initialized', function () {
             self.setHtml();
-            if (self._userEventCallbacks['initialized'] && self._editor.events) {
-              self._editor.events.on('initialized', self._userEventCallbacks['initialized']);
-              self._userEventCallbacks['initialized']();
-              self._userEventCallbacks['initialized'] = null;
-            }
           });
         } else {
           self.setHtml();
