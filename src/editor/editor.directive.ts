@@ -33,8 +33,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private _listeningEvents: string[] = [];
 
-  private _userEventCallbacks: any = {};
-
   private _editorInitialized: boolean = false;
 
   private _oldModel: string = null;
@@ -168,11 +166,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       this._opts.events = {};
     }
 
-    // Store user event callbacks if exist
-    if (this._opts.events[eventName]) {
-      this._userEventCallbacks[eventName] = this._opts.events[eventName];
-    }
-
     this._opts.events[eventName] = callback;
   }
 
@@ -180,36 +173,21 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._element, 'contentChanged', function() {
+    this._editor.events.on('contentChanged', function() {
       setTimeout(function() {
         self.updateModel();
-        if (self._userEventCallbacks['contentChanged'] && self._editor.events) {
-          self._editor.events.on('contentChanged', self._userEventCallbacks['contentChanged']);
-          self._userEventCallbacks['contentChanged']();
-          self._userEventCallbacks['contentChanged'] = null;
-        }
       }, 0);
     });
-    this.registerEvent(this._element, 'mousedown', function() {
+    this._editor.events.on('mousedown', function() {
       setTimeout(function() {
         self.onTouched();
-        if (self._userEventCallbacks['mousedown'] && self._editor.events) {
-          self._editor.events.on('mousedown', self._userEventCallbacks['mousedown']);
-          self._userEventCallbacks['mousedown']();
-          self._userEventCallbacks['mousedown'] = null;
-        }
       }, 0);
     });
 
     if (this._opts.immediateAngularModelUpdate) {
-      this.registerEvent(this._element, 'keyup', function() {
+      this._editor.events.on('keyup', function() {
         setTimeout(function() {
           self.updateModel();
-          if (self._userEventCallbacks['keyup'] && self._editor.events) {
-            self._editor.events.on('keyup', self._userEventCallbacks['keyup']);
-            self._userEventCallbacks['keyup']();
-            self._userEventCallbacks['keyup'] = null;
-          }
         }, 0);
       });
     }
@@ -238,16 +216,23 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     // Registering events before initializing the editor will bind the initialized event correctly.
     this.registerFroalaEvents();
 
-    this.initListeners();
-
     // init editor
     this.zone.runOutsideAngular(() => {
+      
+      const userInitializedCallback = this._opts.events && this._opts.events.initialized;
+
       this.registerEvent(this._element, 'initialized', () => {
         this._editorInitialized = true;
-        if (this._userEventCallbacks['initialized'] && this._editor.events) {
-          this._editor.events.on('initialized', this._userEventCallbacks['initialized']);
-          this._userEventCallbacks['initialized']();
-          this._userEventCallbacks['initialized'] = null;
+        
+        if (this._editor.events) {
+          // Initialized event listeners
+          this.initListeners();
+
+          // Bind initialized callback if present
+          if (userInitializedCallback) {
+            this._editor.events.on('initialized', userInitializedCallback);
+            userInitializedCallback();
+          }
         }
       });
 
@@ -293,11 +278,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         if (firstTime) {
           this.registerEvent(this._element, 'initialized', function () {
             self.setHtml();
-            if (self._userEventCallbacks['initialized'] && self._editor.events) {
-              self._editor.events.on('initialized', self._userEventCallbacks['initialized']);
-              self._userEventCallbacks['initialized']();
-              self._userEventCallbacks['initialized'] = null;
-            }
           });
         } else {
           self.setHtml();
