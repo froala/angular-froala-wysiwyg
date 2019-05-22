@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import FroalaEditor from 'froala-editor/js/froala_editor.pkgd.min.js';
+
+import FroalaEditor from 'froala-editor';
 
 @Component({
   selector: 'app-demo',
@@ -98,7 +99,7 @@ import FroalaEditor from 'froala-editor/js/froala_editor.pkgd.min.js';
 export class AppComponent implements OnInit {
 
   ngOnInit () {
-    FroalaEditor.DefineIcon('alert', {NAME: 'info'});
+    FroalaEditor.DefineIcon('alert', { SVG_KEY: 'help' });
     FroalaEditor.RegisterCommand('alert', {
       title: 'Hello',
       focus: false,
@@ -119,8 +120,8 @@ export class AppComponent implements OnInit {
     events: {
       "initialized": () => {
         console.log('initialized');
-      },	
-      "contentChanged": () => {	
+      },
+      "contentChanged": () => {
         console.log("content changed");
       }
     }

@@ -1,6 +1,7 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
-import FroalaEditor from 'froala-editor/js/froala_editor.pkgd.min.js';
+
+import FroalaEditor from 'froala-editor';
 
 @Directive({
   selector: '[froalaEditor]',
@@ -218,12 +219,12 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
     // init editor
     this.zone.runOutsideAngular(() => {
-      
+
       const userInitializedCallback = this._opts.events && this._opts.events.initialized;
 
       this.registerEvent(this._element, 'initialized', () => {
         this._editorInitialized = true;
-        
+
         if (this._editor.events) {
           // Initialized event listeners
           this.initListeners();

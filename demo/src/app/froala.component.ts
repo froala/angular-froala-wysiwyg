@@ -1,11 +1,10 @@
 import { Component, Input, Output, forwardRef } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
-
 @Component({
   selector: 'froala-component',
   template: `
-    <textarea  id="froala-reactive-component" [froalaEditor]="config" (froalaModelChange)="onChange($event)" [(froalaModel)]="model"></textarea>
+    <textarea [froalaEditor]="config" (froalaModelChange)="onChange($event)" [(froalaModel)]="model"></textarea>
    `,
   providers: [
     {
@@ -20,7 +19,7 @@ export class FroalaComponent implements ControlValueAccessor {
   constructor() {
 
   }
-  
+
   // Begin ControlValueAccesor methods.
   onChange = (_) => {};
   onTouched = () => {};
@@ -33,9 +32,9 @@ export class FroalaComponent implements ControlValueAccessor {
   registerOnChange(fn: (_: any) => void): void { this.onChange = fn; }
   registerOnTouched(fn: () => void): void { this.onTouched = fn; }
   // End ControlValueAccesor methods.
-  
+
   model: any;
-  
+
   config: Object = {
     charCounterCount: false
   }

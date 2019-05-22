@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "froala-editor": "3.0.0-beta.1",
+    "froala-editor": "froala/wysiwyg-editor",
     "tslib": "^1.9.0"
   },
   "peerDependencies": {},
@@ -72,7 +72,7 @@
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.2",
     "ts-helpers": "^1.1.1",
-    "typescript": "^3.2.4",
+    "typescript": "3.2.4",
     "zone.js": "^0.8.26"
   }
 }
