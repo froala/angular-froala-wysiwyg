@@ -1,7 +1,6 @@
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
-
-declare var FroalaEditor: any;
+import FroalaEditor from 'froala-editor/js/froala_editor.pkgd.min.js';
 
 @Directive({
   selector: '[froalaEditor]',
@@ -166,6 +165,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (!this._opts.events) {
       this._opts.events = {};
     }
+
     this._opts.events[eventName] = callback;
   }
 
@@ -173,19 +173,19 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     let self = this;
 
     // bind contentChange and keyup event to froalaModel
-    this.registerEvent(this._element, "froalaEditor.contentChanged", function() {
+    this._editor.events.on('contentChanged', function() {
       setTimeout(function() {
         self.updateModel();
       }, 0);
     });
-    this.registerEvent(this._element, "froalaEditor.mousedown", function() {
+    this._editor.events.on('mousedown', function() {
       setTimeout(function() {
         self.onTouched();
       }, 0);
     });
 
     if (this._opts.immediateAngularModelUpdate) {
-      this.registerEvent(this._element, "froalaEditorkeyup", function() {
+      this._editor.events.on('keyup', function() {
         setTimeout(function() {
           self.updateModel();
         }, 0);
@@ -216,16 +216,28 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     // Registering events before initializing the editor will bind the initialized event correctly.
     this.registerFroalaEvents();
 
-    this.initListeners();
-
     // init editor
     this.zone.runOutsideAngular(() => {
-      this.registerEvent(this._element, "initialized", () => {
+      
+      const userInitializedCallback = this._opts.events && this._opts.events.initialized;
+
+      this.registerEvent(this._element, 'initialized', () => {
         this._editorInitialized = true;
+        
+        if (this._editor.events) {
+          // Initialized event listeners
+          this.initListeners();
+
+          // Bind initialized callback if present
+          if (userInitializedCallback) {
+            this._editor.events.on('initialized', userInitializedCallback);
+            userInitializedCallback();
+          }
+        }
       });
 
       this._editor = new FroalaEditor(
-        "#" + this._element.getAttribute('id'),
+        this._element,
         this._opts
       );
     });

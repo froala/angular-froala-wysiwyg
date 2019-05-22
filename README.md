@@ -92,18 +92,10 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ]
 ```
 
-- in `angular.json` file insert a new entry into the `scripts` array
-
-```json
-"scripts": [
-  "./node_modules/froala-editor/js/froala_editor.pkgd.min.js"
-]
-```
-
 - open `src/app/app.component.html` and add
 
 ```html
-<div id="edit" [froalaEditor]>Hello, Froala!</div>
+<div [froalaEditor]>Hello, Froala!</div>
 ```
 
 #### Run angular-cli
@@ -139,7 +131,7 @@ npm install angular-froala-wysiwyg --save
 ```html
 <ion-app>
 <ion-router-outlet></ion-router-outlet>
-<div id="edit" [froalaEditor]>Hello, Froala!</div>
+<div [froalaEditor]>Hello, Froala!</div>
 </ion-app>
 ```
 
@@ -170,7 +162,6 @@ imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FroalaEditorMod
 - Inside `src/index.html`
 
 ```html
-<script src="assets/js/froala_editor.pkgd.webpack.min.js" > </script> 
 <link rel="stylesheet" href="assets/css/font-awesome.min.css">  
 <link rel="stylesheet" href="assets/css/froala_editor.pkgd.min.css"> 
 <link rel="stylesheet" href="assets/css/froala_style.min.css"> 
@@ -232,8 +223,6 @@ npm install angular-froala-wysiwyg --save
 - open `src/app/app.module.ts` and add
 
 ```typescript
-// Import the Froala Editor plugin.
-import "FroalaEditor";
 
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -249,29 +238,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/app/app.component.ts` and add to the template
 
 ```html
-<div id="edit" [froalaEditor]>Hello, Froala!</div>
-```
-- open `config/webpack.dev.js` and add the following to `CopyWebpackPlugin`
-
-```javascript
-
-const path=require("path");
-const webpack=require("webpack");
-const srcDir=path.resolve(__dirname,'src');
-
-...
-    resolve: {
-      extensions: ['.js'],
-      modules:[srcDir,'../node_modules/froala-editor/js','node_modules'],
-       alias: {
-         "FroalaEditor": 'froala_editor.pkgd.min.js'
-       }
-    },
-    plugins: [
-      new webpack.ProvidePlugin({
-          FroalaEditor: 'froala_editor.pkgd.min.js'
-        }),
-...
+<div [froalaEditor]>Hello, Froala!</div>
 ```
 
 - open `config/webpack.common.js`
@@ -338,7 +305,6 @@ import { ExtendPackages } from './seed.config.interfaces';
 
 this.NPM_DEPENDENCIES = [
   ...this.NPM_DEPENDENCIES,
-  { src: 'froala-editor/js/froala_editor.pkgd.min.js', inject: 'libs' },
   { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
   { src: 'froala-editor/css/froala_style.min.css', inject: true }
 ];
@@ -379,7 +345,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/client/app/home/home.component.html` and add
 
 ```html
-<div id="edit" [froalaEditor]>Hello, Froala!</div>
+<div [froalaEditor]>Hello, Froala!</div>
 ```
 
 #### Run webpack app
@@ -415,8 +381,6 @@ npm install angular-froala-wysiwyg --save
 ```html
 <link rel="stylesheet" href="node_modules/froala-editor/css/froala_editor.pkgd.min.css">
 <link rel="stylesheet" href="node_modules/froala-editor/css/froala_style.min.css">
-
-<script src="node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
 ```
 
 - open `src/app/app.module.ts` and add
@@ -436,7 +400,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/app/app.component.ts` file and add to the template
 
 ```html
-<div id="edit" [froalaEditor]>Hello, Froala!</div>
+<div [froalaEditor]>Hello, Froala!</div>
 ```
 
 - open `src/systemjs.config.js` file and add to map
@@ -503,8 +467,6 @@ npm install angular-froala-wysiwyg --save
 <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="assets/froala-editor/css/froala_editor.pkgd.min.css">
 <link rel="stylesheet" href="assets/froala-editor/css/froala_style.min.css">
-
-<script src="assets/froala-editor/js/froala_editor.pkgd.min.js"></script>
 ```
 
 - open `src/app/app.module.ts` and add
@@ -524,7 +486,7 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 - open `src/app/app.component.ts` file and add to the template
 
 ```html
-<div id="edit" [froalaEditor]>Hello, Froala!</div>
+<div [froalaEditor]>Hello, Froala!</div>
 ```
 
 #### Run app
@@ -565,7 +527,7 @@ Events can be passed in with the options, with a key events and object where the
 public options: Object = {
   placeholder: "Edit Me",
   events : {
-    'froalaEditor.focus' : function(e, editor) {
+    'focus' : function(e, editor) {
       console.log(editor.selection.get());
     }
   }
