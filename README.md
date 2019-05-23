@@ -219,6 +219,8 @@ ionic serve
 git clone --depth 1 https://github.com/AngularClass/angular-starter.git
 cd angular-starter
 npm install
+npm install rxjs@6.0.0 --save
+npm install @types/node@10.1.4
 ```
 
 #### Add angular-froala-wysiwyg
