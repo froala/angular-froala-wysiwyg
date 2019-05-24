@@ -394,29 +394,12 @@ npm run start
 
 ### Use with `system.js` and `JIT`
 
-#### Create Angular app
-
-*Note*: you can skip this part if you already have application generated.
-
-```bash
-git clone https://github.com/angular/quickstart.git angular-quickstart
-cd angular-quickstart
-npm install
-```
-
 #### Add angular-froala-wysiwyg
 
 - install `angular-froala-wysiwyg`
 
 ```bash
 npm install angular-froala-wysiwyg --save
-```
-
-- open `src/index.html` and add
-
-```html
-<link rel="stylesheet" href="node_modules/froala-editor/css/froala_editor.pkgd.min.css">
-<link rel="stylesheet" href="node_modules/froala-editor/css/froala_style.min.css">
 ```
 
 - open `src/app/app.module.ts` and add
@@ -442,20 +425,20 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 })
 ```
 
+- open `angular.json` file and insert a new entry into the `styles` array
+
+```json
+"styles": [
+  "styles.css",
+  "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+  "./node_modules/froala-editor/css/froala_style.min.css",
+]
+```
+
 - open `src/app/app.component.ts` file and add to the template
 
 ```html
 <div [froalaEditor]>Hello, Froala!</div>
-```
-
-- open `src/systemjs.config.js` file and add to map
-
-```javascript
-map: {
-  ...
-  'angular-froala-wysiwyg': 'npm:angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.js',
-  ...
-}
 ```
 
 - 
@@ -466,6 +449,11 @@ map: {
 npm run start
 ```
 
+#### Link to Sample Demo
+
+```bash
+https://github.com/froala/angular-froala-systemjs-demo
+```
 
 
 ### Use with `aot`
