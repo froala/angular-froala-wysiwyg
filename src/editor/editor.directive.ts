@@ -162,24 +162,15 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       return;
     }
 
-    // Bind initialized events.
-    if (eventName == 'initialized') {
-      if (!this._initEvents) this._initEvents = [];
-
-      this._initEvents.push(callback);
+    if (!this._opts.events) {
+      this._opts.events = {};
     }
-    else {
-      if (!this._opts.events) {
-        this._opts.events = {};
-      }
 
-      this._opts.events[eventName] = callback;
-    }
+    this._opts.events[eventName] = callback;
   }
 
   private initListeners() {
     let self = this;
-
     // Check if we have events on the editor.
     if (this._editor.events) {
       // bind contentChange and keyup event to froalaModel
@@ -203,13 +194,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       }
     }
 
-    // Call init events.
-    if (this._initEvents) {
-      for (let i = 0; i < this._initEvents.length; i++) {
-        this._initEvents[i].call(this._editor);
-      }
-    }
-
     this._editorInitialized = true;
   }
 
@@ -227,9 +211,15 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
       // Register initialized event.
       this.registerEvent('initialized', this._opts.events && this._opts.events.initialized);
-
+      const existingInitCallback = this._opts.events.initialized;
       // Default initialized event.
-      this._opts.events.initialized = () => this.initListeners();
+      if (!this._opts.events.initialized || !this._opts.events.initialized.overridden) {
+        this._opts.events.initialized = () => {
+          this.initListeners();
+          existingInitCallback && existingInitCallback();
+        };
+        this._opts.events.initialized.overridden = true;
+      }
 
       // Initialize the Froala Editor.
       this._editor = new FroalaEditor(
