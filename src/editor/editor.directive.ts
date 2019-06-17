@@ -298,7 +298,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   }
 
   // TODO not sure if ngOnInit is executed after @inputs
-  ngOnInit() {
+  ngAfterViewInit() {
     // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present.
     if (!this.froalaInit.observers.length) {
       this.createEditor();
