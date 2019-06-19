@@ -73,6 +73,10 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   @Input() set froalaModel(content: any) {
     this.updateEditor(content);
   }
+  
+  public get editor() {
+    return this._editor;
+  }
 
   // Update editor with model contents.
   private updateEditor(content: any) {
