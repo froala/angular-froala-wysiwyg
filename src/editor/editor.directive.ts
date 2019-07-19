@@ -1,4 +1,4 @@
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
 
 declare var $: JQueryStatic;
@@ -8,7 +8,7 @@ declare var $: JQueryStatic;
   selector: '[froalaEditor]',
   exportAs: 'froalaEditor',
   providers: [{
-    provide: NG_VALUE_ACCESSOR,useExisting:
+    provide: NG_VALUE_ACCESSOR, useExisting:
       forwardRef(() => FroalaEditorDirective),
     multi: true
   }]
@@ -40,7 +40,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private _oldModel: string = null;
 
-  constructor(el: ElementRef,  private zone: NgZone) {
+  constructor(el: ElementRef, private zone: NgZone) {
 
     let element: any = el.nativeElement;
 
@@ -56,8 +56,8 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   }
 
   // Begin ControlValueAccesor methods.
-  onChange = (_) => {};
-  onTouched = () => {};
+  onChange = (_) => { };
+  onTouched = () => { };
 
   // Form model content changed.
   writeValue(content: any): void {
@@ -126,7 +126,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         let attributeNodes = this._$element[0].attributes;
         let attrs = {};
 
-        for (let i = 0; i < attributeNodes.length; i++ ) {
+        for (let i = 0; i < attributeNodes.length; i++) {
 
           let attrName = attributeNodes[i].name;
           if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
@@ -148,14 +148,15 @@ export class FroalaEditorDirective implements ControlValueAccessor {
           modelContent = returnedHtml;
         }
       }
+      if (this._oldModel !== modelContent) {
+        this._oldModel = modelContent;
 
-      this._oldModel = modelContent;
+        // Update froalaModel.
+        this.froalaModelChange.emit(modelContent);
 
-      // Update froalaModel.
-      this.froalaModelChange.emit(modelContent);
-
-      // Update form model.
-      this.onChange(modelContent);
+        // Update form model.
+        this.onChange(modelContent);
+      }
 
     })
   }
@@ -185,11 +186,11 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       setTimeout(function () {
         self.onTouched();
       }, 0);
-    });   
-    
+    });
+
     if (this._opts.immediateAngularModelUpdate) {
       this.registerEvent(this._$element, 'keyup', function () {
-        setTimeout(function (){
+        setTimeout(function () {
           self.updateModel();
         }, 0);
       });
