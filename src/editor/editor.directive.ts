@@ -36,8 +36,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private _oldModel: string = null;
 
-  private _initEvents: any;
-
   constructor(el: ElementRef, private zone: NgZone) {
 
     let element: any = el.nativeElement;
@@ -217,7 +215,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       if (!this._opts.events.initialized || !this._opts.events.initialized.overridden) {
         this._opts.events.initialized = () => {
           this.initListeners();
-          existingInitCallback && existingInitCallback();
+          existingInitCallback && existingInitCallback.call(this._editor, this);
         };
         this._opts.events.initialized.overridden = true;
       }
