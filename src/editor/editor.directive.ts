@@ -229,7 +229,11 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   }
 
   private setHtml() {
-    this._editor.html.set(this._model || "");
+    if (this._hasSpecialTag) {
+      this._editor.html.set(this._model || "");
+    } else {
+      this._editor.html.set(this._oldModel || "");
+    }
 
     // This will reset the undo stack everytime the model changes externally. Can we fix this?
     this._editor.undo.reset();
@@ -242,7 +246,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     // Set initial content
     if (this._model || this._model == '') {
       this._oldModel = this._model;
-      if (this._hasSpecialTag) {
+    }
+
+    if (this._hasSpecialTag) {
 
         let tags: Object = this._model;
 
@@ -259,7 +265,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
             this._element.innerHTML = tags[this.INNER_HTML_ATTR];
           }
         }
-      } else {
+    } else {
         if (firstTime) {
           this.registerEvent('initialized', function () {
             self.setHtml();
@@ -267,7 +273,6 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         } else {
           self.setHtml();
         }
-      }
     }
   }
 
