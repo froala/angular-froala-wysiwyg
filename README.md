@@ -16,7 +16,6 @@
    - [ionic v2 or v3](#use-with-ionic-v2-or-v3)
    - [webpack](#use-with-webpack)
    - [angular-starter](#use-with-webpack)
-   - [angular-seed](#use-with-angular-seed)
    - [System.js and JIT](#use-with-systemjs-and-jit)
    - [AOT](#use-with-aot)
 4. [Usage](#usage)
@@ -298,125 +297,14 @@ npm run start
 ```
 
 
-
-### Use with `angular-seed`
-
-#### Create angular-seed app
-
-*Note*: you can skip this part if you already have application generated. For more details please also read: https://github.com/mgechev/angular-seed.
-
-```bash
-git clone --depth 1 https://github.com/mgechev/angular-seed.git
-cd angular-seed
-npm install
-```
-
-#### Add angular-froala-wysiwyg
-
-- install `angular-froala-wysiwyg`
-
-```bash
-npm install angular-froala-wysiwyg --save
-```
-
-- open `tools/config/project.config.ts` file and **uncomment** the following line from the top of the file
-
-```typescript
-import { ExtendPackages } from './seed.config.interfaces';
-```
-
-- in `tools/config/project.config.ts` file add
-
-```typescript
-...
-
-this.NPM_DEPENDENCIES = [
-  ...this.NPM_DEPENDENCIES,
-  { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
-  { src: 'froala-editor/css/froala_style.min.css', inject: true }
-];
-
-...
-
-let additionalPackages: ExtendPackages[] = [
-  // required for dev build
-  {
-    name:'angular-froala-wysiwyg',
-    path:'node_modules/angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.min.js'
-  },
-
-  // required for prod build
-  {
-    name:'angular-froala-wysiwyg/*',
-    path:'node_modules/angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.min.js'
-  }
-]
-
-this.addPackagesBundles(additionalPackages);
-```
-
-- open `src/client/app/home/home.module.ts` and add
-
-```typescript
-// Import all Froala Editor plugins.
-// import 'froala-editor/js/plugins.pkgd.min.js';
-
-// Import a single Froala Editor plugin.
-// import 'froala-editor/js/plugins/align.min.js';
-
-// Import a Froala Editor language file.
-// import 'froala-editor/js/languages/de.js';
-
-// Import Angular2 plugin.
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-...
-
-@NgModule({
-   ...
-   imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ... ],
-   ...
-})
-```
-
-- open `src/client/app/home/home.component.html` and add
-
-```html
-<div [froalaEditor]>Hello, Froala!</div>
-```
-
-#### Run webpack app
-
-```bash
-npm run start
-```
-
-
-
 ### Use with `system.js` and `JIT`
 
-#### Create Angular app
-
-*Note*: you can skip this part if you already have application generated.
-
-```bash
-git clone https://github.com/angular/quickstart.git angular-quickstart
-cd angular-quickstart
-npm install
-```
-
 #### Add angular-froala-wysiwyg
 
 - install `angular-froala-wysiwyg`
 
 ```bash
 npm install angular-froala-wysiwyg --save
-```
-
-- open `src/index.html` and add
-
-```html
-<link rel="stylesheet" href="node_modules/froala-editor/css/froala_editor.pkgd.min.css">
-<link rel="stylesheet" href="node_modules/froala-editor/css/froala_style.min.css">
 ```
 
 - open `src/app/app.module.ts` and add
@@ -442,20 +330,20 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 })
 ```
 
+- open `angular.json` file and insert a new entry into the `styles` array
+
+```json
+"styles": [
+  "styles.css",
+  "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
+  "./node_modules/froala-editor/css/froala_style.min.css",
+]
+```
+
 - open `src/app/app.component.ts` file and add to the template
 
 ```html
 <div [froalaEditor]>Hello, Froala!</div>
-```
-
-- open `src/systemjs.config.js` file and add to map
-
-```javascript
-map: {
-  ...
-  'angular-froala-wysiwyg': 'npm:angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.js',
-  ...
-}
 ```
 
 - 
@@ -466,6 +354,11 @@ map: {
 npm run start
 ```
 
+#### Link to Sample Demo
+
+```bash
+https://github.com/froala/angular-froala-systemjs-demo
+```
 
 
 ### Use with `aot`
