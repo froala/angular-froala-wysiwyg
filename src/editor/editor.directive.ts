@@ -65,7 +65,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // froalaEditor directive as input: store the editor options
   @Input() set froalaEditor(opts: any) {
 	  
-	// https://github.com/froala-labs/froala-editor-js-2/issues/1824   
+	// Cloning is done to prevent referencing the events of editor intialized before https://github.com/froala-labs/froala-editor-js-2/issues/1824   
     this._opts = this.clone(opts || this._opts)
   }
 
