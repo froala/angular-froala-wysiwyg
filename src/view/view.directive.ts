@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Input } from '@angular/core';
 
 @Directive({
   selector: '[froalaView]'
@@ -6,9 +6,8 @@ import { Directive, ElementRef, Renderer, Input, Output, Optional, EventEmitter 
 export class FroalaViewDirective {
 
   private _element: HTMLElement;
-  private _content: any;
 
-  constructor(private renderer: Renderer, element: ElementRef) {
+  constructor(private renderer: Renderer2, element: ElementRef) {
     this._element = element.nativeElement;
   }
 
@@ -18,6 +17,6 @@ export class FroalaViewDirective {
   }
 
   ngAfterViewInit() {
-    this.renderer.setElementClass(this._element, "fr-view", true);
+    this.renderer.addClass(this._element, "fr-view");
   }
 }
