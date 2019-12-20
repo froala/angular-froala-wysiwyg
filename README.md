@@ -389,9 +389,6 @@ npm run start
 
 1. ng new froala-aot
 
-2. npm install font-awesome
-
-- Go to `angular.json` and change `architect.build.options.outputPath` to `src/dist` and add following code to `architect.build.options.assets array`
 ```javascript
 {
   "glob": "**/*",
@@ -414,6 +411,15 @@ npm run start
 #### Add angular-froala-wysiwyg
 
 - install `angular-froala-wysiwyg`
+
+ In case you want to use font-awesome icons , you can use them by installing it.
+
+- Run ` npm install font-awesome ` and add in `app.module.ts`
+```
+import 'froala-editor/js/third_party/font_awesome.min';
+```
+
+- Go to `angular.json` and change `architect.build.options.outputPath` to `src/dist` and add following json to `architect.build.options.assets array` 
 
 ```bash
 npm install angular-froala-wysiwyg --save
@@ -439,7 +445,6 @@ npm install angular-froala-wysiwyg --save
 // import 'froala-editor/js/languages/de.js';
 
 // Import a third-party plugin.
-// import 'froala-editor/js/third_party/font_awesome.min';
 // import 'froala-editor/js/third_party/image_tui.min';
 // import 'froala-editor/js/third_party/spell_checker.min';
 // import 'froala-editor/js/third_party/embedly.min';
