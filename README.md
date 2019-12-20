@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dm/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 [![npm](https://img.shields.io/npm/l/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 
->Angular 2, Angular 4, Angular 5, Angular 6 and Angular 7 bindings for Froala WYSIWYG Editor.
+>Angular 2 to Angular 8 bindings for Froala WYSIWYG Editor.
 
 ![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/v2/editor.jpg)
 
@@ -391,9 +391,7 @@ npm run start
 
 2. npm install font-awesome
 
-3. npm install froala-editor
-
-- Go to `angular.json` and change `architect.build.outputPath` to `src/dist` and add following code to `architect.build.options.assets`
+- Go to `angular.json` and change `architect.build.options.outputPath` to `src/dist` and add following code to `architect.build.options.assets array`
 ```javascript
 {
   "glob": "**/*",
