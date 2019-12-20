@@ -615,8 +615,13 @@ export class AppComponent implements OnInit{
 
 
 ### Special tags
+Note: In order to use special tags in `app.module.ts` add
+```
+// Import all Froala Editor plugins.
+ import 'froala-editor/js/plugins.pkgd.min.js';
+```
 
-You can also use the editor on **img**, **button**, **input** and **a** tags:
+You may also use the editor on **img**, **button**, **input** and **a** tags:
 
 ```html
 <img [froalaEditor] [(froalaModel)]="imgObj"/>
