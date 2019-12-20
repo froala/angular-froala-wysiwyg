@@ -194,8 +194,11 @@ imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FroalaEditorMod
 <link rel="stylesheet" href="assets/css/froala_style.min.css">
 ```
 
-- In `angular.json` change outpath of build to  "outputPath": "src/assets" and insert following inside assets of build:
+- In `angular.json` change outpath of build to  "outputPath": "src/assets" and insert following inside `assets`array  of build:
 ```javascript
+"assets":[
+ ...,
+ 
   {
     "glob": "**/*",
     "input": "node_modules/froala-editor/css",
@@ -216,6 +219,7 @@ imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FroalaEditorMod
     "input": "node_modules/froala-editor/js",
     "output": "js"
   }
+ ]
 ```
 
 #### Run your App
