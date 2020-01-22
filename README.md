@@ -398,6 +398,7 @@ npm run start
 #### Create Angular app
 
 1. ng new froala-aot
+- Go to `angular.json` and change `architect.build.options.outputPath` to `src/dist` and add following code to `architect.build.options.assets array`
 
 ```javascript
 {
