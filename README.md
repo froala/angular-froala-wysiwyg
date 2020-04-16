@@ -67,6 +67,8 @@ cd my-app
 
 ```bash
 npm install angular-froala-wysiwyg --save
+npm install font-awesome --save
+npm install jquery --save
 ```
 
 - open `src/app/app.module.ts` and add
