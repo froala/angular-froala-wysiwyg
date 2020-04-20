@@ -593,6 +593,13 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 <div [froalaEditor]>Hello, Froala!</div>
 ```
 
+- open `src/main.ts` file and add
+
+```js
+import "froala-editor/js/froala_editor.pkgd.min.js";
+import * as $ from 'jquery'; window["$"] = $; window["jQuery"] = $;
+```
+
 - open `rollup-config.js` and add the following
 
 ```javascript
