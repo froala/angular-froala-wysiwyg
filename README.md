@@ -575,6 +575,9 @@ npm install angular-froala-wysiwyg --save
 - open `src/app/app.module.ts` and add
 
 ```typescript
+//Import Froala Editor
+import "froala-editor/js/froala_editor.pkgd.min.js";
+
 // Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ...
@@ -590,6 +593,14 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 ```html
 <div [froalaEditor]>Hello, Froala!</div>
+```
+
+- open `src/main.ts` file and add
+
+```typescript
+import * as $ from 'jquery';
+window["$"] = $;
+window["jQuery"] = $;
 ```
 
 - open `rollup-config.js` and add the following
