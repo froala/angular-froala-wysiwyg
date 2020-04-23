@@ -1,7 +1,7 @@
 {
   "name": "angular-froala-wysiwyg",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "dependencies": {
-    "froala-editor": "3.1.0"
+    "froala-editor": "3.1.1"
   }
 }
