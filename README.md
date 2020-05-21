@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dm/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 [![npm](https://img.shields.io/npm/l/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 
->Angular 2, Angular 4, Angular 5, Angular 6 and Angular 7 bindings for Froala WYSIWYG Editor.
+>Angular 4 to Angular 9 bindings for Froala WYSIWYG Editor.
 
 ![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/v2/editor.jpg)
 
@@ -14,9 +14,7 @@
 3. [Integration](#integration)
    - [angular-cli](#use-with-angular-cli)
    - [ionic v2 or v3](#use-with-ionic-v2-or-v3)
-   - [webpack](#use-with-webpack)
-   - [angular-starter](#use-with-webpack)
-   - [angular-seed](#use-with-angular-seed)
+   - [webpack/starter](#use-with-webpack)
    - [System.js and JIT](#use-with-systemjs-and-jit)
    - [AOT](#use-with-aot)
 4. [Usage](#usage)
@@ -79,6 +77,12 @@ npm install angular-froala-wysiwyg --save
 
 // Import a Froala Editor language file.
 // import 'froala-editor/js/languages/de.js';
+
+// Import a third-party plugin.
+// import 'froala-editor/js/third_party/font_awesome.min';
+// import 'froala-editor/js/third_party/image_tui.min';
+// import 'froala-editor/js/third_party/spell_checker.min';
+// import 'froala-editor/js/third_party/embedly.min';
 
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -157,6 +161,12 @@ npm install angular-froala-wysiwyg --save
 // Import a Froala Editor language file.
 // import 'froala-editor/js/languages/de.js';
 
+// Import a third-party plugin.
+// import 'froala-editor/js/third_party/font_awesome.min';
+// import 'froala-editor/js/third_party/image_tui.min';
+// import 'froala-editor/js/third_party/spell_checker.min';
+// import 'froala-editor/js/third_party/embedly.min';
+
 // Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ...
@@ -184,8 +194,11 @@ imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FroalaEditorMod
 <link rel="stylesheet" href="assets/css/froala_style.min.css">
 ```
 
-- In `angular.json` change outpath of build to  "outputPath": "src/assets" and insert following inside assets of build:
+- In `angular.json` change outpath of build to  "outputPath": "src/assets" and insert following inside `assets`array  of build:
 ```javascript
+"assets":[
+ ...,
+ 
   {
     "glob": "**/*",
     "input": "node_modules/froala-editor/css",
@@ -206,6 +219,7 @@ imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FroalaEditorMod
     "input": "node_modules/froala-editor/js",
     "output": "js"
   }
+ ]
 ```
 
 #### Run your App
@@ -217,7 +231,7 @@ ionic serve
 
 
 
-### Use with `webpack`
+### Use with `webpack/starter`
 
 #### Create webpack app
 
@@ -250,6 +264,12 @@ npm install angular-froala-wysiwyg --save
 
 // Import a Froala Editor language file.
 // import 'froala-editor/js/languages/de.js';
+
+// Import a third-party plugin.
+// import 'froala-editor/js/third_party/font_awesome.min';
+// import 'froala-editor/js/third_party/image_tui.min';
+// import 'froala-editor/js/third_party/spell_checker.min';
+// import 'froala-editor/js/third_party/embedly.min';
 
 // Import Angular plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -297,101 +317,6 @@ var webpack = require('webpack');
 npm run start
 ```
 
-
-
-### Use with `angular-seed`
-
-#### Create angular-seed app
-
-*Note*: you can skip this part if you already have application generated. For more details please also read: https://github.com/mgechev/angular-seed.
-
-```bash
-git clone --depth 1 https://github.com/mgechev/angular-seed.git
-cd angular-seed
-npm install
-```
-
-#### Add angular-froala-wysiwyg
-
-- install `angular-froala-wysiwyg`
-
-```bash
-npm install angular-froala-wysiwyg --save
-```
-
-- open `tools/config/project.config.ts` file and **uncomment** the following line from the top of the file
-
-```typescript
-import { ExtendPackages } from './seed.config.interfaces';
-```
-
-- in `tools/config/project.config.ts` file add
-
-```typescript
-...
-
-this.NPM_DEPENDENCIES = [
-  ...this.NPM_DEPENDENCIES,
-  { src: 'froala-editor/css/froala_editor.pkgd.min.css', inject: true },
-  { src: 'froala-editor/css/froala_style.min.css', inject: true }
-];
-
-...
-
-let additionalPackages: ExtendPackages[] = [
-  // required for dev build
-  {
-    name:'angular-froala-wysiwyg',
-    path:'node_modules/angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.min.js'
-  },
-
-  // required for prod build
-  {
-    name:'angular-froala-wysiwyg/*',
-    path:'node_modules/angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.min.js'
-  }
-]
-
-this.addPackagesBundles(additionalPackages);
-```
-
-- open `src/client/app/home/home.module.ts` and add
-
-```typescript
-// Import all Froala Editor plugins.
-// import 'froala-editor/js/plugins.pkgd.min.js';
-
-// Import a single Froala Editor plugin.
-// import 'froala-editor/js/plugins/align.min.js';
-
-// Import a Froala Editor language file.
-// import 'froala-editor/js/languages/de.js';
-
-// Import Angular2 plugin.
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-...
-
-@NgModule({
-   ...
-   imports: [FroalaEditorModule.forRoot(), FroalaViewModule.forRoot() ... ],
-   ...
-})
-```
-
-- open `src/client/app/home/home.component.html` and add
-
-```html
-<div [froalaEditor]>Hello, Froala!</div>
-```
-
-#### Run webpack app
-
-```bash
-npm run start
-```
-
-
-
 ### Use with `system.js` and `JIT`
 
 #### Create Angular app
@@ -399,8 +324,8 @@ npm run start
 *Note*: you can skip this part if you already have application generated.
 
 ```bash
-git clone https://github.com/angular/quickstart.git angular-quickstart
-cd angular-quickstart
+git clone https://github.com/froala/angular-froala-systemjs-demo
+cd angular-froala-systemjs-demo
 npm install
 ```
 
@@ -431,6 +356,12 @@ npm install angular-froala-wysiwyg --save
 // Import a Froala Editor language file.
 // import 'froala-editor/js/languages/de.js';
 
+// Import a third-party plugin.
+// import 'froala-editor/js/third_party/font_awesome.min';
+// import 'froala-editor/js/third_party/image_tui.min';
+// import 'froala-editor/js/third_party/spell_checker.min';
+// import 'froala-editor/js/third_party/embedly.min';
+
 // Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ...
@@ -448,18 +379,6 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 <div [froalaEditor]>Hello, Froala!</div>
 ```
 
-- open `src/systemjs.config.js` file and add to map
-
-```javascript
-map: {
-  ...
-  'angular-froala-wysiwyg': 'npm:angular-froala-wysiwyg/bundles/angular-froala-wysiwyg.umd.js',
-  ...
-}
-```
-
-- 
-
 #### Run app
 
 ```bash
@@ -474,11 +393,6 @@ npm run start
 
 1. ng new froala-aot
 
-2. npm install font-awesome
-
-3. npm install froala-editor
-
-- Go to `angular.json` and change `architect.build.outputPath` to `src/dist` and add following code to `architect.build.options.assets`
 ```javascript
 {
   "glob": "**/*",
@@ -502,6 +416,15 @@ npm run start
 
 - install `angular-froala-wysiwyg`
 
+ In case you want to use font-awesome icons , you can use them by installing it.
+
+- Run ` npm install font-awesome ` and add in `app.module.ts`
+```
+import 'froala-editor/js/third_party/font_awesome.min';
+```
+
+- Go to `angular.json` and change `architect.build.options.outputPath` to `src/dist` and add following json to `architect.build.options.assets array` 
+
 ```bash
 npm install angular-froala-wysiwyg --save
 ```
@@ -524,6 +447,11 @@ npm install angular-froala-wysiwyg --save
 
 // Import a Froala Editor language file.
 // import 'froala-editor/js/languages/de.js';
+
+// Import a third-party plugin.
+// import 'froala-editor/js/third_party/image_tui.min';
+// import 'froala-editor/js/third_party/spell_checker.min';
+// import 'froala-editor/js/third_party/embedly.min';
 
 // Import Angular2 plugin.
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -687,8 +615,13 @@ export class AppComponent implements OnInit{
 
 
 ### Special tags
+Note: In order to use special tags in `app.module.ts` add
+```
+// Import all Froala Editor plugins.
+ import 'froala-editor/js/plugins.pkgd.min.js';
+```
 
-You can also use the editor on **img**, **button**, **input** and **a** tags:
+You may also use the editor on **img**, **button**, **input** and **a** tags:
 
 ```html
 <img [froalaEditor] [(froalaModel)]="imgObj"/>
