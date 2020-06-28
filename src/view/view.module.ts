@@ -7,7 +7,7 @@ import { FroalaViewDirective } from './view.directive';
   exports: [FroalaViewDirective]
 })
 export class FroalaViewModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<FroalaViewModule> {
     return {ngModule: FroalaViewModule, providers: []};
   }
 }
