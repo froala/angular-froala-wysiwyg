@@ -53,9 +53,10 @@
     "froala-editor": "^3.2.1",
     "tslib": "^1.9.0"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "lodash.clonedeep": "^4.5.0"
+  },
   "devDependencies": {
-    "lite-server": "^2.5.4",
     "@angular-devkit/build-angular": "~0.11.0",
     "@angular/cli": "^7.1.4",
     "@angular/common": "^7.2.0",
@@ -73,6 +74,7 @@
     "@types/tapable": "^1.0.4",
     "@types/webpack": "^4.39.5",
     "classlist-polyfill": "1.0.3",
+    "lite-server": "^2.5.4",
     "ngm-cli": "^1.0.4",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.3.2",
