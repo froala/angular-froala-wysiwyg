@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, NgZone, Output, forwardRef, OnDestroy, AfterViewInit } from '@angular/core';
 
 import FroalaEditor from 'froala-editor';
 
@@ -12,7 +12,7 @@ import FroalaEditor from 'froala-editor';
     multi: true
   }]
 })
-export class FroalaEditorDirective implements ControlValueAccessor {
+export class FroalaEditorDirective implements ControlValueAccessor, OnDestroy, AfterViewInit {
 
   // editor options
   private _opts: any = {
