@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Directive, ElementRef, EventEmitter, Input, NgZone, Optional, Output, Renderer, forwardRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, NgZone, Output, forwardRef } from '@angular/core';
 
 import FroalaEditor from 'froala-editor';
 
@@ -64,7 +64,12 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   // froalaEditor directive as input: store the editor options
   @Input() set froalaEditor(opts: any) {
-    this._opts = opts || this._opts;
+    this._opts = this.clone(opts || this._opts);
+  }
+
+  // clone object for same code same froal model work together
+  private clone(item) {
+    return JSON.parse(JSON.stringify(item))
   }
 
   // froalaModel directive as input: store initial editor content

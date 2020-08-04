@@ -8,7 +8,7 @@ import { FroalaEditorDirective } from './editor.directive';
 })
 
 export class FroalaEditorModule {
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<FroalaEditorModule> {
     return {ngModule: FroalaEditorModule, providers: []};
   }
 }
