@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "outDir": "../dist",
-    "target": "es5",
-    "module": "es2015",
+    "target": "es2015",
+    "module": "es2020",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -16,7 +16,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "allowSyntheticDefaultImports": true,
-    "lib": ["dom", "es6"]
+    "lib": ["dom", "es2017"]
   },
   "exclude": [
     "node_modules"
