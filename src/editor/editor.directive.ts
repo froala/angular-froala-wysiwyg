@@ -257,7 +257,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     // Set initial content
     if (this._model || this._model == '') {
       this._oldModel = this._model;
-    }
+    
       if (this._hasSpecialTag) {
 
         let tags: Object = this._model;
@@ -283,6 +283,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         } else {
           self.setHtml();
         }
+      }
       }
   }
 
