@@ -223,9 +223,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (this._editor.events) {
       // bind contentChange and keyup event to froalaModel
       this._editor.events.on('contentChanged', function () {
-        setTimeout(function () {
-          self.updateModel();
-        }, 0);
+        self.updateModel();
       });
       this._editor.events.on('mousedown', function () {
         setTimeout(function () {
