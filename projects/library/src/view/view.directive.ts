@@ -12,7 +12,7 @@ export class FroalaViewDirective {
   }
 
   // update content model as it comes
-  @Input() set froalaView(content: string){
+  @Input() set froalaView(content: string) {
     this._element.innerHTML = content;
   }
 

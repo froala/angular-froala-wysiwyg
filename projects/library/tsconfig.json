@@ -1,0 +1,32 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "module": "es2015",
+    "target": "es2015",
+    "baseUrl": "./",
+    "stripInternal": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "outDir": "../build",
+    "rootDir": ".",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "types": []
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false,
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "skipTemplateCodegen": true,
+    "flatModuleOutFile": "angular-froala-wysiwyg.js",
+    "flatModuleId": "angular-froala-wysiwyg"
+  },
+  "files": [
+    "./src/index.ts"
+  ]
+}

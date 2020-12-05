@@ -1,0 +1,32 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers" :true,
+    "lib": ["es6", "dom"],
+    "types": [
+      "webpack"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "typeRoots": [
+      "../../node_modules/@types"
+    ],
+    "paths": {
+      "angular-fraola-wysiwyg": [
+        "../library/src/index.ts"
+      ]
+    }
+  },
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "**/*.d.ts"
+  ]
+}
