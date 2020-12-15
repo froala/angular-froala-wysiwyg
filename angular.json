@@ -21,8 +21,7 @@
             "styles": [
               "node_modules/froala-editor/css/froala_editor.pkgd.css"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -75,5 +74,8 @@
     "@schematics/angular:directive": {
       "prefix": ""
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
