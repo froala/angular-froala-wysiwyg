@@ -357,6 +357,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (this.initialized) {
       return;
     }
+    this.initialized = true;
     if (!this.froalaInit.observers.length) {
       this.createEditor();
     } else {
