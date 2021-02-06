@@ -56,6 +56,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // Form model content changed.
   writeValue(content: any): void {
     this.updateEditor(content);
+   if(content){
+      this.setup();
+    }
   }
 
   registerOnChange(fn: (_: any) => void): void { this.onChange = fn; }
@@ -346,6 +349,15 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // TODO not sure if ngOnInit is executed after @inputs
   ngAfterViewInit() {
     // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present.
+   this.setup();
+  }
+
+  private initialized = false;
+  private setup() {
+    if (this.initialized) {
+      return;
+    }
+    this.initialized = true;
     if (!this.froalaInit.observers.length) {
       this.createEditor();
     } else {
