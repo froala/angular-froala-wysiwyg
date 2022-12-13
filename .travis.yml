@@ -2,8 +2,9 @@ git:
   depth: false
   quiet: false
 language: generic
-dist: bionic 
-sudo: required
+dist: bionic
+sudo: required  
+branches:
   only:
     - /dev*/
     - /AO-dev*/
@@ -13,7 +14,6 @@ sudo: required
     - /Release-Master*/
 env:
 - SHORT_COMMIT= `git rev-parse --short=7 ${TRAVIS_COMMIT}`
-
 before_install:
   - echo $TRAVIS_BRANCH
   - echo $PWD
@@ -30,4 +30,4 @@ notifications:
     recipients:
       - harasunu.narayan@froala.com
     on_success: always
-    on_failure: always 
+    on_failure: always
