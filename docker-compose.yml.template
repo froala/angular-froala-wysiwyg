@@ -8,8 +8,8 @@ services:
     container_name: ContainerName
     networks:
       - caddy
-#    ports:
-#      - "1500:4200"
+    ports:
+     - "0.0.0.0:4200"
 
     labels:
       caddy_0: UrlName
