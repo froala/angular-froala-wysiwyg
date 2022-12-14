@@ -9,7 +9,7 @@ services:
     networks:
       - caddy
     ports:
-     - "0.0.0.0:4200"
+     - "0000:4200"
 
     labels:
       caddy_0: UrlName
