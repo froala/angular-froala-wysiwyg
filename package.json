@@ -6,7 +6,7 @@
   "typings": "index.d.ts",
   "module": "index.js",
   "scripts": {
-    "demo.serve": "ng serve --host 0.0.0.0 angular-froala-wysiwyg-demo",
+    "demo.serve": "ng serve --host 0.0.0.0 --disable-host-check angular-froala-wysiwyg-demo",
     "demo.build": "ng build angular-froala-wysiwyg-demo",
     "build": "ng build angular-froala-wysiwyg",
     "start": "npm run demo.serve"
