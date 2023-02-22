@@ -52,7 +52,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   }
 
   // Begin ControlValueAccesor methods.
-  onChange = (_) => {
+  onChange = (_: any) => {
   };
   onTouched = () => {
   };
@@ -131,11 +131,34 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this.updateEditor(content);
   }
 
-  // Update editor with model contents.
-  private updateEditor(content: any) {
-    if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
-      return;
-    }
+  private stringify(obj) {
+    let cache = [];
+    let str = JSON.stringify(obj, function(key, value) {
+      if (typeof value === "object" && value !== null) {
+        if (cache.indexOf(value) !== -1) {
+          // Circular reference found, discard key
+          return;
+        }
+        // Store value in our collection
+        cache.push(value);
+      }
+      return value;
+    });
+    cache = null; // reset the cache
+    return str;
+  }
+  
+    // Update editor with model contents.
+    private updateEditor(content: any) {
+      try{
+      if (this.stringify(this._oldModel) == this.stringify(content)) {
+        return;
+      }
+      }
+      catch(err){
+        console.log(err);
+      }
+  
 
     if (!this._hasSpecialTag) {
       this._oldModel = content;
