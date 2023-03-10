@@ -153,16 +153,10 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   
     // Update editor with model contents.
     private updateEditor(content: any) {
-      try{
       if (this.stringify(this._oldModel) == this.stringify(content)) {
         return;
       }
-      }
-      catch(err){
-        console.log(err);
-      }
-  
-
+     
     if (!this._hasSpecialTag) {
       this._oldModel = content;
     } else {
