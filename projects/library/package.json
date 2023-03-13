@@ -1,5 +1,10 @@
 {
   "name": "angular-froala-wysiwyg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/froala/angular-froala-wysiwyg.git",
+    "directory":"projects/library"
+  },
   "version": "4.0.17",
   "dependencies": {
     "froala-editor": "4.0.17"

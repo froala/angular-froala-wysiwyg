@@ -11,7 +11,7 @@
     ],
     "module": "esnext",
     "moduleResolution": "node",
-    "target": "es2015",
+    "target": "ES2022",
     "baseUrl": ".",
     "sourceMap": true,
     "typeRoots": [
