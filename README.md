@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dm/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 [![npm](https://img.shields.io/npm/l/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 
->Angular 4 to Angular 9 bindings for Froala WYSIWYG Editor.
+>Angular 15+ versions bindings for Froala WYSIWYG Editor.
 
 ![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/v2/editor.jpg)
 
