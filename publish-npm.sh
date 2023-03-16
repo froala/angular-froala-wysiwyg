@@ -31,9 +31,9 @@ jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependenci
 #    "froala-editor": "file:./froala-editor.tar.gz"
 #  }
 
-jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependencies["froala-editor"] |= $froalaeditor' projects/library/package.json  > new.file && cat new.file > projects/library/package.json && rm -f new.file
+jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependencies["froala-editor"] |= $froalaeditor' package.json  > new.file && cat new.file > package.json && rm -f new.file
 
-echo " Angular demo package.json file: " && cat projects/library/package.json
+echo " Angular demo package.json file: " && package.json
 
 ###
 # Replace froala angular editor name in package.json - suffix it with BRANCH_NAME
@@ -49,7 +49,7 @@ jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.jso
 # finally, build & publish npm package to nexus
 wget --no-check-certificate --user ${NEXUS_USER}  --password ${NEXUS_USER_PWD} https://nexus.tools.froala-infra.com/repository/Froala-npm/${PACKAGE_NAME}/-/${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz
 
-npm install
+npm install npm@6.14.13
 npm run build
 cd dist
 # update angular name
