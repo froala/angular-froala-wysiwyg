@@ -31,9 +31,9 @@ jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependenci
 #    "froala-editor": "file:./froala-editor.tar.gz"
 #  }
 
-jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependencies["froala-editor"] |= $froalaeditor' package.json  > new.file && cat new.file > package.json && rm -f new.file
+jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependencies["froala-editor"] |= $froalaeditor' projects/library/package.json  > new.file && cat new.file > projects/library/package.json && rm -f new.file
 
-echo " Angular demo package.json file: " && package.json
+echo " Angular demo package.json file: " && cat projects/library/package.json
 
 ###
 # Replace froala angular editor name in package.json - suffix it with BRANCH_NAME
@@ -42,18 +42,18 @@ export DEFAULT_NAME=`cat package.json | jq '.name '`
 export DEFAULT_NAME=`sed -e 's/^"//' -e 's/"$//' <<<"$DEFAULT_NAME"`
 echo ${DEFAULT_NAME}
 export ANGULAR_EDITOR_NAME=${DEFAULT_NAME}-${TRAVIS_BRANCH}
-jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.json && mv tmp.json package.json
+jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' projects/library/package.json > tmp.json && mv tmp.json projects/library/package.json
 #
 ###
 
 # finally, build & publish npm package to nexus
 wget --no-check-certificate --user ${NEXUS_USER}  --password ${NEXUS_USER_PWD} https://nexus.tools.froala-infra.com/repository/Froala-npm/${PACKAGE_NAME}/-/${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz
 
-npm install npm@6.14.13
+npm install
 npm run build
 cd dist
 # update angular name
-jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.json && mv tmp.json package.json
+jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' projects/library/package.json > tmp.json && mv tmp.json projects/library/package.json
 # set nexus npm repo
 jq '.publishConfig |= . + {"registry": "https://nexus.tools.froala-infra.com/repository/Froala-npm/" }' package.json  > new.file && cat new.file > package.json && rm -f new.file
 
