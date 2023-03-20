@@ -19,7 +19,6 @@
     "types": []
   },
   "angularCompilerOptions": {
-    "enableIvy": true,
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
