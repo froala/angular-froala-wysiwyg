@@ -179,3 +179,4 @@ if [ "${EXISTING_DEPLOYMENTS_NR}" -ge "${MAX_DEPLOYMENTS_NR}" ]; then
     deploy && sleep 30
     echo "Deployment completed."
 fi
+
