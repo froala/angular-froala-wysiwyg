@@ -34,7 +34,7 @@ cd dist
 # update angular name
 jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' projects/library/package.json > tmp.json && mv tmp.json projects/library/package.json
 # set nexus npm repo
-jq '.publishConfig |= . + {"registry": "https://nexus.tools.froala-infra.com/repository/Froala-npm/" }' package.json  > new.file && cat new.file > package.json && rm -f new.file
+jq '.publishConfig |= . + {"registry": "${NEXUS_URL}/repository/Froala-npm/" }' package.json  > new.file && cat new.file > package.json && rm -f new.file
 
 npm publish
 
