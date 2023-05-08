@@ -15,7 +15,7 @@ RUN apt update -y \
 RUN echo "Dummy line"
 
 RUN echo "PackageName=$PackageName PackageVersion=$PackageVersion NexusUser=${NexusUser} NexusPassword=${NexusPassword}"
-wget --no-check-certificate --user ${NEXUS_USER}  --password ${NEXUS_USER_PWD} https://nexus.tools.froala-infra.com/repository/Froala-npm/${PACKAGE_NAME}/-/${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz
+RUN wget --no-check-certificate --user ${NEXUS_USER}  --password ${NEXUS_USER_PWD} https://nexus.tools.froala-infra.com/repository/Froala-npm/${PACKAGE_NAME}/-/${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz
 
 RUN npm install 
 
