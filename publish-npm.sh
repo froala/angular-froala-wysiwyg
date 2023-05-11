@@ -32,7 +32,7 @@ export ANGULAR_EDITOR_NAME=${DEFAULT_NAME}-${TRAVIS_BRANCH}
 jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.json && mv tmp.json package.json
 wget --no-check-certificate --user ${NEXUS_USER}  --password ${NEXUS_USER_PWD} https://nexus.tools.froala-infra.com/repository/Froala-npm/${PACKAGE_NAME}/-/${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz
 
-npm install npm@6.14.3
+npm install -f
 npm run build
 #cd dist
 jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.json && mv tmp.json package.json
