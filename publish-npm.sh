@@ -34,7 +34,7 @@ wget --no-check-certificate --user ${NEXUS_USER}  --password ${NEXUS_USER_PWD} h
 
 npm install -f
 npm run build
-cd dist-demo
+cd ./dist-demo
 jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.json && mv tmp.json package.json
 jq '.publishConfig |= . + {"registry": "https://nexus.tools.froala-infra.com/repository/Froala-npm/" }' package.json  > new.file && cat new.file > package.json && rm -f new.file
 
