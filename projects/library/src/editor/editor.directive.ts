@@ -281,7 +281,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   }
 
   private setHtml() {
-    this._editor.html.set("Test content");
+    this._editor.html.set(this._model || "");
 
     // This will reset the undo stack everytime the model changes externally. Can we fix this?
     this._editor.undo.reset();
