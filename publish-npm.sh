@@ -23,8 +23,6 @@ echo "Package name : ${PACKAGE_NAME}"
 # jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependencies["froala-editor"] |= $froalaeditor' package.json  > new.file && cat new.file > package.json && rm -f new.file
 # jq --arg froalaeditor "file:${PACKAGE_NAME}-${PACKAGE_VERSION}.tgz" '.dependencies["froala-editor"] |= $froalaeditor' projects/library/package.json  > new.file && cat new.file > projects/library/package.json && rm -f new.file
 
-echo " Angular demo package.json file: " && cat projects/library/package.json
-
 export DEFAULT_NAME=`cat projects/library/package.json | jq '.name '`
 export DEFAULT_NAME=`sed -e 's/^"//' -e 's/"$//' <<<"$DEFAULT_NAME"`
 echo ${DEFAULT_NAME}
@@ -37,6 +35,8 @@ ls -la
 cd dist
 jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.json && mv tmp.json package.json
 jq '.publishConfig |= . + {"registry": "https://nexus.tools.froala-infra.com/repository/Froala-npm/" }' package.json  > new.file && cat new.file > package.json && rm -f new.file
+
+echo " Angular demo package.json file: " && cat projects/library/package.json
 
 npm publish
 
