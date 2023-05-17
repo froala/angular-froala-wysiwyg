@@ -36,7 +36,7 @@ cd dist
 jq --arg newval "$ANGULAR_EDITOR_NAME" '.name |= $newval' package.json > tmp.json && mv tmp.json package.json
 jq '.publishConfig |= . + {"registry": "https://nexus.tools.froala-infra.com/repository/Froala-npm/" }' package.json  > new.file && cat new.file > package.json && rm -f new.file
 
-echo " Angular demo package.json file: " && cat projects/library/package.json
+echo " Angular demo package.json file: " && cat package.json
 
 npm publish
 
