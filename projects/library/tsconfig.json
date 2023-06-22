@@ -19,6 +19,7 @@
     "types": []
   },
   "angularCompilerOptions": {
+    "compilationMode": "partial",
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
