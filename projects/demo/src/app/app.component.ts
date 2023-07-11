@@ -66,7 +66,7 @@ import FroalaEditor from 'froala-editor';
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div *ngIf="formModel.invalid"> Name is too short. </div>
         <h3>Textarea with formControlName and froalaModel</h3>
-        <textarea id="sample9-1" [froalaEditor] formControlName="formModel" [(froalaModel)]="formControls.formModel"></textarea>
+        <textarea id="sample9-1" [froalaEditor] formControlName="formModel" [(froalaModel)]="form.formModel"></textarea>
         <h4>Rendered Content:</h4>
         <div [froalaView]="form.value.formModel"></div>
         <h3>Textarea only with formControlName</h3>
@@ -127,6 +127,10 @@ export class AppComponent implements OnInit {
     }
   }
   public myTitle: string;
+  onBlurMethod()
+  {
+    console.log(this.myTitle);
+  }
 
 
   // Sample 2 model
@@ -187,7 +191,7 @@ export class AppComponent implements OnInit {
   formControls = {
     formModel: new FormControl('Hello World', Validators.minLength(2)),
   };
-  form = new FormGroup(this.formControls);
+  form:any = new FormGroup(this.formControls);
   get formModel(): any { return this.form.get('formModel'); }
   onSubmit(): void {
     console.log(this.form.value);

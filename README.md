@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dm/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 [![npm](https://img.shields.io/npm/l/angular-froala-wysiwyg.svg)](https://www.npmjs.com/package/angular-froala-wysiwyg)
 
->Angular 4 to Angular 9 bindings for Froala WYSIWYG Editor.
+>Angular 15+ versions bindings for Froala WYSIWYG Editor.
 
 ![WYSIWYG HTML Editor](https://raw.githubusercontent.com/froala/wysiwyg-editor/v2/editor.jpg)
 
@@ -37,6 +37,12 @@ You will need CSS styles
 <!-- index.html -->
 <link href="node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet">
 ```
+
+>Note :  In case you want to use font-awesome icons , you can use them by installing it.
+- Run ` npm install font-awesome ` 
+- Or in `index.hml` add given cdn  
+ `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">`
+
 
 ## Update editor instructions
 

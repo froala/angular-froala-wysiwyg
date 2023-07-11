@@ -52,7 +52,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   }
 
   // Begin ControlValueAccesor methods.
-  onChange = (_) => {
+  onChange = (_: any) => {
   };
   onTouched = () => {
   };
@@ -60,6 +60,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // Form model content changed.
   writeValue(content: any): void {
     this.updateEditor(content);
+    if(content){
+      this.setup();
+    }
   }
 
   registerOnChange(fn: (_: any) => void): void {
@@ -131,12 +134,29 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this.updateEditor(content);
   }
 
-  // Update editor with model contents.
-  private updateEditor(content: any) {
-    if (JSON.stringify(this._oldModel) == JSON.stringify(content)) {
-      return;
-    }
-
+  private stringify(obj) {
+    let cache = [];
+    let str = JSON.stringify(obj, function(key, value) {
+      if (typeof value === "object" && value !== null) {
+        if (cache.indexOf(value) !== -1) {
+          // Circular reference found, discard key
+          return;
+        }
+        // Store value in our collection
+        cache.push(value);
+      }
+      return value;
+    });
+    cache = null; // reset the cache
+    return str;
+  }
+  
+    // Update editor with model contents.
+    private updateEditor(content: any) {
+      if (this.stringify(this._oldModel) == this.stringify(content)) {
+        return;
+      }
+     
     if (!this._hasSpecialTag) {
       this._oldModel = content;
     } else {
@@ -351,6 +371,15 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // TODO not sure if ngOnInit is executed after @inputs
   ngAfterViewInit() {
     // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present.
+    this.setup();
+  }
+
+  private initialized = false;
+  private setup() {
+    if (this.initialized) {
+      return;
+    }
+    this.initialized = true;
     if (!this.froalaInit.observers.length) {
       this.createEditor();
     } else {
