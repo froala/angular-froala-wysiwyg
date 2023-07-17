@@ -7,6 +7,6 @@
   },
   "version": "4.1.0",
   "dependencies": {
-    "froala-editor": "4.1.0"
+    "froala-editor": "4.0.19"
   }
 }
