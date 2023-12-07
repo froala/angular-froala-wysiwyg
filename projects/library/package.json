@@ -5,8 +5,8 @@
     "url": "https://github.com/froala/angular-froala-wysiwyg.git",
     "directory":"projects/library"
   },
-  "version": "4.1.3",
+  "version": "4.1.4",
   "dependencies": {
-    "froala-editor": "4.1.3"
+    "froala-editor": "4.1.4"
   }
 }
