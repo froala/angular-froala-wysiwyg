@@ -36,7 +36,7 @@
   "dependencies": {
     "font-awesome": "^4.7.0",
     "froala-editor": "^4.3.1",
-    "tslib": "^2.5.0"
+    "tslib": "^2.8.1"
   },
   "peerDependencies": {},
   "devDependencies": {
