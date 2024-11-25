@@ -3,15 +3,16 @@ import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, Output,
 import { isPlatformBrowser } from "@angular/common";
 
 @Directive({
-  selector: '[froalaEditor]',
-  exportAs: 'froalaEditor',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FroalaEditorDirective),
-      multi: true
-    }
-  ]
+    selector: '[froalaEditor]',
+    exportAs: 'froalaEditor',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => FroalaEditorDirective),
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class FroalaEditorDirective implements ControlValueAccessor {
 
