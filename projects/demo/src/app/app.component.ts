@@ -4,8 +4,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import FroalaEditor from 'froala-editor';
 
 @Component({
-  selector: 'app-demo',
-  template: `
+    selector: 'app-demo',
+    template: `
 
     <h1>Angular adapter for the Froala WYSIWYG editor</h1>
     <div class="sample">
@@ -93,7 +93,8 @@ import FroalaEditor from 'froala-editor';
       <div  id="sample11" [froalaEditor]="options" [(froalaModel)]="content" ></div>
     </div>
 
-  `
+  `,
+    standalone: false
 })
 
 export class AppComponent implements OnInit {
