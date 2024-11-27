@@ -1,7 +1,7 @@
 {
   "name": "angular-froala-wysiwyg-base",
   "version": "4.3.1",
-  "description": "Angular 15+ versions bindings for Froala WYSIWYG HTML rich text editor",
+  "description": "Angular 19+ versions bindings for Froala WYSIWYG HTML rich text editor",
   "main": "bundles/angular-froala-wysiwyg.umd.js",
   "typings": "index.d.ts",
   "module": "index.js",
@@ -16,8 +16,8 @@
     "url": "https://github.com/froala/angular-froala-wysiwyg.git"
   },
   "keywords": [
-    "angular15",
-    "ng15",
+    "angular19",
+    "ng19",
     "froala",
     "html",
     "text",
@@ -36,32 +36,29 @@
   "dependencies": {
     "font-awesome": "^4.7.0",
     "froala-editor": "^4.3.1",
-    "tslib": "^2.5.0"
+    "tslib": "^2.8.1"
   },
   "peerDependencies": {},
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.0.0",
-    "@angular/cli": "^15.0.0",
-    "@angular/common": "^15.0.0",
-    "@angular/compiler": "^15.0.0",
-    "@angular/compiler-cli": "^15.0.0",
-    "@angular/core": "^15.0.0",
-    "@angular/forms": "^15.0.0",
-    "@angular/language-service": "^15.0.0",
-    "@angular/platform-browser": "^15.0.0",
-    "@angular/platform-browser-dynamic": "^15.0.0",
-    "@angular/router": "^15.0.0",
-    "core-js": "~2.6.11",
-    "@types/marked": "4.0.8",
-    "@types/node": "^16.13.0",
-    "@types/tapable": "^1.0.4",
-    "@types/webpack": "^5.28.0",
+    "@angular-devkit/build-angular": "^19.0.1",
+    "@angular/cli": "^19.0.1",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/compiler-cli": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
+    "@angular/language-service": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
+    "@angular/router": "^19.0.0",
+    "@types/node": "^18.11.9",
+    "@types/tapable": "^2.2.1",
+    "@types/webpack": "^5.28.5",
     "classlist.js": "^1.1.20150312",
-    "ng-packagr": "^15.0.0",
-    "rxjs": "^6.5.3",
-    "ts-helpers": "^1.1.1",
-    "typescript": "~4.8.2",
-    "zone.js": "~0.12.0",
-    "tsickle": "^0.46.3"
+    "ng-packagr": "^19.0.1",
+    "rxjs": "^7.8.1",
+    "ts-helpers": "^1.1.2",
+    "typescript": "~5.6.3",
+    "zone.js": "~0.15.0"
   }
 }
