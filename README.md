@@ -72,7 +72,57 @@ cd my-app
 npm install angular-froala-wysiwyg --save
 ```
 
-- open `src/app/app.module.ts` and add
+- if you are adding Froala to an application that uses Server-side rendering, open `src/app/app.component.ts` and add
+
+```typescript
+// Import helpers to detect browser context
+import { PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from "@angular/common";
+// Import Angular plugin.
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+...
+
+@Component({
+  ...
+  imports: [FroalaEditorModule, FroalaViewModule ... ],
+  ...
+})
+
+export class AppComponent {
+  ...
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+  ngAfterViewInit() {
+    // Import Froala plugins dynamically only in the browser context
+    if (isPlatformBrowser(this.platformId)) {
+      // Import all Froala Editor plugins.
+      // @ts-ignore
+      // import('froala-editor/js/plugins.pkgd.min.js');
+
+      // Import a single Froala Editor plugin.
+      // @ts-ignore
+      // import('froala-editor/js/plugins/align.min.js');
+
+      // Import a Froala Editor language file.
+      // @ts-ignore
+      // import('froala-editor/js/languages/de.js');
+
+      // Import a third-party plugin.
+      // @ts-ignore
+      // import('froala-editor/js/third_party/font_awesome.min');
+      // @ts-ignore
+      // import('froala-editor/js/third_party/image_tui.min');
+      // @ts-ignore
+      // import('froala-editor/js/third_party/spell_checker.min';
+      // @ts-ignore
+      // import('froala-editor/js/third_party/embedly.min');
+    }
+  }
+  ...
+}
+```
+
+- alternatively, for non-SSR applications, open `src/app/app.module.ts` and add
 
 ```typescript
 // Import all Froala Editor plugins.
