@@ -92,7 +92,7 @@ export class AppComponent {
   ...
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngAfterViewInit() {
+  ngOnInit() {
     // Import Froala plugins dynamically only in the browser context
     if (isPlatformBrowser(this.platformId)) {
       // Import all Froala Editor plugins.
