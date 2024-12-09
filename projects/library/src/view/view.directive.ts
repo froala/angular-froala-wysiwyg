@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Renderer2, Input } from '@angular/core';
 
 @Directive({
-  selector: '[froalaView]'
+    selector: '[froalaView]',
+    standalone: false
 })
 export class FroalaViewDirective {
 
