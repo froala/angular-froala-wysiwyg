@@ -1,18 +1,18 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, Output } from '@angular/core';
-
-import FroalaEditor from 'froala-editor';
+import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, Output, PLATFORM_ID, Inject } from '@angular/core';
+import { isPlatformBrowser } from "@angular/common";
 
 @Directive({
-  selector: '[froalaEditor]',
-  exportAs: 'froalaEditor',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FroalaEditorDirective),
-      multi: true
-    }
-  ]
+    selector: '[froalaEditor]',
+    exportAs: 'froalaEditor',
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => FroalaEditorDirective),
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class FroalaEditorDirective implements ControlValueAccessor {
 
@@ -38,7 +38,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private _oldModel: string = null;
 
-  constructor(el: ElementRef, private zone: NgZone) {
+  constructor(el: ElementRef, private zone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {
 
     let element: any = el.nativeElement;
 
@@ -292,11 +292,13 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         this._opts.events.initialized.overridden = true;
       }
 
-      // Initialize the Froala Editor.
-      this._editor = new FroalaEditor(
-        this._element,
-        this._opts
-      );
+      import('froala-editor').then(({ default: FroalaEditor }) => {
+        // Initialize the Froala Editor.
+        this._editor = new FroalaEditor(
+          this._element,
+          this._opts
+        );
+      });
     });
   }
 
@@ -371,7 +373,10 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // TODO not sure if ngOnInit is executed after @inputs
   ngAfterViewInit() {
     // check if output froalaInit is present. Maybe observers is private and should not be used?? TODO how to better test that an output directive is present.
-    this.setup();
+    // Only allow initialization in browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.setup();
+    }
   }
 
   private initialized = false;
