@@ -8,6 +8,12 @@ import FroalaEditor from 'froala-editor';
     template: `
 
     <h1>Angular adapter for the Froala WYSIWYG editor</h1>
+
+    <div class="sample">
+      <h2>Sample with support for Alpha Colors (RGBA & Hex)</h2>
+      <div id="sample_alpha" [froalaEditor]="colorOptions"></div>
+    </div>
+    
     <div class="sample">
       <h2>Sample 1: Inline Edit</h2>
       <div id="sample1" [froalaEditor]="titleOptions" [(froalaModel)]="myTitle"></div>
@@ -113,6 +119,25 @@ export class AppComponent implements OnInit {
     });
   }
 
+  public colorOptions: Object = {
+    colorsText: [   
+        'rgba(255, 220, 59, 0.7)', 'rgba(255, 220, 59, 0.5)',
+        '#ffdc3bb3','#ff1e001a','#ff1e0040','#ff1e0059','#ff1e0080','#ff1e00a6',
+        '#ff960026','#ff96004d','#ff960066','#ff96008c','#ff9600bf',
+        '#ffdc3b26','#ffdc3b40','#ffdc3b66','#ffdc3b80','#ffdc3bb3',
+       
+        'REMOVE'
+    ],
+    colorsBackground: [   
+        'rgba(255, 220, 59, 0.7)', 'rgba(255, 220, 59, 0.5)',
+        '#ffdc3bb3','#ff1e001a','#ff1e0040','#ff1e0059','#ff1e0080','#ff1e00a6',
+        '#ff960026','#ff96004d','#ff960066','#ff96008c','#ff9600bf',
+        '#ffdc3b26','#ffdc3b40','#ffdc3b66','#ffdc3b80','#ffdc3bb3',
+       
+        'REMOVE'
+    ]
+  }
+    
   // Sample 1 models
   public titleOptions: Object = {
     placeholderText: 'Edit Your Content Here!',
