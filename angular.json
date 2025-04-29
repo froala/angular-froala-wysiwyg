@@ -37,7 +37,8 @@
               "projects/demo/src/image.jpg"
             ],
             "styles": [
-              "node_modules/froala-editor/css/froala_editor.pkgd.css"
+              "node_modules/froala-editor/css/froala_editor.pkgd.css",
+              "node_modules/font-awesome/css/font-awesome.min.css"
             ],
             "scripts": []
           },
