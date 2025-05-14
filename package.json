@@ -1,6 +1,6 @@
 {
   "name": "angular-froala-wysiwyg-base",
-  "version": "4.5.1",
+  "version": "4.5.2",
   "description": "Angular 19+ versions bindings for Froala WYSIWYG HTML rich text editor",
   "main": "bundles/angular-froala-wysiwyg.umd.js",
   "typings": "index.d.ts",
@@ -8,7 +8,7 @@
   "scripts": {
     "demo.serve": "ng serve --host 0.0.0.0 --disable-host-check angular-froala-wysiwyg-demo",
     "demo.build": "ng build angular-froala-wysiwyg-demo",
-    "build": "ng build angular-froala-wysiwyg",
+    "build": "ng build angular-froala-wysiwyg && cp README.md dist/",
     "start": "npm run demo.serve"
   },
   "repository": {
@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "froala-editor": "^4.5.1",
+    "froala-editor": "^4.5.2",
     "tslib": "^2.8.1"
   },
   "peerDependencies": {},
