@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, Output, PLATFORM_ID, Inject } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, Output, PLATFORM_ID, Inject, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from "@angular/common";
 
 @Directive({
@@ -14,7 +14,7 @@ import { isPlatformBrowser } from "@angular/common";
     ],
     standalone: false
 })
-export class FroalaEditorDirective implements ControlValueAccessor {
+export class FroalaEditorDirective implements ControlValueAccessor, OnDestroy {
 
   // editor options
   private _opts: any = {
