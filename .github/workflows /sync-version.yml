@@ -67,16 +67,18 @@ jobs:
            git checkout -b "$BRANCH"
          fi
          
-     - name: Update package.json
+     - name: Update package.json and ./projects/library/package.json
        run: |
-         jq --arg VERSION "$VERSION" '.version = $VERSION | .dependencies["froala-editor"] = $VERSION' ./projects/library/package.json > tmp.json
-         mv tmp.json ./projects/library/package.json
+            jq --arg VERSION "$VERSION" '.version = $VERSION | .dependencies["froala-editor"] = $VERSION' package.json > tmp.json && mv tmp.json package.json
+            
+            jq --arg VERSION "$VERSION" '.version = $VERSION | .dependencies["froala-editor"] = $VERSION' ./projects/library/package.json > tmp.json && mv tmp.json ./projects/library/package.json
          
      - name: Commit changes
        run: |
          git config user.name "froala-travis-bot"
          git config user.email "froala_git_travis_bot@idera.com"
          git add ./projects/library/package.json
+         git add package.json
          git commit -m "update package.json to v${VERSION}" || echo "Nothing to commit"
          git push origin "$BRANCH"
          
