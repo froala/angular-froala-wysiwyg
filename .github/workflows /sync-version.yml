@@ -36,10 +36,10 @@ jobs:
          
      - name: Compare current version
        run: |
-         CURRENT_VERSION=$(jq -r '.version' ./projects/library/package.json)
+         CURRENT_VERSION=$(jq -r '.version' package.json)
          
           if [ -z "$CURRENT_VERSION" ] || [ "$CURRENT_VERSION" = "null" ]; then
-            echo "Could not read the current version from ./projects/library/package.json"
+            echo "Could not read the current version from package.json"
             exit 1
           fi
 
