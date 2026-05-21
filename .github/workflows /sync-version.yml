@@ -17,22 +17,23 @@ jobs:
        with:
          token: ${{ secrets.PAT }}
          
-     - name: Load version
-       run: |
-         VERSION="${{ github.event.client_payload.version }}"
-         
-         if [ -z "$VERSION" ]; then
-           echo "Version is missing"
-           exit 1
-         fi
-         
-         if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-           echo "Invalid version format: $VERSION"
-           exit 1
-         fi
-         
-         echo "VERSION=$VERSION" >> $GITHUB_ENV
-         echo "Using version $VERSION"
+      - name: Load & validate version
+        run: |
+          VERSION="${{ github.event.client_payload.version }}"
+          VERSION="${VERSION//,/\.}"
+ 
+          if [ -z "$VERSION" ]; then
+            echo "Version missing in dispatch payload"
+            exit 1
+          fi
+ 
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid version format: $VERSION"
+            exit 1
+          fi
+ 
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Dispatching version $VERSION"
          
      - name: Compare current version
        run: |
@@ -82,22 +83,20 @@ jobs:
          git commit -m "update package.json to v${VERSION}" || echo "Nothing to commit"
          git push origin "$BRANCH"
          
-     - name: Create Pull Request
-       env:
+      - name: Create Pull Request
+        env:
           GH_TOKEN: ${{ secrets.PAT }}
           RELEASE_NOTES: ${{ github.event.client_payload.release_notes }}
-       run: |
+        run: |
           git fetch origin master
-
+ 
           if git diff --quiet origin/master..."$BRANCH"; then
             echo "No commits between $BRANCH and master. Skipping PR creation."
             exit 0
           fi
-
-          PR_BODY=$(printf \
-            "release: yes\n\n## Release Notes (from primary repo)\n\n%s\n" \
-            "$RELEASE_NOTES")
-
+ 
+          PR_BODY=$(printf "%s\n" "$RELEASE_NOTES")
+ 
           gh pr create \
             --base master \
             --head "$BRANCH" \
