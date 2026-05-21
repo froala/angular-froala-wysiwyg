@@ -1,4 +1,4 @@
-name: Sync Version – angular SDK
+name: Sync Version – angular-froala-wysiwyg SDK
 
 on:
  repository_dispatch:
