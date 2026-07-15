@@ -1,31 +1,42 @@
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
-import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, Output, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from "@angular/common";
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Inject,
+  Input,
+  NgZone,
+  Optional,
+  Output,
+  PLATFORM_ID,
+} from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { FROALA_EDITOR_CONFIG, FroalaEditorConfig } from "./editor.config";
 
 @Directive({
-    selector: '[froalaEditor]',
-    exportAs: 'froalaEditor',
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => FroalaEditorDirective),
-            multi: true
-        }
-    ],
-    standalone: false
+  selector: "[froalaEditor]",
+  exportAs: "froalaEditor",
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FroalaEditorDirective),
+      multi: true,
+    },
+  ],
+  standalone: false,
 })
 export class FroalaEditorDirective implements ControlValueAccessor {
-
   // editor options
   private _opts: any = {
     immediateAngularModelUpdate: false,
-    angularIgnoreAttrs: null
+    angularIgnoreAttrs: null,
   };
 
   private _element: any;
 
-  private SPECIAL_TAGS: string[] = ['img', 'button', 'input', 'a'];
-  private INNER_HTML_ATTR: string = 'innerHTML';
+  private SPECIAL_TAGS: string[] = ["img", "button", "input", "a"];
+  private INNER_HTML_ATTR: string = "innerHTML";
   private _hasSpecialTag: boolean = false;
 
   // editor element
@@ -38,8 +49,14 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private _oldModel: string = null;
 
-  constructor(el: ElementRef, private zone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {
-
+  constructor(
+    el: ElementRef,
+    private zone: NgZone,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Optional()
+    @Inject(FROALA_EDITOR_CONFIG)
+    private config: FroalaEditorConfig,
+  ) {
     let element: any = el.nativeElement;
 
     // check if the element is a special tag
@@ -48,19 +65,18 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     }
     this._element = element;
 
+    this.applyGlobalConfig();
     this.zone = zone;
   }
 
   // Begin ControlValueAccesor methods.
-  onChange = (_: any) => {
-  };
-  onTouched = () => {
-  };
+  onChange = (_: any) => {};
+  onTouched = () => {};
 
   // Form model content changed.
   writeValue(content: any): void {
     this.updateEditor(content);
-    if(content){
+    if (content) {
       this.setup();
     }
   }
@@ -77,57 +93,67 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   // froalaEditor directive as input: store the editor options
   @Input() set froalaEditor(opts: any) {
-    this._opts = this.clone(  opts || this._opts);
-    this._opts =  {...this._opts};
+    this._opts = this.clone(opts || this._opts);
+    this._opts = { ...this._opts };
+    this.applyGlobalConfig();
   }
 
-   // TODO: replace clone method with better possible alternate 
+  private applyGlobalConfig() {
+    if (this.config && this.config.key && !this._opts.key) {
+      this._opts.key = this.config.key;
+    }
+  }
+
+  // TODO: replace clone method with better possible alternate
   private clone(item) {
-  	const me = this;  
-      if (!item) { return item; } // null, undefined values check
+    const me = this;
+    if (!item) {
+      return item;
+    } // null, undefined values check
 
-      let types = [ Number, String, Boolean ], 
-          result;
+    let types = [Number, String, Boolean],
+      result;
 
-      // normalizing primitives if someone did new String('aaa'), or new Number('444');
-      types.forEach(function(type) {
-          if (item instanceof type) {
-              result = type( item );
-          }
-      });
-
-      if (typeof result == "undefined") {
-          if (Object.prototype.toString.call( item ) === "[object Array]") {
-              result = [];
-              item.forEach(function(child, index, array) { 
-                  result[index] = me.clone( child );
-              });
-          } else if (typeof item == "object") {
-              // testing that this is DOM
-              if (item.nodeType && typeof item.cloneNode == "function") {
-                  result = item.cloneNode( true );    
-              } else if (!item.prototype) { // check that this is a literal
-                  if (item instanceof Date) {
-                      result = new Date(item);
-                  } else {
-                      // it is an object literal
-                      result = {};
-                      for (var i in item) {
-                          result[i] = me.clone( item[i] );
-                      }
-                  }
-              } else {
-                  if (false && item.constructor) {
-                      result = new item.constructor();
-                  } else {
-                      result = item;
-                  }
-              }
-          } else {
-              result = item;
-          }
+    // normalizing primitives if someone did new String('aaa'), or new Number('444');
+    types.forEach(function (type) {
+      if (item instanceof type) {
+        result = type(item);
       }
-      return result;
+    });
+
+    if (typeof result == "undefined") {
+      if (Object.prototype.toString.call(item) === "[object Array]") {
+        result = [];
+        item.forEach(function (child, index, array) {
+          result[index] = me.clone(child);
+        });
+      } else if (typeof item == "object") {
+        // testing that this is DOM
+        if (item.nodeType && typeof item.cloneNode == "function") {
+          result = item.cloneNode(true);
+        } else if (!item.prototype) {
+          // check that this is a literal
+          if (item instanceof Date) {
+            result = new Date(item);
+          } else {
+            // it is an object literal
+            result = {};
+            for (var i in item) {
+              result[i] = me.clone(item[i]);
+            }
+          }
+        } else {
+          if (false && item.constructor) {
+            result = new item.constructor();
+          } else {
+            result = item;
+          }
+        }
+      } else {
+        result = item;
+      }
+    }
+    return result;
   }
   // froalaModel directive as input: store initial editor content
   @Input() set froalaModel(content: any) {
@@ -136,7 +162,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   private stringify(obj) {
     let cache = [];
-    let str = JSON.stringify(obj, function(key, value) {
+    let str = JSON.stringify(obj, function (key, value) {
       if (typeof value === "object" && value !== null) {
         if (cache.indexOf(value) !== -1) {
           // Circular reference found, discard key
@@ -150,13 +176,13 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     cache = null; // reset the cache
     return str;
   }
-  
-    // Update editor with model contents.
-    private updateEditor(content: any) {
-      if (this.stringify(this._oldModel) == this.stringify(content)) {
-        return;
-      }
-     
+
+  // Update editor with model contents.
+  private updateEditor(content: any) {
+    if (this.stringify(this._oldModel) == this.stringify(content)) {
+      return;
+    }
+
     if (!this._hasSpecialTag) {
       this._oldModel = content;
     } else {
@@ -171,7 +197,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       }
     } else {
       if (!this._hasSpecialTag) {
-        this._element.innerHTML = content || '';
+        this._element.innerHTML = content || "";
       } else {
         this.setContent();
       }
@@ -187,18 +213,18 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   // update model if editor contentChanged
   private updateModel() {
     this.zone.run(() => {
-
       let modelContent: any = null;
 
       if (this._hasSpecialTag) {
-
         let attributeNodes = this._element.attributes;
         let attrs = {};
 
         for (let i = 0; i < attributeNodes.length; i++) {
-
           let attrName = attributeNodes[i].name;
-          if (this._opts.angularIgnoreAttrs && this._opts.angularIgnoreAttrs.indexOf(attrName) != -1) {
+          if (
+            this._opts.angularIgnoreAttrs &&
+            this._opts.angularIgnoreAttrs.indexOf(attrName) != -1
+          ) {
             continue;
           }
 
@@ -211,9 +237,8 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
         modelContent = attrs;
       } else {
-
         let returnedHtml: any = this._editor.html.get();
-        if (typeof returnedHtml === 'string') {
+        if (typeof returnedHtml === "string") {
           modelContent = returnedHtml;
         }
       }
@@ -226,8 +251,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         // Update form model.
         this.onChange(modelContent);
       }
-
-    })
+    });
   }
 
   private registerEvent(eventName, callback) {
@@ -247,17 +271,17 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     // Check if we have events on the editor.
     if (this._editor.events) {
       // bind contentChange and keyup event to froalaModel
-      this._editor.events.on('contentChanged', function () {
+      this._editor.events.on("contentChanged", function () {
         self.updateModel();
       });
-      this._editor.events.on('mousedown', function () {
+      this._editor.events.on("mousedown", function () {
         setTimeout(function () {
           self.onTouched();
         }, 0);
       });
 
       if (this._opts.immediateAngularModelUpdate) {
-        this._editor.events.on('keyup', function () {
+        this._editor.events.on("keyup", function () {
           setTimeout(function () {
             self.updateModel();
           }, 0);
@@ -281,10 +305,16 @@ export class FroalaEditorDirective implements ControlValueAccessor {
       if (!this._opts.events) this._opts.events = {};
 
       // Register initialized event.
-      this.registerEvent('initialized', this._opts.events && this._opts.events.initialized);
+      this.registerEvent(
+        "initialized",
+        this._opts.events && this._opts.events.initialized,
+      );
       const existingInitCallback = this._opts.events.initialized;
       // Default initialized event.
-      if (!this._opts.events.initialized || !this._opts.events.initialized.overridden) {
+      if (
+        !this._opts.events.initialized ||
+        !this._opts.events.initialized.overridden
+      ) {
         this._opts.events.initialized = () => {
           this.initListeners();
           existingInitCallback && existingInitCallback.call(this._editor, this);
@@ -292,12 +322,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         this._opts.events.initialized.overridden = true;
       }
 
-      import('froala-editor').then(({ default: FroalaEditor }) => {
+      import("froala-editor").then(({ default: FroalaEditor }) => {
         // Initialize the Froala Editor.
-        this._editor = new FroalaEditor(
-          this._element,
-          this._opts
-        );
+        this._editor = new FroalaEditor(this._element, this._opts);
       });
     });
   }
@@ -314,15 +341,13 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     let self = this;
 
     // Set initial content
-    if (this._model || this._model == '') {
+    if (this._model || this._model == "") {
       this._oldModel = this._model;
       if (this._hasSpecialTag) {
-
         let tags: Object = this._model;
 
         // add tags on element
         if (tags) {
-
           for (let attr in tags) {
             if (tags.hasOwnProperty(attr) && attr != this.INNER_HTML_ATTR) {
               this._element.setAttribute(attr, tags[attr]);
@@ -335,7 +360,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         }
       } else {
         if (firstTime) {
-          this.registerEvent('initialized', function () {
+          this.registerEvent("initialized", function () {
             self.setHtml();
           });
         } else {
@@ -396,6 +421,5 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     this.destroyEditor();
   }
 
-  setDisabledState(isDisabled: boolean): void {
-  }
+  setDisabledState(isDisabled: boolean): void {}
 }

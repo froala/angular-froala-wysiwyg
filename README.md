@@ -554,6 +554,24 @@ public options: Object = {
 Additional option is used:
 * **immediateAngularModelUpdate**: (default: false) This option synchronizes the angular model as soon as a key is released in the editor. Note that it may affect performances.
 
+### Global license key
+
+You can configure the Froala `key` once in `forRoot` and omit it from every editor instance.
+
+```typescript
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
+@NgModule({
+  imports: [
+    FroalaEditorModule.forRoot({ key: 'YOUR_LICENSE_KEY' }),
+    FroalaViewModule.forRoot()
+  ]
+})
+export class AppModule {}
+```
+
+If an editor instance also defines a `key` inside `[froalaEditor]`, that local value takes precedence.
+
 
 
 ### Events and Methods
