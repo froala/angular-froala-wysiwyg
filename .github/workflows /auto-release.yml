@@ -1,4 +1,4 @@
-name: Auto Release – angular
+name: Auto Release – angular-froala-wysiwyg
  
 on:
   pull_request:
@@ -10,38 +10,38 @@ permissions:
   contents: write
  
 jobs:
-  release:
-    # Run only when PR is merged
+  check:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
- 
+    outputs:
+      release: ${{ steps.check.outputs.release }}
     steps:
-      - name: Validate release intent
-        id: intent
-        uses: actions/github-script@v6
+      - name: Check merge commit for release intent
+        id: check
+        uses: actions/github-script@v7
         with:
           script: |
-            const body = context.payload.pull_request.body || '';
-            const title = context.payload.pull_request.title || '';
-            const text = `${title}\n${body}`;
- 
-            core.setOutput(
-              'release',
-              /release:\s*yes/i.test(text) ? 'true' : 'false'
-            );
- 
-      - name: Stop if not a release PR
-        if: steps.intent.outputs.release == 'false'
-        run: |
-          echo "Not a release PR. Skipping auto-release."
-          exit 0
- 
+            const { data: commit } = await github.rest.git.getCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.payload.pull_request.merge_commit_sha
+            });
+            const msg = commit.message || '';
+            const isRelease = /release:\s*yes/i.test(msg);
+            core.info(`Merge commit message:\n${msg}`);
+            core.info(`Release intent: ${isRelease}`);
+            core.setOutput('release', isRelease ? 'true' : 'false');
 
+  release:
+    needs: check
+    if: needs.check.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    environment: PAT
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.PAT }}
-          fetch-depth: 0
  
 
       - name: Read version from ./projects/library/package.json
@@ -60,25 +60,17 @@ jobs:
       
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Releasing version $VERSION"
-     
-
-      - name: Prepare release notes
-        run: |
-          PR_BODY="${{ github.event.pull_request.body }}"
+  
  
-          CLEAN_NOTES=$(echo "$PR_BODY" | sed \
-            -e '/^release:\s*/Id' \
-            -e '/^## Release Notes.*$/Id')
- 
-          echo "RELEASE_NOTES<<EOF" >> $GITHUB_ENV
-          echo "$CLEAN_NOTES" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
- 
-
       - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
+          RELEASE_NOTES: ${{ github.event.pull_request.body }}
         run: |
+          if gh release view "v${VERSION}" >/dev/null 2>&1; then
+            echo "Release v${VERSION} already exists. Skipping."
+            exit 0
+          fi
           gh release create "v${VERSION}" \
             --title "Release ${VERSION}" \
             --notes "$RELEASE_NOTES" \
