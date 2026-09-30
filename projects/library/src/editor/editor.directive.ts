@@ -37,6 +37,7 @@ export class FroalaEditorDirective implements ControlValueAccessor {
   private _editorInitialized: boolean = false;
 
   private _oldModel: string = null;
+  private _syncingUndo: boolean = false;
 
   constructor(el: ElementRef, private zone: NgZone, @Inject(PLATFORM_ID) private platformId: Object) {
 
@@ -166,6 +167,21 @@ export class FroalaEditorDirective implements ControlValueAccessor {
     if (this._editorInitialized) {
       if (!this._hasSpecialTag) {
         this._editor.html.set(content);
+        // The editor only reports a change when it saves an undo step, and a
+        // step matching the top of the stack is never saved. Left stale, the
+        // stack still holds the content from before this set, so retyping it
+        // (e.g. after FormControl.reset()) reports nothing. Saving the step
+        // fires contentChanged synchronously; ignore that one, since it's the
+        // value we were just given, not a user edit.
+        if (this._editor.undo) {
+          this._syncingUndo = true;
+          try {
+            this._editor.undo.reset();
+            this._editor.undo.saveStep();
+          } finally {
+            this._syncingUndo = false;
+          }
+        }
       } else {
         this.setContent();
       }
@@ -186,6 +202,9 @@ export class FroalaEditorDirective implements ControlValueAccessor {
 
   // update model if editor contentChanged
   private updateModel() {
+    if (this._syncingUndo) {
+      return;
+    }
     this.zone.run(() => {
 
       let modelContent: any = null;
