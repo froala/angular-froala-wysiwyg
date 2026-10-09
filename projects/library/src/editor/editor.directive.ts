@@ -170,13 +170,14 @@ export class FroalaEditorDirective implements ControlValueAccessor {
         // The editor only reports a change when it saves an undo step, and a
         // step matching the top of the stack is never saved. Left stale, the
         // stack still holds the content from before this set, so retyping it
-        // (e.g. after FormControl.reset()) reports nothing. Saving the step
-        // fires contentChanged synchronously; ignore that one, since it's the
-        // value we were just given, not a user edit.
+        // (e.g. after FormControl.reset()) reports nothing. Saving a step for
+        // the new content fixes that and keeps the undo history. It fires
+        // contentChanged synchronously, which an app's own contentChanged
+        // handler will also see; ignore it here, since it's the value we were
+        // just given, not a user edit.
         if (this._editor.undo) {
           this._syncingUndo = true;
           try {
-            this._editor.undo.reset();
             this._editor.undo.saveStep();
           } finally {
             this._syncingUndo = false;
