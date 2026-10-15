@@ -82,7 +82,7 @@ npm install angular-froala-wysiwyg
 
 - import the editor modules — see [Standalone components](#standalone-components) (the default for new Angular apps) or [NgModule applications](#ngmodule-applications)
 
-- add the editor to a template, for example `src/app/app.component.html`
+- add the editor to a template, for example `src/app/app.html` (`src/app/app.component.html` in projects generated before Angular 20)
 
 ```html
 <div [froalaEditor]>Hello, Froala!</div>
@@ -121,14 +121,37 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 @Component({
   selector: 'app-root',
   imports: [FroalaEditorModule, FroalaViewModule],
-  templateUrl: './app.component.html'
+  templateUrl: './app.html'
 })
-export class AppComponent {}
+export class App {}
+```
+
+In projects generated before Angular 20 the component is `AppComponent` in `app.component.ts`, with its template in `app.component.html`.
+
+#### Production builds
+
+Importing plugins at the top of a file puts the whole editor in the initial bundle. With `plugins.pkgd.min.js` that's about 2.5 MB, and even a single plugin is over the 1 MB error budget a new project starts with, so `ng build` fails. Raise the `initial` budget in the `production` configuration in `angular.json`:
+
+```json
+"budgets": [
+  {
+    "type": "initial",
+    "maximumWarning": "3MB",
+    "maximumError": "4MB"
+  },
+  ...
+]
+```
+
+`froala-editor` is a CommonJS package, so the build also warns about it. To silence that, add it to the `build` options in `angular.json`:
+
+```json
+"allowedCommonJsDependencies": ["froala-editor"]
 ```
 
 ### NgModule applications
 
-If your application is bootstrapped with an `NgModule`, open the module (for example `src/app/app.module.ts`) and add:
+If your application is bootstrapped with an `NgModule`, open the module (for example `src/app/app-module.ts`, or `src/app/app.module.ts` in projects generated before Angular 20) and add:
 
 ```typescript
 // Import all Froala Editor plugins.
@@ -161,49 +184,65 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 ### Server-side rendering
 
-The editor needs a browser, so it is only created in the browser: the directive checks the platform and loads `froala-editor` dynamically. Plugin, language and third-party files must be loaded the same way, otherwise they run on the server. Import them from the component instead of at the top of the file:
+The editor needs a browser, so it is only created in the browser: the directive checks the platform and loads `froala-editor` dynamically. Plugin, language and third-party files must be loaded the same way, otherwise they run on the server. Import them from the component instead of at the top of the file.
+
+An editor only picks up the plugins that are loaded when it's created, so wait for the imports to finish before rendering it:
 
 ```typescript
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @Component({
   selector: 'app-root',
   imports: [FroalaEditorModule, FroalaViewModule],
-  templateUrl: './app.component.html'
+  templateUrl: './app.html'
 })
-export class AppComponent implements OnInit {
+export class App implements OnInit {
+  // Render the editor only once its plugins have loaded.
+  pluginsLoaded = signal(false);
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     // Import Froala plugins dynamically only in the browser context
     if (isPlatformBrowser(this.platformId)) {
-      // Import all Froala Editor plugins.
-      // @ts-ignore
-      // import('froala-editor/js/plugins.pkgd.min.js');
+      await Promise.all([
+        // Import all Froala Editor plugins.
+        // @ts-ignore
+        import('froala-editor/js/plugins.pkgd.min.js'),
 
-      // Import a single Froala Editor plugin.
-      // @ts-ignore
-      // import('froala-editor/js/plugins/align.min.js');
+        // Import a single Froala Editor plugin.
+        // @ts-ignore
+        // import('froala-editor/js/plugins/align.min.js'),
 
-      // Import a Froala Editor language file.
-      // @ts-ignore
-      // import('froala-editor/js/languages/de.js');
+        // Import a Froala Editor language file.
+        // @ts-ignore
+        // import('froala-editor/js/languages/de.js'),
 
-      // Import a third-party plugin.
-      // @ts-ignore
-      // import('froala-editor/js/third_party/font_awesome.min');
-      // @ts-ignore
-      // import('froala-editor/js/third_party/image_tui.min');
-      // @ts-ignore
-      // import('froala-editor/js/third_party/spell_checker.min');
-      // @ts-ignore
-      // import('froala-editor/js/third_party/embedly.min');
+        // Import a third-party plugin.
+        // @ts-ignore
+        // import('froala-editor/js/third_party/font_awesome.min'),
+        // @ts-ignore
+        // import('froala-editor/js/third_party/image_tui.min'),
+        // @ts-ignore
+        // import('froala-editor/js/third_party/spell_checker.min'),
+        // @ts-ignore
+        // import('froala-editor/js/third_party/embedly.min'),
+      ]);
+      this.pluginsLoaded.set(true);
     }
   }
 }
 ```
+
+```html
+@if (pluginsLoaded()) {
+  <div [froalaEditor]>Hello, Froala!</div>
+}
+```
+
+`froalaView` doesn't need the editor, so it renders on the server as usual.
 
 
 ## Usage
@@ -261,7 +300,7 @@ Pass initial content:
 public editorContent: string = 'My Document\'s Title'
 ```
 
-Use the content in other places:
+Use the content in other places (`ngModel` needs `FormsModule` from `@angular/forms` in the component's `imports`):
 
 ```html
 <input [ngModel]="editorContent"/>
@@ -275,7 +314,7 @@ Other two way binding example:
 <div [froalaEditor] [(froalaModel)]="editorContent"></div>
 ```
 
-Use it with reactive forms:
+Use it with reactive forms (add `ReactiveFormsModule` from `@angular/forms` to the component's `imports`):
 
 ```html
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -284,12 +323,12 @@ Use it with reactive forms:
 </form>
 ```
 
-To display the form value in other places, read it from the form:
+To display the form value in other places, read it from the form. With typed forms the value can be `null` or `undefined`, so give `froalaView` a fallback:
 
 ```html
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <textarea [froalaEditor] formControlName="formModel"></textarea>
-  <div [froalaView]="form.value.formModel"></div>
+  <div [froalaView]="form.value.formModel ?? ''"></div>
   <button type="submit">Submit</button>
 </form>
 ```
