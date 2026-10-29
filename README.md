@@ -21,6 +21,7 @@
 5. [Manual Initialization](#manual-initialization)
 6. [Displaying HTML](#displaying-html)
 7. [License](#license)
+   - [License key](#license-key)
 8. [Development environment setup](#development-environment-setup)
 
 ## Installation instructions
@@ -573,6 +574,22 @@ The `angular-froala-wysiwyg` project is under MIT license. However, in order to 
 
 Froala Editor has [3 different licenses](https://froala.com/wysiwyg-editor/pricing/) for commercial use.
 For details please see [License Agreement](https://froala.com/wysiwyg-editor/terms/).
+
+### License key
+
+Once you've bought a license, pass its key in the editor options. Without one the editor works on `localhost`, but on any other domain it shows an unlicensed message:
+
+```typescript
+public options: Object = {
+  key: 'YOUR_LICENSE_KEY'
+}
+```
+
+```html
+<div [froalaEditor]="options">Hello, Froala!</div>
+```
+
+The key goes in every editor's options, alongside any other [options](#options) you set.
 
 
 
