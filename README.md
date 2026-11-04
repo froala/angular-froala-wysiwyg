@@ -570,14 +570,15 @@ To display content created with the froala editor use the froalaView directive.
 
 ## License
 
-The `angular-froala-wysiwyg` project is under MIT license. However, in order to use Froala WYSIWYG HTML Editor plugin you should purchase a license for it.
-
-Froala Editor has [3 different licenses](https://froala.com/wysiwyg-editor/pricing/) for commercial use.
-For details please see [License Agreement](https://froala.com/wysiwyg-editor/terms/).
+The `angular-froala-wysiwyg` wrapper is under the MIT license. Froala Editor itself is commercial software: see the [pricing page](https://froala.com/wysiwyg-editor/pricing/) for licenses and the [License Agreement](https://froala.com/wysiwyg-editor/terms/) for the terms.
 
 ### License key
 
-Once you've bought a license, pass its key in the editor options. Without one the editor works on `localhost`, but on any other domain it shows an unlicensed message:
+Every editor feature works without a license key. Without a valid key, the editor shows a short notice at the bottom, under "Powered by Froala", and writes the same text to the browser console once. That happens on `localhost` too.
+
+To evaluate the editor, use the public trial key, `TRIAL-LICENSE-KEY-FOR-FROALA-NOT-FOR-PRODUCTION-USE` (see the [activation page](https://froala.com/wysiwyg-editor/docs/activation/)). It lasts 30 days and isn't for production use, and the notice stays while it's in use.
+
+For production, [buy a license](https://cart.froala.com) and pass its key in the editor options:
 
 ```typescript
 public options: Object = {
@@ -589,7 +590,7 @@ public options: Object = {
 <div [froalaEditor]="options">Hello, Froala!</div>
 ```
 
-The key goes in every editor's options, alongside any other [options](#options) you set.
+The key goes in every editor's options, alongside any other [options](#options) you set. With a valid key the notice goes away, on `localhost` as well as on your own domain.
 
 
 
