@@ -570,7 +570,7 @@ To display content created with the froala editor use the froalaView directive.
 
 ## License
 
-The `angular-froala-wysiwyg` wrapper is under the MIT license. Froala Editor itself is commercial software: see the [pricing page](https://froala.com/wysiwyg-editor/pricing/) for licenses and the [License Agreement](https://froala.com/wysiwyg-editor/terms/) for the terms.
+The `angular-froala-wysiwyg` project is under the MIT license. Froala Editor itself is commercial software: see the [pricing page](https://froala.com/wysiwyg-editor/pricing/) for licenses and the [License Agreement](https://froala.com/wysiwyg-editor/terms/) for the terms.
 
 ### License key
 
