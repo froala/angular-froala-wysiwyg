@@ -193,6 +193,8 @@ Importing plugins at the top of a file puts the whole editor in the initial bund
 "allowedCommonJsDependencies": ["froala-editor"]
 ```
 
+Without a license key the editor shows a short notice, on `localhost` too. See [License key](#license-key) for how to pass one.
+
 ### NgModule applications
 
 If your application is bootstrapped with an `NgModule`, open the module (for example `src/app/app-module.ts`, or `src/app/app.module.ts` in projects generated before Angular 20) and add:
@@ -225,6 +227,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ```
 
 `FERootModule` is also exported as a shortcut: importing it is the same as importing both modules with `forRoot()`.
+
+Without a license key the editor shows a short notice, on `localhost` too. See [License key](#license-key) for how to pass one.
 
 ### Server-side rendering
 
