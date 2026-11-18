@@ -93,6 +93,17 @@ import FroalaEditor from 'froala-editor';
       <div  id="sample11" [froalaEditor]="options" [(froalaModel)]="content" ></div>
     </div>
 
+    <div class="sample">
+      <h2>Sample 12: Reactive form control reset</h2>
+      <p>Add some text at the end, click Reset (the editor goes back to its starting content), then add exactly the same text again. The value below should update on that first edit.</p>
+      <div id="sample12" [froalaEditor] [formControl]="resetControl"></div>
+      <button id="sample12-reset" (click)="resetControl.reset()">Reset</button>
+      <h4>Form control:</h4>
+      <pre id="sample12-state">value = {{ resetControl.value | json }}
+pristine = {{ resetControl.pristine }}
+value changes = {{ resetControlChanges }}</pre>
+    </div>
+
   `,
     standalone: false
 })
@@ -111,6 +122,9 @@ export class AppComponent implements OnInit {
         alert('Hello!');
       }
     });
+
+    // Sample 12: count every value the form control receives.
+    this.resetControl.valueChanges.subscribe(() => this.resetControlChanges++);
   }
 
   // Sample 1 models
@@ -219,4 +233,9 @@ export class AppComponent implements OnInit {
     toolbarButtonsSM: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
     toolbarButtonsMD: ['bold', 'italic', 'underline', 'paragraphFormat','alert'],
   };
+
+  // Sample 12
+  // nonNullable: reset() goes back to this content instead of null.
+  resetControl = new FormControl('<p>Test Content</p><p>Test Content 2</p>', { nonNullable: true });
+  resetControlChanges = 0;
 }
