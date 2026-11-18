@@ -21,6 +21,7 @@
 5. [Manual Initialization](#manual-initialization)
 6. [Displaying HTML](#displaying-html)
 7. [License](#license)
+   - [License key](#license-key)
 8. [Development environment setup](#development-environment-setup)
 
 ## Installation instructions
@@ -192,6 +193,8 @@ Importing plugins at the top of a file puts the whole editor in the initial bund
 "allowedCommonJsDependencies": ["froala-editor"]
 ```
 
+Without a license key the editor shows a short notice, on `localhost` too. See [License key](#license-key) for how to pass one.
+
 ### NgModule applications
 
 If your application is bootstrapped with an `NgModule`, open the module (for example `src/app/app-module.ts`, or `src/app/app.module.ts` in projects generated before Angular 20) and add:
@@ -224,6 +227,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 ```
 
 `FERootModule` is also exported as a shortcut: importing it is the same as importing both modules with `forRoot()`.
+
+Without a license key the editor shows a short notice, on `localhost` too. See [License key](#license-key) for how to pass one.
 
 ### Server-side rendering
 
@@ -569,12 +574,27 @@ To display content created with the froala editor use the froalaView directive.
 
 ## License
 
-The `angular-froala-wysiwyg` project is under MIT license. However, in order to use Froala WYSIWYG HTML Editor plugin you should purchase a license for it.
+The `angular-froala-wysiwyg` project is under the MIT license. Froala Editor itself is a commercial component with a 30-day free trial: see the [pricing page](https://cart.froala.com) and the [license terms](https://www.ideracorp.com/legal/Froala#tabs-2).
 
-Froala Editor has [3 different licenses](https://froala.com/wysiwyg-editor/pricing/) for commercial use.
-For details please see [License Agreement](https://froala.com/wysiwyg-editor/terms/).
+### License key
 
+Froala requires a key, passed in the `key` option. Start with the trial key if you're just trying the product or comparing it with other solutions.
 
+```typescript
+public options: Object = {
+  key: 'TRIAL-LICENSE-KEY-FOR-FROALA-NOT-FOR-PRODUCTION-USE' // 30-day trial key or your commercial key
+}
+```
+
+```html
+<div [froalaEditor]="options">Hello, Froala!</div>
+```
+
+Before you go live, replace the trial key with your commercial key. The key goes in every editor's options, alongside any other [options](#options) you set.
+
+Without a valid key the editor shows a notice in the bar at the bottom, under "Powered by Froala", and writes the same text to the browser console once. The text says whether the key is missing, a trial, invalid or expired.
+
+On a local host (`localhost`, `127.x.x.x`, `0.0.0.0`) you get the same notice as on a public site if there is no key, the key is a trial key, or the key has expired. A key that is still valid gives a clean editor there, so licensed developers are not affected.
 
 ## Development environment setup
 
